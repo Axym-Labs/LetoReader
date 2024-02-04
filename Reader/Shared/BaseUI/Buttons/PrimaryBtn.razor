@@ -1,0 +1,13 @@
+@namespace Reader.Shared.BaseUI.Buttons
+
+@using MudBlazor
+
+
+<MudButton Class="bg-btnPrimary m-5 rounded-xl px-6" Variant="Variant.Filled" Disabled=@disabled >@t</MudButton>
+
+@code {
+    [Parameter]
+    public string t { get; set; } = "Continue";
+    [Parameter]
+    public bool disabled { get; set; } = false;
+}

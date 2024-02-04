@@ -1,0 +1,71 @@
+body {
+    font-family: 'Inter', 'Roboto', 'Helvetica', sans-serif;
+}
+
+.code {
+    font-family: 'Fira Code', monospace;
+}
+
+.intertight {
+    font-family: 'Inter Tight', 'Inter', 'Roboto', 'Helvetica', sans-serif;
+}
+
+.roboto {
+    font-family: 'Roboto', 'Inter', 'Helvetica', sans-serif;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.text-b500 {
+    font-weight: 500;
+}
+
+.text-b600 {
+    font-weight: 600;
+}
+
+.text-b700 {
+    font-weight: 700;
+}
+
+.text-b800 {
+    font-weight: 800;
+}
+
+.text-b900 {
+    font-weight: 900;
+}
+
+::selection {
+    color: rgb(255, 255, 255);
+    background: #063e5f !important;
+}
+
+::-moz-selection {
+    color: rgb(20, 20, 20);
+    background: #FFD747 !important;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(180, 180, 180, 0.3);
+    border-left: 1px solid rgb(182, 182, 182);
+    backdrop-filter: blur(20px);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(182, 182, 182);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(117, 117, 117);
+}
+
+:focus {
+    outline: none;
+}

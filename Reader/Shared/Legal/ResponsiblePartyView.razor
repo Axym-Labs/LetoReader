@@ -1,0 +1,35 @@
+@namespace Reader.Shared.Legal
+
+@using Reader.Data.Storage
+
+
+<div class="credentials m-4">
+    <ul class="flex justify-center flex-col items-center">
+        <li id="credential-items" class="roboto">
+            @title
+        </li>
+        <li id="credential-items" class="code">
+            @ResponsiblePartyCredentials.Name
+        </li>
+        <li id="credential-items" class="code">
+            @ResponsiblePartyCredentials.Email
+        </li>
+        <li id="credential-items" class="code">
+            @ResponsiblePartyCredentials.Phone
+        </li>
+    </ul>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public string title { get; set; } = "Responsible Party";
+    [Parameter]
+    public bool showTitle { get; set; } = true;
+
+    protected override void OnInitialized()
+    {
+        
+    }
+}

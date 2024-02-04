@@ -1,0 +1,54 @@
+2023-08-31 17:41:34.382 +02:00 [ERR] System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> System.Data.SqlClient.SqlException (0x80131904): Invalid object name 'dbo.NotificationTable'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   at System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+ClientConnectionId:a6a81aa6-fe87-4d48-be2d-63a4cd291e68
+Error Number:208,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<>c.<Update>b__21_0(UpdateTranslator ut)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   at System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__153_0()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass148_0.<SaveChangesInternal>b__0()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   at System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- End of inner exception stack trace ---
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at Reader.Modules.Db.NotificationManager.InsertOne(NotificationTable notification) in C:\Users\DavWi\OneDrive\Desktop\Projekte\Reader\Modules\Db\NotificationManager.cs:line 22
+2023-08-31 18:56:30.212 +02:00 [WRN] Test warning channel
+2023-08-31 18:56:30.217 +02:00 [ERR] Test error channel
+2023-08-31 18:56:30.221 +02:00 [FTL] Test fatal channel
+2023-08-31 19:06:54.272 +02:00 [WRN] Test warning channel
+2023-08-31 19:06:54.277 +02:00 [ERR] Test error channel
+2023-08-31 19:06:54.281 +02:00 [FTL] Test fatal channel
+2023-08-31 19:08:28.905 +02:00 [WRN] Test warning channel
+2023-08-31 19:08:28.912 +02:00 [ERR] Test error channel
+2023-08-31 19:08:28.918 +02:00 [FTL] Test fatal channel
+2023-08-31 19:08:54.728 +02:00 [WRN] Test warning channel
+2023-08-31 19:08:54.733 +02:00 [ERR] Test error channel
+2023-08-31 19:08:54.738 +02:00 [FTL] Test fatal channel
+2023-08-31 19:09:36.252 +02:00 [WRN] Test warning channel
+2023-08-31 19:09:36.259 +02:00 [ERR] Test error channel
+2023-08-31 19:09:36.263 +02:00 [FTL] Test fatal channel
+2023-08-31 19:11:46.096 +02:00 [WRN] Test warning channel
+2023-08-31 19:11:46.101 +02:00 [ERR] Test error channel
+2023-08-31 19:11:46.105 +02:00 [FTL] Test fatal channel

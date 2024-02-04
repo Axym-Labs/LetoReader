@@ -1,0 +1,33 @@
+@namespace Reader.Shared.Layout
+
+@using MudBlazor
+@using Reader.Data.Storage
+
+@inject FundamentalStorage c
+@inject Constants constants
+
+
+<div class="text-sm text-gray-400 py-6">
+    <MudContainer>
+        <MudGrid Justify="Justify.SpaceBetween">
+            <MudItem Class="p-3">
+                © @constants.CurrentYear @Constants.ProjectName All rights reserved.
+            </MudItem>
+            <MudItem>
+                @foreach (var linkPair in c.SubfooterData.Links) {
+                    <MudLink Href=@linkPair.Url Class="p-3 text-sm" Color="@Color.Tertiary">@linkPair.Name</MudLink>
+                }
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+</div>    
+
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        
+    }
+}
+

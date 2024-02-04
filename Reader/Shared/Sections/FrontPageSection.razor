@@ -1,0 +1,43 @@
+@namespace Reader.Shared.Sections
+
+@using Reader.Shared.BaseUI.Buttons
+@using Reader.Shared.Product
+@using Reader.Modules
+@using Reader.Data.Product
+@using Reader.Data.Storage
+
+<div class="w-screen flex justify-center mb-10">
+    <div class="max-w-7xl mx-8 mb-20">
+        <div class="flex items-center justiy-center flex-col">
+                <h1 class="text-5xl text-b600 text-white mb-4 text-center">
+                    @title
+                </h1>
+                <p class="text-lg mb-4 text-center">
+                    @description
+                </p>
+                @* <PrimaryLinkBtn link=@actionLink t=@actionText /> *@
+        </div>
+    </div>
+</div>
+<div class="w-screen flex justify-center mb-10">
+    <div class="max-w-7xl mx-4 mb-20" style="width: min(100vw, 30rem);">
+        <ReadingStorage />
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+    [Parameter]
+    public string title { get; set; } = default!;
+    [Parameter]
+    public string description { get; set; } = default!;
+    [Parameter]
+    public string imageLoc { get; set; } = default!;
+    [Parameter]
+    public string actionText { get; set; } = default!;
+    [Parameter]
+    public string actionLink { get; set; } = default!;
+
+}

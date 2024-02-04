@@ -1,0 +1,51 @@
+﻿@namespace Reader.Shared.BaseUI
+
+@inherits LayoutComponentBase
+
+@using Reader.Data.Storage
+@using Reader.Shared.Layout
+@using MudBlazor
+
+<MudThemeProvider IsDarkMode="@(true)" Theme="CustomDarkTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<PageTitle>SchedulerApp</PageTitle>
+
+
+
+<MudLayout>
+    <Navbar />
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+    <Footer />
+    <SubFooter />
+</MudLayout>
+
+
+@code {
+
+    MudTheme CustomDarkTheme = new MudTheme()
+        {
+            Palette = new PaletteLight()
+            {
+                Primary = Colors.DeepPurple.Darken1,
+                Secondary = Colors.DeepPurple.Darken3,
+                Tertiary = Colors.Grey.Darken4
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.DeepPurple.Darken1,
+                Secondary = Colors.DeepPurple.Darken4,
+                Tertiary = Colors.Grey.Darken4
+            },
+            Typography = new Typography()
+            {
+                Default = new Default()
+                {
+                    FontFamily = new[] { "Inter", "Roboto", "Helvetica", "Arial", "sans-serif" }
+                }
+            }
+        };
+}

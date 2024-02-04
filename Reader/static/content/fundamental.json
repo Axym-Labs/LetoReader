@@ -1,0 +1,50 @@
+{
+    "siteBase": {
+        "projectName": "Reader"
+    },
+    "navbar": {
+        "links": [
+            ["navbar link 1", "/navbar1"],
+            ["navbar link 2", "/navbar2"],
+            ["navbar link 3", "#navbar3"]
+        ],
+        "specialAnnouncement": "A special announcement",
+        "specialAnnouncementBypass": false
+    },
+    "footer": {
+        "links": {
+            "Category One": [
+                ["footer link 1", "/footer1"],
+                ["footer link 2", "/footer2"],
+                ["footer link 3", "#footer3"]
+            ], 
+            "Category Two": [
+                ["footer link 1", "/footer1"],
+                ["footer link 2", "/footer2"],
+                ["footer link 3", "#footer3"]
+            ],
+            "Category three": [
+                ["footer link 1", "/footer1"],
+                ["footer link 2", "/footer2"],
+                ["footer link 3", "#footer3"]
+            ],
+            "Category four": [
+                ["footer link 1", "/footer1"],
+                ["footer link 2", "/footer2"],
+                ["footer link 3", "#footer3"]
+            ],
+            "Category five": [
+                ["footer link 1", "/footer1"],
+                ["footer link 2", "/footer2"],
+                ["footer link 3", "#footer3"]
+            ]
+        }
+    },
+    "subfooter": {
+        "links": [
+            ["Terms of Service", "/terms-of-service"],
+            ["Privacy Policy", "/impressum-privacy-policy#privacy-policy"],
+            ["Impressum", "/impressum-privacy-policy#impressum"]
+        ]
+    }
+}

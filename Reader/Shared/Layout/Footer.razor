@@ -1,0 +1,31 @@
+@namespace Reader.Shared.Layout
+
+@using Reader.Data.Storage
+
+@inject FundamentalStorage c
+@inject Constants constants
+
+
+<div class="flex justify-center">
+    <div class="pt-20 w-full max-w-6xl mx-10 md:mx-36">
+        <div class="grid justify-items-center" style="grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));">
+            @foreach (var categoryPair in c.FooterData.Links)
+            {
+                @foreach (var linkPair in categoryPair.Value) {
+                    <div class="m-2 text-center">
+                        <a href="@linkPair.Url" class="hover:underline text-gray-300 hover:text-focusColor">@linkPair.Name</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+
+    }
+}
+

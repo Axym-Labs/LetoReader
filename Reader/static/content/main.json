@@ -1,0 +1,13 @@
+{
+    "hero": {
+
+    },
+    "asSeenIn": [
+        ["Tiktok", "tiktok.png"],
+        ["New York Times", "nyt.png"]
+    ],
+    "bottomCta": [
+        ["/link", "name"],
+        ["/agb", "agb"]
+    ]
+}
