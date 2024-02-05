@@ -121,3 +121,25 @@
 2024-02-05 01:16:22.555 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=101.406
 2024-02-05 01:16:25.562 +01:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.145
 2024-02-05 01:19:16.814 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=171249.423
+2024-02-05 01:22:08.467 +01:00 [INF] Test info channel
+2024-02-05 01:22:09.286 +01:00 [INF] Request Ip=::1 Url=/ Time=341.990
+2024-02-05 01:22:09.308 +01:00 [INF] Request Ip=127.0.0.1 Url=/ Time=018.363
+2024-02-05 01:22:09.335 +01:00 [INF] Request Ip=127.0.0.1 Url=/_framework/blazor.server.js Time=005.065
+2024-02-05 01:22:09.359 +01:00 [INF] Request Ip=127.0.0.1 Url=/_framework/blazor.server.js Time=001.505
+2024-02-05 01:22:09.613 +01:00 [INF] Request Ip=127.0.0.1 Url=/_blazor/initializers Time=003.922
+2024-02-05 01:22:09.626 +01:00 [INF] Request Ip=127.0.0.1 Url=/_blazor/initializers Time=001.069
+2024-02-05 01:22:09.729 +01:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=006.403
+2024-02-05 01:22:09.729 +01:00 [INF] Request Ip=127.0.0.1 Url=/_blazor/negotiate Time=006.435
+2024-02-05 01:22:09.995 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=161.600
+2024-02-05 01:22:12.985 +01:00 [INF] Request Ip=127.0.0.1 Url=/_blazor/negotiate Time=000.268
+2024-02-05 01:22:13.092 +01:00 [INF] Request Ip=127.0.0.1 Url=/ Time=008.574
+2024-02-05 01:22:13.097 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=109.674
+2024-02-05 01:22:13.109 +01:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.209
+2024-02-05 01:22:13.271 +01:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.125
+2024-02-05 01:22:13.291 +01:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.219
+2024-02-05 01:22:13.346 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=034.908
+2024-02-05 01:22:15.001 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=5188.790
+2024-02-05 01:22:16.351 +01:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.231
+2024-02-05 01:23:09.979 +01:00 [INF] Request Ip=127.0.0.1 Url=/_blazor/disconnect Time=56882.188
+2024-02-05 01:23:09.979 +01:00 [INF] Request Ip=::1 Url=/_blazor/disconnect Time=59050.651
+2024-02-05 01:24:15.087 +01:00 [INF] Request Ip=::1 Url=/_blazor Time=118733.307
