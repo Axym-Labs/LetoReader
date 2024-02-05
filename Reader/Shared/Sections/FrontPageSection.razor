@@ -8,12 +8,17 @@
 
 <div class="w-screen flex justify-center mb-10">
     <div class="max-w-7xl mx-8 mb-20">
-        <div class="flex items-center justiy-center flex-col">
+        <div class="flex items-center justiy-center flex-col max-w-2xl">
                 <h1 class="text-5xl text-b600 text-white mb-4 text-center">
-                    @title
+                    Reader
                 </h1>
-                <p class="text-lg mb-4 text-center">
-                    @description
+                <p class="text-lg mb-4 text-center text-neutral-400">
+                    A highly customizable reader built as a <span class="text-white text-b700">direct alternative to paid speed-readers</span>. 
+                    Speed-reading concepts such as <span class="text-white text-b700">chunking, pacing and highlighting</span> are built into the reader. 
+                    Start by reading the example text to get used to this kind of reading. 
+                    Use the <span class="text-white text-b700">focus mode</span> to read.
+                    Over time, increase reading speed and customize the app to fit your needs.
+                    
                 </p>
                 @* <PrimaryLinkBtn link=@actionLink t=@actionText /> *@
         </div>
@@ -29,10 +34,6 @@
 @code {
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
-    [Parameter]
-    public string title { get; set; } = default!;
-    [Parameter]
-    public string description { get; set; } = default!;
     [Parameter]
     public string imageLoc { get; set; } = default!;
     [Parameter]
