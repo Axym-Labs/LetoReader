@@ -20,8 +20,8 @@ using Reader.Data;
 using Reader.Data.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddJsonFile("config/appsettings.json");
-builder.Configuration.AddJsonFile("config/appsettings.Development.json");
+builder.Configuration.AddJsonFile("Config/appsettings.json");
+builder.Configuration.AddJsonFile("Config/appsettings.Development.json");
 
 // LOGGER
 
