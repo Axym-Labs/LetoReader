@@ -10,7 +10,7 @@
 - Import your texts either from your clipboard or by uploading a file (.pdf, .md, .txt, .html).
 - Customize the reader in 9 different ways to fit your needs.
 
-# Unique Benefits
+# Unique
 - Open source and free forever.
 - Privacy first: All data is stored on your device only.
 - Super simple to use - 14 first-level interaction fields (buttons + text fields) in total
