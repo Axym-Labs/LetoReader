@@ -23,9 +23,9 @@ public class FundamentalStorage
         {
             new Link("Read", "/read"),
             new Link("Roadmap", "https://reader.canny.io/", "_blank"),
-            new Link("Feature Request", "https://reader.canny.io/feature-requests", "_blank"),
+            //new Link("Feature Request", "https://reader.canny.io/feature-requests", "_blank"),
             new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
-            new Link("Contact", "mailto:contact@timewise.davidewiest.com"),
+            new Link("Feedback", ""),
         };
 
         public string SpecialAnnouncement { get; } = "";
