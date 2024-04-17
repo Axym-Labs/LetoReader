@@ -23,7 +23,6 @@ public class FundamentalStorage
         {
             new Link("Read", "/read"),
             new Link("Roadmap", "https://reader.canny.io/", "_blank"),
-            //new Link("Feature Request", "https://reader.canny.io/feature-requests", "_blank"),
             new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
             new Link("Feedback", ""),
         };
@@ -41,6 +40,7 @@ public class FundamentalStorage
             {
                 new Link("Home", "/"),
                 new Link("Contact", "mailto:hi@davidewiest.com"),
+                new Link("Trustpilot Reviews", "https://www.trustpilot.com/review/reader.davidewiest.com?utm_medium=trustbox&utm_source=TrustBoxReviewCollector", "_blank"),
                 new Link("Roadmap", "https://reader.canny.io/", "_blank"),
                 new Link("Feature requests", "https://reader.canny.io/feature-requests", "_blank"),
                 new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
