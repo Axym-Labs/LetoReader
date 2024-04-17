@@ -1,0 +1,100 @@
+@namespace Reader.Shared.Product
+
+@using MudBlazor
+@using Reader.Shared
+@using Reader.Modules
+@using Newtonsoft.Json
+@using Reader.Data.Storage
+@using Reader.Data.Product
+@inject IJSRuntime JSRuntime
+@inject Constants constants
+@inject MainStorage mainstorage
+
+<div class="mb-24">
+    <ReaderView state="@(state)" />
+</div>
+
+<h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
+    Saved Texts
+</h1>
+
+<div>
+    @foreach (var savedState in savedStates) {
+        <div class="my-5 p-4 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
+            <div class="flex justify-between">
+                <h3 class="text-b700 text-xl">
+                    @savedState.Title
+                </h3>
+                <p class="text-gray-400 min-w-20">
+                    @savedState.LastRead
+                </p>
+            </div>
+            <div class="my-4">
+                <p class="text-gray-500">
+                    @(savedState.Text[..Math.Min(120,savedState.Text.Length)])...
+                </p>
+            </div>
+            <div>
+                <MudProgressLinear Color="Color.Primary" Rounded="true" Size="Size.Small" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
+            </div>
+            <div class="flex justify-between mt-3">
+                <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
+                <MudButton Variant="Variant.Filled" OnClick="@(async () => { await UpdateCurrentTextState(savedState); })" Color="Color.Secondary" Class="m-3">
+                    Load
+                </MudButton>
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+
+    public ReaderState state = new ReaderState(ProductStorage.DemoTitle, ProductStorage.DemoText);
+
+    private string textSep = " ";
+
+    List<ReaderState> savedStates = new();
+
+    protected override void OnInitialized()
+    {
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+            await SetUpSavedStates();
+        }
+    }
+
+    private async Task SetUpSavedStates() {
+        await LoadSavedStates();
+        if (savedStates.Count>0) {
+            state = savedStates[0];
+        }
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+
+    private async Task LoadSavedStates() {
+        var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
+        savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
+        savedStates = savedStates
+            .OrderByDescending(x => x.LastRead)
+            .Where(x => x.Title != ProductStorage.DemoTitle || x.Text != ProductStorage.DemoText)
+            .ToList();
+    }
+
+    private async Task UpdateCurrentTextState(ReaderState newState) {
+        state = newState;
+        await LoadSavedStates();
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+
+    private async Task DeleteTextState(string title) {
+        await JSRuntime.InvokeVoidAsync("deleteTextState", title);
+        await LoadSavedStates();
+        await InvokeAsync(() => {
+            StateHasChanged();
+        });
+    }
+}

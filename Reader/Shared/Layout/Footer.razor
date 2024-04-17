@@ -13,7 +13,7 @@
             {
                 @foreach (var linkPair in categoryPair.Value) {
                     <div class="m-2 text-center">
-                        <a href="@linkPair.Url" class="hover:underline text-gray-300 hover:text-focusColor">@linkPair.Name</a>
+                        <a href="@linkPair.Url" target="@linkPair.Target" class="hover:underline text-gray-300 hover:text-focusColor">@linkPair.Name</a>
                     </div>
                 }
             }
