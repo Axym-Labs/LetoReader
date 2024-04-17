@@ -22,5 +22,6 @@ WORKDIR /app/publish
 
 FROM base AS final
 WORKDIR /app
+COPY --from=build /src .
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Reader.dll"]
