@@ -1,0 +1,11 @@
+2024-03-23 00:08:31.658 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=005.435
+2024-03-23 09:54:50.726 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=034.316
+2024-03-23 12:28:57.526 +00:00 [INF] Request Ip=127.0.0.1 Url=/robots.txt Time=000.039
+2024-03-23 12:28:58.495 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=002.902
+2024-03-23 12:28:59.509 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/js/readerStorageManagement.js Time=000.637
+2024-03-23 12:28:59.582 +00:00 [INF] Request Ip=127.0.0.1 Url=/_content/MudBlazor/MudBlazor.min.css Time=004.127
+2024-03-23 12:28:59.704 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/css/site.css Time=000.636
+2024-03-23 12:28:59.796 +00:00 [INF] Request Ip=127.0.0.1 Url=/_framework/blazor.server.js Time=001.935
+2024-03-23 12:28:59.927 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/js/baseDomManagement.js Time=000.451
+2024-03-23 12:28:59.997 +00:00 [INF] Request Ip=127.0.0.1 Url=/_content/MudBlazor/MudBlazor.min.js Time=000.228
+2024-03-23 12:29:00.059 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/js/twConfig.js Time=000.465

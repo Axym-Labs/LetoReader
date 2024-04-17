@@ -1,0 +1,9 @@
+2024-04-08 09:37:14.438 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=033.999
+2024-04-08 09:37:14.860 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/assets/favicon.png Time=000.702
+2024-04-08 13:47:44.205 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=003.914
+2024-04-08 13:47:44.668 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/assets/favicon.png Time=000.898
+2024-04-08 13:56:02.522 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=002.911
+2024-04-08 13:56:03.122 +00:00 [INF] Request Ip=127.0.0.1 Url=/static/assets/favicon.png Time=000.184
+2024-04-08 14:01:20.420 +00:00 [INF] Request Ip=127.0.0.1 Url=/robots.txt Time=000.040
+2024-04-08 14:01:20.972 +00:00 [INF] Request Ip=127.0.0.1 Url=/terms-of-service Time=001.266
+2024-04-08 15:20:14.788 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=003.582
