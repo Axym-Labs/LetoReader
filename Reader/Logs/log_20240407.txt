@@ -1,5 +1,0 @@
-2024-04-07 03:06:45.563 +00:00 [INF] Request Ip=127.0.0.1 Url=/robots.txt Time=000.036
-2024-04-07 18:32:34.739 +00:00 [INF] Request Ip=127.0.0.1 Url=/wp-login.php Time=000.055
-2024-04-07 20:52:35.168 +00:00 [INF] Request Ip=127.0.0.1 Url=/robots.txt Time=000.038
-2024-04-07 20:52:35.649 +00:00 [INF] Request Ip=127.0.0.1 Url=/impressum-privacy-policy Time=012.400
-2024-04-07 23:14:50.192 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=006.792

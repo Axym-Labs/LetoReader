@@ -1,3 +1,0 @@
-2024-04-09 09:33:36.912 +00:00 [INF] Request Ip=127.0.0.1 Url=/robots.txt Time=000.042
-2024-04-09 09:33:44.273 +00:00 [INF] Request Ip=127.0.0.1 Url=/impressum-privacy-policy Time=021.750
-2024-04-09 11:34:24.649 +00:00 [INF] Request Ip=127.0.0.1 Url=/ Time=007.814
