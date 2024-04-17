@@ -1,6 +1,5 @@
 @namespace Reader.Shared.Product
 
-@page "/read"
 @using MudBlazor
 @using Reader.Shared
 @using Reader.Modules
@@ -87,20 +86,20 @@
 <div>
     <div class="md:flex my-5">
         <MudTextField @ref="stateTitle" T="string" Id="reader-fontpagesection-titlefield" Label="Title" Variant="Variant.Outlined" Text="@reader.State.Title" ValueChanged="reader.HandleTitleChanged" Lines="1" Style="width: 100%;"/>
-        <MudButton Variant="Variant.Filled" OnClick="@HandlePasteTitle" Color="Color.Tertiary" Class="w-full md:w-auto mt-2 md:ml-3">
+        <MudButton Variant="Variant.Filled" OnClick="@HandlePasteTitle" Color="Color.Tertiary" Class="w-full md:w-auto mt-2 md:ml-3 hover:!bg-neutral-900">
             Paste
         </MudButton>
     </div>
-    <MudTextField @ref="stateText" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" Text="@reader.State.Text" ValueChanged="reader.HandleTextChanged" Lines="6" Style="width: 100%;" />
+    <MudTextField @ref="stateText" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" Text="@reader.State.Text" ValueChanged="reader.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
     <div class="my-3">
-        <MudButton Variant="Variant.Filled" OnClick="@HandlePasteText" Color="Color.Secondary" Class="m-2 py-3" StartIcon="@Icons.Material.Filled.ContentPaste">
+        <MudButton Variant="Variant.Filled" OnClick="@HandlePasteText" Color="Color.Secondary" Class="m-2 py-3 hover:!bg-neutral-900" StartIcon="@Icons.Material.Filled.ContentPaste">
             Paste
         </MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Tertiary" Class="m-2 py-3">
+        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
             Copy
         </MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleNewText" Color="Color.Tertiary" Class="m-2 py-3">
+        <MudButton Variant="Variant.Filled" OnClick="@HandleNewText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
             New text
         </MudButton>
         <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">

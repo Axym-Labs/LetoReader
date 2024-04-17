@@ -1,25 +1,31 @@
 ﻿namespace Reader.Data.Storage;
 
+public class Link
+{
+    public string Name { get; }
+    public string Url { get; }
+    public string Target { get; }
+
+    public Link(string name, string url, string target = "_self")
+    {
+        Name = name;
+        Url = url;
+        Target = target;
+    }
+}
+
 public class FundamentalStorage
 {
     public class Navbar
     {
-        public class Link
-        {
-            public string Name { get; }
-            public string Url { get; }
-
-            public Link(string name, string url)
-            {
-                Name = name;
-                Url = url;
-            }
-        }
 
         public IReadOnlyList<Link> Links { get; } = new List<Link>
         {
-            new Link("Contact", "mailto:hi@davidewiest.com"),
-            new Link("Repository", "https://github.com/DavideWiest/Reader"),
+            new Link("Read", "/read"),
+            new Link("Roadmap", "https://reader.canny.io/", "_blank"),
+            new Link("Feature Request", "https://reader.canny.io/feature-requests", "_blank"),
+            new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
+            new Link("Contact", "mailto:contact@timewise.davidewiest.com"),
         };
 
         public string SpecialAnnouncement { get; } = "";
@@ -28,26 +34,17 @@ public class FundamentalStorage
 
     public class Footer
     {
-        public class Link
-        {
-            public string Name { get; }
-            public string Url { get; }
-
-            public Link(string name, string url)
-            {
-                Name = name;
-                Url = url;
-            }
-        }
 
         public IReadOnlyDictionary<string, IReadOnlyList<Link>> Links { get; } = new Dictionary<string, IReadOnlyList<Link>>
         {
             ["Category One"] = new List<Link>
             {
-                new Link("Contact", "mailto:hi@davidewiest.com"),
-                new Link("Repository", "https://github.com/DavideWiest/Reader"),
-                new Link("Report Issue", "https://github.com/DavideWiest/Reader/issues/new"),
                 new Link("Home", "/"),
+                new Link("Contact", "mailto:hi@davidewiest.com"),
+                new Link("Roadmap", "https://reader.canny.io/", "_blank"),
+                new Link("Feature requests", "https://reader.canny.io/feature-requests", "_blank"),
+                new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
+                new Link("Report Issue", "https://github.com/DavideWiest/Reader/issues/new", "_blank"),
             }
         };
     }

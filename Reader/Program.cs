@@ -1,14 +1,7 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-// should remove this, and switch to et 6
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
-using Areas.Identity;
 
 using MudBlazor;
 using MudBlazor.Services;
@@ -16,20 +9,14 @@ using MudBlazor.Services;
 using Reader.Modules.Logging;
 using Reader.Modules.Middleware;
 using Reader.Modules.Db;
-using Reader.Data;
 using Reader.Data.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("Config/appsettings.json");
 builder.Configuration.AddJsonFile("Config/appsettings.Development.json");
 
-// LOGGER
-
-
-
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 
 builder.Services.AddMudServices();
 builder.Services.AddMudServices(config =>

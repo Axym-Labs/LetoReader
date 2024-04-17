@@ -22,23 +22,23 @@
                 <button id="toggle-nav-mobile-btn" class="relative group" data-active="0" onclick="toggleNavMobile(this);" aria-label="Open Menu Mobile">
                     <div class="relative rounded-xl flex overflow-hidden items-center justify-center w-[50px] h-[50px] transform transition-all duration-200">
                         <div class="flex flex-col justify-between w-[20px] h-[18px] transform transition-all duration-300 origin-center overflow-hidden">
-                            <div class="bg-black h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10"></div>
-                            <div class="bg-black h-[2px] w-7 rounded transform transition-all duration-300 group-focus:translate-x-10 delay-75"></div>
-                            <div class="bg-black h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10 delay-150"></div>
-                
+                            <div class="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10"></div>
+                            <div class="bg-white h-[2px] w-7 rounded transform transition-all duration-300 group-focus:translate-x-10 delay-75"></div>
+                            <div class="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-x-10 delay-150"></div>
+
                             <div class="absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 group-focus:translate-x-0 flex w-0 group-focus:w-12">
-                            <div class="absolute bg-black h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 group-focus:rotate-45"></div>
-                            <div class="absolute bg-black h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 group-focus:-rotate-45"></div>
+                                <div class="absolute bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 group-focus:rotate-45"></div>
+                                <div class="absolute bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 group-focus:-rotate-45"></div>
                             </div>
                         </div>
                     </div>
                 </button>
             </div>
         </div>
-        <div id="navbar-links" class="absolute md:relative md:top-0 w-full md:w-auto md:block hidden md:grow z-10 z-50 pr-2">
-            <div class="flex flex-col md:flex-row justify-end h-full items-center">
+        <div id="navbar-links" class="absolute md:!relative !top-12 md:!top-0 w-full md:w-auto md:block hidden md:grow z-100 pr-2">
+            <div class="flex flex-col md:flex-row justify-end h-full items-center bg-bgcol md:bg-transparent pb-8 md:!pb-0">
                 @foreach (var linkPair in c.NavbarData.Links) {
-                    <a href="@linkPair.Url" class="mx-4 md:mx-8 hover:underline text-gray-300 hover:text-focusColor">@linkPair.Name</a>
+                    <a href="@linkPair.Url" target="@linkPair.Target" class="mx-4 md:mx-8 my-2 md:my-0 hover:underline text-gray-300 hover:text-focusColor text-b500">@linkPair.Name</a>
                 }
             </div>
 
