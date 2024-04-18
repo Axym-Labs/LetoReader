@@ -68,7 +68,14 @@ function deactivateFocusMode() {
 }
 
 async function getClipboardContent() {
-    return await navigator.clipboard.readText();
+
+    var isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+    if (isiOSDevice) {
+        return await navigator.clipboard.readText();
+    } else {
+        return await navigator.clipboard.readText();
+    }
 }
 
 function copyText() {
