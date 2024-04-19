@@ -23,6 +23,6 @@
 
 ### Unique aspects
 - Open source and free forever
-- Modern UI
+- Modern, minimalistic UI
 - Privacy first: All data is stored on your device only.
 - Super simple to use - 14 first-level interaction fields (buttons + text fields) in total
