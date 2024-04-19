@@ -1,4 +1,15 @@
-# [Reader](https://reader.davidewiest.com/)
+# Reader
+- [Demo Version](https://reader.davidewiest.com/)
+- [Docker Image](https://hub.docker.com/r/davidewiest/reader)
+
+### Hosting with docker
+- `docker pull davidewiest/reader:latest`
+- `docker run -p 5001:8080 davidewiest/reader:latest` (ports in the form of -p <reachablePort>:8080, where reachablePort is the accessible one)
+
+### Hosting with github and `dotnet run`
+- `git pull https://github.com/davidewiest/Reader.git`
+- `cd Reader/Reader/`
+- `nohup dotnet run --environment Production --urls=http://localhost:5001/ > /Logs/std.log 2> Logs/err.log &`
 
 # A highly customizable reader built as a direct alternative to paid speed-readers.
 - Speed-reading concepts such as chunking, pacing and highlighting are built into this reader.
