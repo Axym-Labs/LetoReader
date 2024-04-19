@@ -17,7 +17,7 @@
 - `docker run -p 5001:8080 davidewiest/reader:latest` (ports in the form of -p <reachablePort>:8080, where reachablePort is the accessible one)
 
 ##### Github and `dotnet run`
-- `git pull https://github.com/davidewiest/Reader.git`
+- `git pull https://github.com/DavideWiest/Reader.git`
 - `cd Reader/Reader/`
 - `nohup dotnet run --environment Production --urls=http://localhost:5001/ > /Logs/std.log 2> Logs/err.log &`
 
