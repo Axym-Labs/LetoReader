@@ -462,3 +462,16 @@
 2024-04-18 16:07:49.326 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=003.959
 2024-04-18 16:07:49.623 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.222
 2024-04-18 16:07:49.861 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.208
+2024-04-18 16:08:15.461 +02:00 [INF] Request Ip=::1 Url=/ Time=025.416
+2024-04-18 16:08:15.473 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=25597.366
+2024-04-18 16:08:15.475 +02:00 [INF] Request Ip=::1 Url=/_blazor/disconnect Time=002.279
+2024-04-18 16:08:15.500 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=003.783
+2024-04-18 16:08:15.524 +02:00 [INF] Request Ip=::1 Url=/static/js/readerStorageManagement.js Time=000.194
+2024-04-18 16:08:15.622 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.001
+2024-04-18 16:08:15.666 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.172
+2024-04-18 16:08:45.788 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=30103.942
+2024-04-18 16:08:45.806 +02:00 [INF] Request Ip=::1 Url=/_blazor/disconnect Time=002.405
+2024-04-18 16:08:47.490 +02:00 [INF] Request Ip=::1 Url=/ Time=010.420
+2024-04-18 16:08:47.722 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.523
+2024-04-18 16:08:47.812 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.202
+2024-04-18 16:09:33.935 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=46092.391

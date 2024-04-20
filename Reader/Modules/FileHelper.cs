@@ -9,6 +9,10 @@ using UglyToad.PdfPig;
 using EpubSharp;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Components.Forms;
+using Reader.Data.ProductExceptions;
+using Microsoft.VisualBasic;
+using Reader.Data.Storage;
 
 namespace Reader.Modules;
 
@@ -16,6 +20,56 @@ public class FileHelper
 {
     private static Regex trimWhitespace = new(@"\s\s+", RegexOptions.Compiled);
 
+    public static async Task<string> ExtractFromBrowserFiles(IReadOnlyList<IBrowserFile> files)
+    {
+        StringBuilder sb = new();
+
+        bool[] fileSupported = new bool[files.Count];
+
+        foreach ((var file, int i) in files.Select((file, i) => (file, i)))
+        {
+            using (var ms = new MemoryStream())
+            {
+                await file.OpenReadStream(file.Size).CopyToAsync(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+
+                var fileBytes = ms.ToArray();
+
+                if (file.ContentType == "text/plain")
+                {
+                    sb.Append(Encoding.UTF8.GetString(fileBytes));
+                }
+                else if (file.Name.EndsWith(".epub"))
+                {
+                    sb.Append(ExtractFromEpub(fileBytes));
+                }
+                else if (file.Name.EndsWith(".md"))
+                {
+                    sb.Append(ExtractStringFromMdStr(Encoding.UTF8.GetString(fileBytes)));
+                }
+                else if (file.ContentType == "application/pdf")
+                {
+                    sb.Append(ExtractStringFromPDF(fileBytes));
+                }
+                else if (file.ContentType == "text/html")
+                {
+                    sb.Append(ExtractStringFromHTMLStr(Encoding.UTF8.GetString(fileBytes)));
+                } else
+                {
+                    fileSupported[i] = false;
+                    continue;
+                }
+                fileSupported[i] = true;
+            }
+        }
+
+        if (fileSupported.All(x => !x))
+        {
+            throw new UnsupportedOperationException("Unsupported file type", "Supported file type are: " + ProductStorage.SupportedFileImports);
+        }
+
+        return sb.ToString();
+    }
 
     public static string ExtractStringFromPDF(byte[] byteArr) {
         StringBuilder sb = new();
@@ -38,7 +92,7 @@ public class FileHelper
         return doc.DocumentNode.InnerText;
     }
 
-    public static string ExtractFromEPub(byte[] arr)
+    public static string ExtractFromEpub(byte[] arr)
     {
         EpubBook book = EpubReader.Read(arr);
         return trimWhitespace.Replace(book.ToPlainText()," ");

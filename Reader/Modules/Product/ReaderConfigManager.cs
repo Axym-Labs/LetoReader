@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
-namespace Reader.Modules;
+namespace Reader.Modules.Product;
 
 public class ReaderConfigManager
 {
@@ -15,7 +15,8 @@ public class ReaderConfigManager
     private IJSRuntime JSRuntime;
     private Action SetupTextPieces;
 
-    public ReaderConfigManager(IJSRuntime JSRuntime, Action setupTextPieces) {
+    public ReaderConfigManager(IJSRuntime JSRuntime, Action setupTextPieces)
+    {
         this.JSRuntime = JSRuntime;
         SetupTextPieces = setupTextPieces;
     }
@@ -75,7 +76,7 @@ public class ReaderConfigManager
         get => string.Join(" ", Regex.Split(Config.Font.ToString(), @"(?<!^)(?=[A-Z])"));
         set
         {
-            Config.Font = (Font)System.Enum.Parse(typeof(Font), value.Replace(" ", ""));
+            Config.Font = (Font)Enum.Parse(typeof(Font), value.Replace(" ", ""));
             SaveConfig();
         }
     }
@@ -117,9 +118,10 @@ public class ReaderConfigManager
         }
     }
 
-    private void SaveConfig() {
+    private void SaveConfig()
+    {
         Task.Run(() => JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config))).Wait();
     }
 
-    
+
 }

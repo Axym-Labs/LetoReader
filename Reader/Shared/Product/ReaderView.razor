@@ -3,10 +3,12 @@
 @using MudBlazor
 @using Reader.Shared
 @using Reader.Modules
+@using Reader.Modules.Product
 @using Reader.Data.Storage
 @using Reader.Data.Product
 @using Newtonsoft.Json
 @using System.Text
+@using Reader.Data.ProductExceptions
 @inject Constants constants
 @inject IJSRuntime JSRuntime
 @inject MainStorage mainstorage
@@ -70,7 +72,7 @@
                             <MudSelectItem Value="@type.ToString()" />
                         }
                     </MudSelect>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text size: @(reader.ConfigManager.Config.FontWeight)</MudSlider>
+                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(reader.ConfigManager.Config.FontWeight)</MudSlider>
                     <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontWordCharLimit" Min="1" Max="40" Step="1">Character limit per word: @(reader.ConfigManager.Config.WordCharLimit)</MudSlider>
                     <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(reader.ConfigManager.Config.PeripheralWordsBrightness)</MudSlider>
                     <MudColorPicker class="md:my-2" T="string" @bind-Text="@reader.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
@@ -133,12 +135,15 @@
     private MudTextField<string> stateTitle = new();
     private MudTextField<string> stateText = new();
 
+    // [Parameter]
+    public ReaderContext ReaderContext { get; set; } = default!;
+
     private ReaderState _state = default!;
     [Parameter]
     public ReaderState state
     {
         get { return _state; }
-        set => setStateValue(value).Wait();
+        set => setStateValue(value);
     }
 
     private async Task setStateValue(ReaderState newState) {
@@ -175,7 +180,6 @@
     }
 
     private async Task HandleNewText() {
-        Console.WriteLine("handle new text");
 
         ReaderState newState = new(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText);
 
@@ -209,33 +213,14 @@
     }
 
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files) {
-        StringBuilder sb = new();
+        try
+        {
+            string importedText = await FileHelper.ExtractFromBrowserFiles(files);
 
-        foreach (var file in files) {
-            using (var ms = new MemoryStream())
-            {
-                await file.OpenReadStream(file.Size).CopyToAsync(ms);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                var fileBytes = ms.ToArray();
-
-
-
-                if (file.ContentType == "text/plain") {
-                    sb.Append(Encoding.UTF8.GetString(fileBytes));
-                } else if(file.Name.EndsWith(".epub")) {
-                    sb.Append(FileHelper.ExtractFromEPub(fileBytes));
-                } else if (file.Name.EndsWith(".md")) {
-                    sb.Append(FileHelper.ExtractStringFromMdStr(Encoding.UTF8.GetString(fileBytes)));
-                } else if (file.ContentType == "application/pdf") {
-                    sb.Append(FileHelper.ExtractStringFromPDF(fileBytes));
-                } else if (file.ContentType == "text/html") {
-                    sb.Append(FileHelper.ExtractStringFromHTMLStr(Encoding.UTF8.GetString(fileBytes)));
-                }
-            }
+            await stateText.SetText(importedText);
+        } catch (UnsupportedOperationException) {
+            
         }
-
-        await stateText.SetText(sb.ToString());
     }
 
     protected override void OnInitialized() {
