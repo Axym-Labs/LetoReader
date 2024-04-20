@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 using MarkedNet;
 using HtmlAgilityPack;
 using UglyToad.PdfPig;
+using EpubSharp;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
+using System.Text.RegularExpressions;
 
 namespace Reader.Modules;
 
 public class FileHelper
 {
+    private static Regex trimWhitespace = new(@"\s\s+", RegexOptions.Compiled);
+
+
     public static string ExtractStringFromPDF(byte[] byteArr) {
         StringBuilder sb = new();
 
@@ -31,6 +36,13 @@ public class FileHelper
         var doc = new HtmlDocument();
         doc.LoadHtml(htmlstr);
         return doc.DocumentNode.InnerText;
+    }
+
+    public static string ExtractFromEPub(byte[] arr)
+    {
+        EpubBook book = EpubReader.Read(arr);
+        return trimWhitespace.Replace(book.ToPlainText()," ");
+
     }
 
     public static string ExtractStringFromMdStr(string mdStr) {

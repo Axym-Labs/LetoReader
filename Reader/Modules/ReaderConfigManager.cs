@@ -117,8 +117,8 @@ public class ReaderConfigManager
         }
     }
 
-    private async Task SaveConfig() {
-        await JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config));
+    private void SaveConfig() {
+        Task.Run(() => JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config))).Wait();
     }
 
     
