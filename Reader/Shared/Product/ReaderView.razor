@@ -130,22 +130,23 @@
 </div>
 
 @code {
-    private MudTextField<string> stateTitle;
-    private MudTextField<string> stateText;
+    private MudTextField<string> stateTitle = default!;
+    private MudTextField<string> stateText = default!;
 
-    private ReaderState _state;
+    private ReaderState _state = default!;
     [Parameter]
-    public ReaderState state { 
+    public ReaderState state
+    {
         get { return _state; }
-        set => setStateValue(value);
+        set => setStateValue(value).Wait();
     }
 
     private async Task setStateValue(ReaderState newState) {
         if (reader == null)
             reader = new(ref newState, InvokeAsync, StateHasChanged, JSRuntime);
-        
+
         await HandleStateUpdated(newState);
-        
+
         await InvokeAsync(() => { StateHasChanged(); }); 
     }
 
@@ -155,29 +156,29 @@
     bool FocusModeOn = false;
 
     private void ToggleConfigOpen()
-	{
+    {
         if (!ConfigOpen && reader.ReadingStatus)
             reader.StopReadingTask();
 
-		ConfigOpen = !ConfigOpen;
-	}
+        ConfigOpen = !ConfigOpen;
+    }
 
     private async Task ToggleFocusMode()
-	{
+    {
         if (FocusModeOn) {
             await JSRuntime.InvokeVoidAsync("deactivateFocusMode");
         } else {
             await JSRuntime.InvokeVoidAsync("activateFocusMode");
         }
 
-		FocusModeOn = !FocusModeOn;
-	}
+        FocusModeOn = !FocusModeOn;
+    }
 
     private async Task HandleNewText() {
         Console.WriteLine("handle new text");
 
         ReaderState newState = new(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText);
-        
+
         await HandleStateUpdated(newState);
 
         await reader.UpdateSavedState();
@@ -189,18 +190,18 @@
         reader.ClampPosition();
         _state = newState;
 
-        stateTitle.SetText(_state.Title);
-        stateText.SetText(_state.Text);
+        await stateTitle.SetText(_state.Title);
+        await stateText.SetText(_state.Text);
     }
 
     private async Task HandlePasteTitle() {
         string title = await JSRuntime.InvokeAsync<string>("getClipboardContent");
-        stateTitle.SetText(title);
+        await stateTitle.SetText(title);
     }
 
     private async Task HandlePasteText() {
         string text = await JSRuntime.InvokeAsync<string>("getClipboardContent");
-        stateText.SetText(text);
+        await stateText.SetText(text);
     }
 
     private async Task HandleCopyText() {
@@ -229,7 +230,7 @@
             }
         }
 
-        stateText.SetText(sb.ToString());
+        await stateText.SetText(sb.ToString());
     }
 
     protected override void OnInitialized() {
@@ -247,9 +248,9 @@
     }
 
     private async Task LoadConfig() {
-        string loadedConfigStr = await JSRuntime.InvokeAsync<string?>("loadConfigurationStrIfExists");
-        if (loadedConfigStr != null) {
-            reader.ConfigManager.Config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!);
+        string? loadedConfigStr = await JSRuntime.InvokeAsync<string?>("loadConfigurationStrIfExists");
+        if (string.IsNullOrEmpty(loadedConfigStr)) {
+            reader.ConfigManager.Config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
         }
     }
 }
