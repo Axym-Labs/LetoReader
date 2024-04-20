@@ -12,5 +12,5 @@ public static class ProductStorage
     public const string DefaultNewTitle = "New Title";
     public const string DefaultNewText = "Text";
 
-    public const string SupportedFileImports = ".pdf, .txt, .md, .html";
+    public const string SupportedFileImports = ".pdf, .txt, .md, .html, .epub";
 }

@@ -104,7 +104,7 @@
         </MudButton>
     </div>
     <div class="my-3 flex gap-4">
-        <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">
+        <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">
             <ButtonTemplate>
                 <MudButton HtmlTag="label"
                         Variant="Variant.Filled"
@@ -216,10 +216,15 @@
             {
                 await file.OpenReadStream(file.Size).CopyToAsync(ms);
                 ms.Seek(0, SeekOrigin.Begin);
-                
+
                 var fileBytes = ms.ToArray();
+
+
+
                 if (file.ContentType == "text/plain") {
                     sb.Append(Encoding.UTF8.GetString(fileBytes));
+                } else if(file.Name.EndsWith(".epub")) {
+                    sb.Append(FileHelper.ExtractFromEPub(fileBytes));
                 } else if (file.Name.EndsWith(".md")) {
                     sb.Append(FileHelper.ExtractStringFromMdStr(Encoding.UTF8.GetString(fileBytes)));
                 } else if (file.ContentType == "application/pdf") {
