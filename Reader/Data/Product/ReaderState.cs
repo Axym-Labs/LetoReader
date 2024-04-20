@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Reader.Data.Storage;
 
 namespace Reader.Data.Product;
 
@@ -17,5 +18,15 @@ public class ReaderState
     public ReaderState(string title, string text) {
         Title = title;
         Text = text;
+    }
+
+    public static ReaderState GetDemo()
+    {
+        return new ReaderState(ProductStorage.DemoTitle, ProductStorage.DemoText, DateTime.Now);
+    }
+
+    public static ReaderState GetNew()
+    {
+        return new ReaderState(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText, DateTime.Now);
     }
 }

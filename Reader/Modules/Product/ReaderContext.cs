@@ -1,57 +1,109 @@
 ﻿namespace Reader.Modules.Product;
 
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
-using Mono.TextTemplating;
+using MudBlazor;
+using Newtonsoft.Json;
 using Reader.Data.Product;
 using Reader.Data.Storage;
 
 public class ReaderContext
 {
-    public ReaderManager ReaderManager { get; private set; }
-    public ReaderConfigManager ReaderConfigManager { get; private set; }
-    public ReaderState ReaderState { get; private set; }
+    public ReaderManager Manager { get; private set; }
+    public ReaderConfigManager ConfigManager { get; private set; }
+
+    private ReaderState _state = default!;
+    public ReaderState State { get => _state; set => _state = value; }
+
+    private ReaderConfig _config = default!;
+    public ReaderConfig Config { get => _config; set => _config = value; }
+
+    public MudTextField<string> stateTitle { get; set; } = new();
+    public MudTextField<string> stateText { get; set; } = new();
 
     private SiteInteraction SiteInteraction { get; set; }
 
-    public ReaderContext(ReaderManager readerManager, ReaderConfigManager readerConfigManager, ReaderState readerState, SiteInteraction siteInteraction)
+    public ReaderContext(SiteInteraction siteInteraction)
     {
-        ReaderManager = readerManager;
-        ReaderConfigManager = readerConfigManager;
-        ReaderState = readerState;
         SiteInteraction = siteInteraction;
     }
 
-
-
-    private async Task SetStateValue(ReaderState newState)
+    public async Task SetState(ReaderState newState)
     {
-        if (ReaderManager == null)
-            ReaderManager = new(ref newState, ReaderConfigManager);
+        if (Manager == null)
+            ReInitManager();
 
         await HandleStateUpdated(newState);
 
         await SiteInteraction.HandleStateChanged();
     }
 
-    private async Task HandleNewText()
+    public void InitializeReader()
     {
-
-        ReaderState newState = new(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText);
-
-        await HandleStateUpdated(newState);
-
-        await ReaderManager.UpdateSavedState();
+        ReInitManager();
     }
 
-    private async Task HandleStateUpdated(ReaderState newState)
+    private void ReInitManager()
     {
-        ReaderManager.StopReadingTask();
-        ReaderManager.State = newState;
-        ReaderManager.ClampPosition();
-        ReaderState = newState;
+        Manager = new(ref _state, ref _config, SiteInteraction);
+    }
 
-        await stateTitle.SetText(_state.Title);
-        await stateText.SetText(_state.Text);
+    public async Task TriggerAfterFirstRenderEvents()
+    {
+        Manager.jsInteropAllowed = true;
+        await LoadConfig();
+        // start reader
+        Manager.HandleStartStop();
+    }
+
+    private async Task LoadConfig()
+    {
+        string? loadedConfigStr = await SiteInteraction.JSRuntime.InvokeAsync<string?>("loadConfigurationStrIfExists");
+        if (!string.IsNullOrEmpty(loadedConfigStr))
+        {
+            _config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
+        }
+    }
+
+    public async Task HandleNewText()
+    {
+        ReaderState newState = ReaderState.GetNew();
+
+        await HandleStateUpdated(newState);
+        await Manager.UpdateSavedState();
+    }
+
+    public async Task HandleStateUpdated(ReaderState newState)
+    {
+        Manager.StopReadingTask();
+        State = newState;
+        // should work without this line
+        //Manager.State = newState;
+        Manager.ClampPosition();
+
+        await stateTitle.SetText(State.Title);
+        await stateText.SetText(State.Text);
+    }
+
+    public async Task HandlePasteTitle()
+    {
+        State.Title = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
+        // should work without this line
+        // await stateTitle.SetText(title);
+    }
+
+    public async Task HandlePasteText()
+    {
+        State.Title = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
+        // should work without this line
+        //await stateText.SetText(text);
+    }
+
+    public async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
+    {
+        string importedText = await FileHelper.ExtractFromBrowserFiles(files);
+
+        await stateText.SetText(importedText);
     }
 
 }

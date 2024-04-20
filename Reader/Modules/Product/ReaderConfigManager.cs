@@ -11,13 +11,14 @@ namespace Reader.Modules.Product;
 
 public class ReaderConfigManager
 {
-    public ReaderConfig Config { get; set; } = new();
-    private IJSRuntime JSRuntime;
+    public ReaderConfig Config;
+    private SiteInteraction SiteInteraction;
     private Action SetupTextPieces;
 
-    public ReaderConfigManager(IJSRuntime JSRuntime, Action setupTextPieces)
+    public ReaderConfigManager(ref ReaderConfig config, SiteInteraction siteInteraction, Action setupTextPieces)
     {
-        this.JSRuntime = JSRuntime;
+        Config = config;
+        SiteInteraction = siteInteraction;
         SetupTextPieces = setupTextPieces;
     }
 
@@ -120,8 +121,7 @@ public class ReaderConfigManager
 
     private void SaveConfig()
     {
-        Task.Run(() => JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config))).Wait();
+        Task.Run(() => SiteInteraction.JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config))).Wait();
     }
-
 
 }

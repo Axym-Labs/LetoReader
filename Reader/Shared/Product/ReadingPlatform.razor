@@ -3,6 +3,7 @@
 @using MudBlazor
 @using Reader.Shared
 @using Reader.Modules
+@using Reader.Modules.Product
 @using Newtonsoft.Json
 @using Reader.Data.Storage
 @using Reader.Data.Product
@@ -11,7 +12,7 @@
 @inject MainStorage mainstorage
 
 <div class="mb-24">
-    <ReaderView state="@(state)" />
+    <ReaderView ReaderContext="ReaderContext" />
 </div>
 
 <h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
@@ -39,7 +40,7 @@
             </div>
             <div class="flex justify-between mt-3">
                 <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
-                <MudButton Variant="Variant.Filled" OnClick="@(async () => { await UpdateCurrentTextState(savedState); })" Color="Color.Secondary" Class="m-3">
+                <MudButton Variant="Variant.Filled" OnClick="@(async () => { await LoadTextState(savedState); })" Color="Color.Secondary" Class="m-3">
                     Load
                 </MudButton>
             </div>
@@ -49,8 +50,7 @@
 
 
 @code {
-
-    public ReaderState state = new ReaderState(ProductStorage.DemoTitle, ProductStorage.DemoText);
+    public ReaderContext ReaderContext;
 
     private string textSep = " ";
 
@@ -58,43 +58,60 @@
 
     protected override void OnInitialized()
     {
+        ReaderContext = new(
+            new SiteInteraction(
+                InvokeAsync,
+                StateHasChanged,
+                JSRuntime
+            )
+        );
 
+        // init reader
+        ReaderContext.InitializeReader();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
+            // init state
             await SetUpSavedStates();
+            // init config
+            await ReaderContext.TriggerAfterFirstRenderEvents();
         }
     }
 
     private async Task SetUpSavedStates() {
-        await LoadSavedStates();
+        await ReloadStatedStates();
+
+
         if (savedStates.Count>0) {
-            state = savedStates[0];
+            await ReaderContext.SetState(savedStates[0]);
+        } else
+        {
+            await ReaderContext.SetState(ReaderState.GetDemo());
         }
         await InvokeAsync(() => { StateHasChanged(); });
     }
 
-    private async Task LoadSavedStates() {
-        var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
-        savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
-        savedStates = savedStates
-            .OrderByDescending(x => x.LastRead)
-            .Where(x => x.Title != ProductStorage.DemoTitle || x.Text != ProductStorage.DemoText)
-            .ToList();
-    }
+    private async Task LoadTextState(ReaderState newState) {
+        await ReaderContext.SetState(newState);
 
-    private async Task UpdateCurrentTextState(ReaderState newState) {
-        state = newState;
-        await LoadSavedStates();
+        await ReloadStatedStates();
         await InvokeAsync(() => { StateHasChanged(); });
     }
 
     private async Task DeleteTextState(string title) {
         await JSRuntime.InvokeVoidAsync("deleteTextState", title);
-        await LoadSavedStates();
-        await InvokeAsync(() => {
-            StateHasChanged();
-        });
+
+        await ReloadStatedStates();
+        await InvokeAsync(() => { StateHasChanged(); });
+    }
+    private async Task ReloadStatedStates() {
+        var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
+        savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
+        savedStates = savedStates
+            .OrderByDescending(x => x.LastRead)
+            // should work without this line
+            // .Where(x => x.Title != ProductStorage.DemoTitle)
+            .ToList();
     }
 }
