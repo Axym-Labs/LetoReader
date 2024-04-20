@@ -130,8 +130,8 @@
 </div>
 
 @code {
-    private MudTextField<string> stateTitle = default!;
-    private MudTextField<string> stateText = default!;
+    private MudTextField<string> stateTitle = new();
+    private MudTextField<string> stateText = new();
 
     private ReaderState _state = default!;
     [Parameter]
@@ -249,7 +249,7 @@
 
     private async Task LoadConfig() {
         string? loadedConfigStr = await JSRuntime.InvokeAsync<string?>("loadConfigurationStrIfExists");
-        if (string.IsNullOrEmpty(loadedConfigStr)) {
+        if (!string.IsNullOrEmpty(loadedConfigStr)) {
             reader.ConfigManager.Config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
         }
     }
