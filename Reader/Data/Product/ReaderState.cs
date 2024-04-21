@@ -7,7 +7,7 @@ public class ReaderState
 {
     public string Title;
     public int Position = 0;
-    public DateTime LastRead = DateTime.Now;
+    public DateTime LastRead;
     public string Text;
 
     [JsonConstructor]
@@ -18,15 +18,16 @@ public class ReaderState
     public ReaderState(string title, string text) {
         Title = title;
         Text = text;
+        LastRead = DateTime.Now;
     }
 
     public static ReaderState GetDemo()
     {
-        return new ReaderState(ProductStorage.DemoTitle, ProductStorage.DemoText, DateTime.Now);
+        return new ReaderState(ProductStorage.DemoTitle, ProductStorage.DemoText);
     }
 
     public static ReaderState GetNew()
     {
-        return new ReaderState(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText, DateTime.Now);
+        return new ReaderState(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText);
     }
 }

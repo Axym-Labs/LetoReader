@@ -72,6 +72,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
             // load state
+            Console.WriteLine("loading saved states");
             await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
@@ -80,10 +81,11 @@
 
     private async Task SetUpSavedStates() {
         await ReloadSavedStates();
-
+        Console.WriteLine("setting first saved state");
         if (savedStates.Count>0) {
             await ReaderContext.SetState(savedStates[0]);
         }
+        Console.WriteLine("done");
         await InvokeAsync(() => { StateHasChanged(); });
     }
 
@@ -101,10 +103,14 @@
     }
 
     private async Task ReloadSavedStates() {
+        Console.WriteLine("loading states from storage");
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
+        Console.WriteLine("deserialization");
         savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
+        Console.WriteLine("sorting");
         savedStates = savedStates
             .OrderByDescending(x => x.LastRead)
             .ToList();
+        Console.WriteLine("done");
     }
 }

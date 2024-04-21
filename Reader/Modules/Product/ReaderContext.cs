@@ -9,8 +9,8 @@ using Reader.Data.Storage;
 
 public class ReaderContext
 {
-    public ReaderManager Manager { get; private set; }
-    public ReaderConfigManager ConfigManager { get; private set; }
+    public ReaderManager Manager { get; private set; } = default!;
+    public ReaderConfigManager ConfigManager { get; private set; } = default!;
 
     private ReaderState _state = default!;
     public ReaderState State { get => _state; set => _state = value; }
@@ -22,6 +22,8 @@ public class ReaderContext
     public MudTextField<string> stateText { get; set; } = new();
 
     private SiteInteraction SiteInteraction { get; set; }
+
+    private bool skipNextStateUpdate = false;
 
     public ReaderContext(SiteInteraction siteInteraction)
     {
@@ -110,6 +112,7 @@ public class ReaderContext
 
     public async Task HandleNewText()
     {
+        skipNextStateUpdate = true;
         await SetState(ReaderState.GetNew());
         await Manager.UpdateSavedState();
     }
@@ -126,7 +129,7 @@ public class ReaderContext
         // should work without this line
         if (Manager != null)
         {
-            Manager.State = newState;
+            Manager.State = State;
             Manager.SetupTextPieces();
         }
         if (Manager != null)
@@ -159,14 +162,7 @@ public class ReaderContext
 
     public async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
-        string importedText = await FileHelper.ExtractFromBrowserFiles(files);
-
-        State.Text = importedText;
-
-        // should work without this line
-        await SetState(State);
-
-        await stateText.SetText(importedText);
+        await SetState(await FileHelper.ExtractFromBrowserFiles(files));
     }
 
     public async Task HandleTextChanged(string Text)
@@ -177,16 +173,41 @@ public class ReaderContext
             State.Text = ProductStorage.DefaultNewText;
 
             // should work without this line
-            await HandleStateUpdated(State);
+            await SetState(State);
+        } else
+        {
+            Manager.SetupTextPieces();
         }
-        Manager.SetupTextPieces();
         
-        await Manager.UpdateSavedState();
+        if (skipNextStateUpdate)
+        {
+            skipNextStateUpdate = false;
+        } else
+        {
+            await Manager.UpdateSavedState();
+        }
     }
 
     public async Task HandleTitleChanged(string title)
     {
-        State.Title = title;
-        await Manager.RenameSavedState(State.Title, title);
+        State.Title = title.Trim();
+
+        if (State.Text == string.Empty)
+        {
+            State.Text = ProductStorage.DefaultNewTitle;
+
+            // should work without this line
+            await SetState(State);
+        }
+
+
+        if (skipNextStateUpdate)
+        {
+            skipNextStateUpdate = false;
+        }
+        else
+        {
+            await Manager.RenameSavedState(State.Title, title);
+        }
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Reader.Data.ProductExceptions;
 using Microsoft.VisualBasic;
 using Reader.Data.Storage;
+using Reader.Data.Product;
 
 namespace Reader.Modules;
 
@@ -20,7 +21,7 @@ public class FileHelper
 {
     private static Regex trimWhitespace = new(@"\s\s+", RegexOptions.Compiled);
 
-    public static async Task<string> ExtractFromBrowserFiles(IReadOnlyList<IBrowserFile> files)
+    public static async Task<ReaderState> ExtractFromBrowserFiles(IReadOnlyList<IBrowserFile> files)
     {
         StringBuilder sb = new();
 
@@ -61,6 +62,11 @@ public class FileHelper
                 }
                 fileSupported[i] = true;
             }
+
+            if (i < files.Count - 1)
+            {
+                sb.Append(Environment.NewLine + Environment.NewLine + "---" + Environment.NewLine + Environment.NewLine);
+            }
         }
 
         if (fileSupported.All(x => !x))
@@ -68,7 +74,13 @@ public class FileHelper
             throw new UnsupportedOperationException("Unsupported file type", "Supported file type are: " + ProductStorage.SupportedFileImports);
         }
 
-        return sb.ToString();
+        string title = String.Join(", ", files.Select(
+           file => file.Name.Substring(0, file.Name.LastIndexOf('.'))
+        ));
+
+        //Console.WriteLine(sb.ToString().Split(" ").Length);
+
+        return new ReaderState(title, sb.ToString());
     }
 
     public static string ExtractStringFromPDF(byte[] byteArr) {

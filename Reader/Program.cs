@@ -38,6 +38,10 @@ builder.Services.AddControllersWithViews(options =>
     options.Conventions.Add(new RoutePrefixConvention("api"));
 }).AddControllersAsServices();
 
+builder.Services.AddSignalR(e => {
+    e.MaximumReceiveMessageSize = 102400000; // 100 MB
+});
+
 // CONSTR
 
 //#if DEBUG
