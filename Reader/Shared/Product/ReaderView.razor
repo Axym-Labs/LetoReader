@@ -93,7 +93,7 @@
             Paste
         </MudButton>
     </div>
-    <MudTextField @ref="ReaderContext.stateText" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
+    <MudTextField @ref="ReaderContext.stateText" Disabled="@(ReaderContext.stateText.Text.Length > ProductStorage.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
     <div class="my-3">
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 py-3 hover:!bg-neutral-900" StartIcon="@Icons.Material.Filled.ContentPaste">

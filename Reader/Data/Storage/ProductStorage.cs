@@ -13,4 +13,5 @@ public static class ProductStorage
     public const string DefaultNewText = "Text";
 
     public const string SupportedFileImports = ".pdf, .txt, .md, .html, .epub";
+    public const int MaxInputLength = 10_000;
 }
