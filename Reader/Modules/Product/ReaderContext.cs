@@ -110,21 +110,33 @@ public class ReaderContext
         ConfigManager = new(ref _config, SiteInteraction, Manager.SetupTextPieces);
     }
 
+    public async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
+    {
+        await HandleNewText(await FileHelper.ExtractFromBrowserFiles(files));
+    }
+
     public async Task HandleNewText()
     {
+        await HandleNewText(ReaderState.GetNew());
+    }
+
+    private async Task HandleNewText(ReaderState readerState)
+    {
         skipNextStateUpdate = true;
-        await SetState(ReaderState.GetNew());
+        await SetState(readerState);
         await Manager.UpdateSavedState();
     }
 
     public async Task HandleStateUpdated(ReaderState newState)
     {
+        // must be at the start to prevent blocking of this update by the changes below, disabling the input field
+        await stateTitle.SetText(newState.Title);
+        await stateText.SetText(newState.Text);
+
         if (Manager != null)
             Manager.StopReadingTask();
         State = newState;
 
-        await stateTitle.SetText(State.Title);
-        await stateText.SetText(State.Text);
 
         // should work without this line
         if (Manager != null)
@@ -158,11 +170,6 @@ public class ReaderContext
 
         await stateText.SetText(State.Text);
         await SiteInteraction.HandleSiteStateChanged();
-    }
-
-    public async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
-    {
-        await SetState(await FileHelper.ExtractFromBrowserFiles(files));
     }
 
     public async Task HandleTextChanged(string Text)
