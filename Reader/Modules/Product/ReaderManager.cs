@@ -14,8 +14,6 @@ public class ReaderManager
     public ReaderConfig Config;
 
     public bool jsInteropAllowed = false;
-    public bool ignoreNextTextChange = false;
-    public bool ignoreNextTitleChange = false;
 
     private CancellationTokenSource ReadingTaskTokenSource = new();
    
@@ -103,9 +101,9 @@ public class ReaderManager
 
             State.Position++;
             State.LastRead = DateTime.Now;
-            // await not needed - waiting time would be less accurate
-            UpdateSavedState();
-            await SiteInteraction.HandleSiteStateChanged();
+
+            _ = Task.Run(() => UpdateSavedState());
+            _ = Task.Run(() => SiteInteraction.HandleSiteStateChanged());
             await Task.Delay(TimeSpan.FromSeconds(interval));
         }
     }
@@ -125,36 +123,6 @@ public class ReaderManager
     public void ClampPosition()
     {
         State.Position = Math.Min(TextPieces.Count - 1, Math.Max(0, State.Position));
-    }
-
-    public async Task HandleTextChanged(string Text)
-    {
-        if (ignoreNextTextChange)
-        {
-            ignoreNextTextChange = false;
-            return;
-        }
-
-        State.Text = Text.Trim();
-        if (State.Text == string.Empty)
-        {
-            State.Text = ProductStorage.DefaultNewText;
-        }
-        SetupTextPieces();
-        State.Position = 0;
-        _ = Task.Run(UpdateSavedState);
-    }
-
-    public async Task HandleTitleChanged(string title)
-    {
-        if (ignoreNextTitleChange)
-        {
-            ignoreNextTitleChange = false;
-            return;
-        }
-
-        _ = Task.Run(() => RenameSavedState(State.Title, title));
-        State.Title = title;
     }
 
     public Tuple<string, string, string> GetCurrentTextPiece()
@@ -189,18 +157,20 @@ public class ReaderManager
 
     public string GetTextPiecesLookBehind()
     {
-        StringBuilder result = new StringBuilder();
+        List<string> result = new();
         int charCount = 0;
 
         int i = State.Position - 1;
         while (i >= 0 && charCount + TextPieces[i].Length <= Config.PeripheralCharsCount)
         {
-            result.Append(TextPieces[i]).Append(" ");
+            result.Add(TextPieces[i]);
             charCount += TextPieces[i].Length + 1;
             i--;
         }
 
-        return result.ToString().Trim();
+        result.Reverse();
+
+        return String.Join(" ", result).Trim();
     }
 
     public async Task UpdateSavedState()
@@ -208,8 +178,9 @@ public class ReaderManager
         await SiteInteraction.JSRuntime.InvokeVoidAsync("updateState", State.Title, JsonConvert.SerializeObject(State));
     }
 
-    private async Task RenameSavedState(string oldTitle, string newTitle)
+    public async Task RenameSavedState(string oldTitle, string newTitle)
     {
         await SiteInteraction.JSRuntime.InvokeVoidAsync("renameState", oldTitle, newTitle);
     }
+
 }

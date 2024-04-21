@@ -47,7 +47,7 @@
 </div>
 
 <div class="mb-10">
-    <MudSlider @bind-Value="@ReaderContext.Manager.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-700 text-sm">Position: @(ReaderContext.Manager.State.Position+1) @((int)(ReaderContext.Manager.State.Position+1)*100/ReaderContext.Manager.TextPieces.Count())%</MudSlider>
+    <MudSlider @bind-Value="@ReaderContext.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-700 text-sm">Position: @(ReaderContext.State.Position+1) @((int)(ReaderContext.State.Position+1)*100/ReaderContext.Manager.TextPieces.Count())%</MudSlider>
 </div>
 <div class="mb-16">
     <div class="d-flex mb-4">
@@ -88,12 +88,12 @@
 
 <div>
     <div class="md:flex my-5">
-        <MudTextField @ref="ReaderContext.stateTitle" T="string" Id="reader-fontpagesection-titlefield" Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.Manager.HandleTitleChanged" Lines="1" Style="width: 100%;"/>
+        <MudTextField @ref="ReaderContext.stateTitle" T="string" Id="reader-fontpagesection-titlefield" Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;"/>
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Tertiary" Class="w-full md:w-auto mt-2 md:ml-3 hover:!bg-neutral-900">
             Paste
         </MudButton>
     </div>
-    <MudTextField @ref="ReaderContext.stateText" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.Manager.HandleTextChanged" Lines="10" Style="width: 100%;" />
+    <MudTextField @ref="ReaderContext.stateText" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
     <div class="my-3">
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 py-3 hover:!bg-neutral-900" StartIcon="@Icons.Material.Filled.ContentPaste">
@@ -162,10 +162,9 @@
         try
         {
             await ReaderContext.HandleFileUpload(files);
-        } catch (UnsupportedOperationException) {
-            Snackbar.Add("Unsupported file type", Severity.Error);
+        } catch (UnsupportedOperationException e) {
+            Snackbar.Add(e.Message, Severity.Error);
         }
     }
 
-    
 }

@@ -63,6 +63,9 @@ public class ReaderContext
         {
             _config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
             InitializeConfigManager();
+
+            // should work without this line
+            await SetConfig(Config);
         }
     }
 
@@ -74,7 +77,14 @@ public class ReaderContext
 
     public async Task SetConfig(ReaderConfig newConfig)
     {
-        Config = newConfig;
+        _config = newConfig;
+
+        // should work without these 2 statements
+        if (ConfigManager != null)
+            ConfigManager.Config = Config;
+        if (Manager != null)
+            Manager.Config = Config;
+
         await SiteInteraction.HandleSiteStateChanged();
     }
 
@@ -100,9 +110,7 @@ public class ReaderContext
 
     public async Task HandleNewText()
     {
-        ReaderState newState = ReaderState.GetNew();
-
-        await HandleStateUpdated(newState);
+        await SetState(ReaderState.GetNew());
         await Manager.UpdateSavedState();
     }
 
@@ -111,21 +119,29 @@ public class ReaderContext
         if (Manager != null)
             Manager.StopReadingTask();
         State = newState;
+
         await stateTitle.SetText(State.Title);
         await stateText.SetText(State.Text);
+
         // should work without this line
-        //Manager.State = newState;
+        if (Manager != null)
+        {
+            Manager.State = newState;
+            Manager.SetupTextPieces();
+        }
         if (Manager != null)
             Manager.ClampPosition();
 
-        // should work without this line
-        //await stateTitle.SetText(State.Title);
-        //await stateText.SetText(State.Text);
+        await SiteInteraction.HandleSiteStateChanged();
     }
 
     public async Task HandlePasteTitle()
     {
         State.Title = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
+
+        // should work without this line
+        await HandleStateUpdated(State);
+
         await stateTitle.SetText(State.Title);
         await SiteInteraction.HandleSiteStateChanged();
     }
@@ -133,6 +149,10 @@ public class ReaderContext
     public async Task HandlePasteText()
     {
         State.Text  = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
+
+        // should work without this line
+        await HandleStateUpdated(State);
+
         await stateText.SetText(State.Text);
         await SiteInteraction.HandleSiteStateChanged();
     }
@@ -141,7 +161,32 @@ public class ReaderContext
     {
         string importedText = await FileHelper.ExtractFromBrowserFiles(files);
 
+        State.Text = importedText;
+
+        // should work without this line
+        await SetState(State);
+
         await stateText.SetText(importedText);
     }
 
+    public async Task HandleTextChanged(string Text)
+    {
+        State.Text = Text.Trim();
+        if (State.Text == string.Empty)
+        {
+            State.Text = ProductStorage.DefaultNewText;
+
+            // should work without this line
+            await HandleStateUpdated(State);
+        }
+        Manager.SetupTextPieces();
+        
+        await Manager.UpdateSavedState();
+    }
+
+    public async Task HandleTitleChanged(string title)
+    {
+        State.Title = title;
+        await Manager.RenameSavedState(State.Title, title);
+    }
 }
