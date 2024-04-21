@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/upload/[controller]")]
 public class GreetingController : ControllerBase
 {
     [HttpGet("{name}")]
@@ -20,7 +20,7 @@ public class GreetingController : ControllerBase
         return Ok(new { Greeting = greeting });
     }
     [HttpPost]
-    public IActionResult GetGreetingFromRequestBody([FromBody] dynamic data)
+    public IActionResult UploadFile([FromBody] dynamic data)
     {
         if (string.IsNullOrEmpty(data?.name))
         {
