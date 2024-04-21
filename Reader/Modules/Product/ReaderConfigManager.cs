@@ -121,7 +121,7 @@ public class ReaderConfigManager
 
     private void SaveConfig()
     {
-        Task.Run(() => SiteInteraction.JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config))).Wait();
+        _ = Task.Run(() => SiteInteraction.JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config)));
     }
 
 }

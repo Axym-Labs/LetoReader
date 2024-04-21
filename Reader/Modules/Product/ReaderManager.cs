@@ -29,73 +29,6 @@ public class ReaderManager
         SetupTextPieces();
     }
 
-    public void HandleStartStop()
-    {
-        if (!ReadingStatus)
-        {
-            StartReadingTask();
-        }
-        else
-        {
-            StopReadingTask();
-        }
-    }
-
-    public void StartReadingTask()
-    {
-        ReadingStatus = true;
-        // start task
-        ReadingTaskTokenSource = new CancellationTokenSource();
-        var readerTask = new Task(async () =>
-        {
-            await ReadingTask((double)60 / Config.ReadingSpeed, ReadingTaskTokenSource.Token);
-        }, ReadingTaskTokenSource.Token);
-        readerTask.Start();
-    }
-
-    public void StopReadingTask()
-    {
-        ReadingStatus = false;
-        // stop task
-        if (ReadingTaskTokenSource != null)
-        {
-            ReadingTaskTokenSource.Cancel();
-            ReadingTaskTokenSource.Dispose();
-        }
-    }
-
-    private async Task ReadingTask(double interval, CancellationToken ct)
-    {
-        while (true)
-        {
-            if (State.Position >= TextPieces.Count - 1 || ct.IsCancellationRequested)
-            {
-                ReadingStatus = false;
-                await SiteInteraction.HandleStateChanged();
-                break;
-            }
-
-            State.Position++;
-            State.LastRead = DateTime.Now;
-            // await not needed - waiting time would be less accurate
-            UpdateSavedState();
-            await SiteInteraction.HandleStateChanged();
-            await Task.Delay(TimeSpan.FromSeconds(interval));
-        }
-    }
-
-    public void HandleNavBefore()
-    {
-        State.Position -= Config.WordNavCount;
-        State.Position = Math.Max(0, State.Position);
-    }
-
-    public void HandleNavNext()
-    {
-        State.Position += Config.WordNavCount;
-        State.Position = Math.Min(TextPieces.Count - 1, State.Position);
-    }
-
     public void SetupTextPieces()
     {
         var unvalidatedTextPieces = State.Text.Split(new string[] { " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -114,6 +47,79 @@ public class ReaderManager
 
         TextPieces = newTextPieces;
         ClampPosition();
+    }
+
+    public void HandleStartStop()
+    {
+        if (!ReadingStatus)
+        {
+            StartReadingTask();
+        }
+        else
+        {
+            StopReadingTask();
+        }
+    }
+
+    public void StartReadingTask()
+    {
+        if (ReadingStatus)
+            return;
+
+        ReadingStatus = true;
+        // start task
+        ReadingTaskTokenSource = new CancellationTokenSource();
+        var readerTask = new Task(async () =>
+        {
+            await ReadingTask((double)60 / Config.ReadingSpeed, ReadingTaskTokenSource.Token);
+        }, ReadingTaskTokenSource.Token);
+        readerTask.Start();
+    }
+
+    public void StopReadingTask()
+    {
+        if (!ReadingStatus)
+            return;
+
+        ReadingStatus = false;
+        // stop task, if the task started
+        if (ReadingTaskTokenSource != null)
+        {
+            ReadingTaskTokenSource.Cancel();
+            ReadingTaskTokenSource.Dispose();
+        }
+    }
+
+    private async Task ReadingTask(double interval, CancellationToken ct)
+    {
+        while (true)
+        {
+            if (State.Position >= TextPieces.Count - 1 || ct.IsCancellationRequested)
+            {
+                ReadingStatus = false;
+                await SiteInteraction.HandleSiteStateChanged();
+                break;
+            }
+
+            State.Position++;
+            State.LastRead = DateTime.Now;
+            // await not needed - waiting time would be less accurate
+            UpdateSavedState();
+            await SiteInteraction.HandleSiteStateChanged();
+            await Task.Delay(TimeSpan.FromSeconds(interval));
+        }
+    }
+
+    public void HandleNavBefore()
+    {
+        State.Position -= Config.WordNavCount;
+        State.Position = Math.Max(0, State.Position);
+    }
+
+    public void HandleNavNext()
+    {
+        State.Position += Config.WordNavCount;
+        State.Position = Math.Min(TextPieces.Count - 1, State.Position);
     }
 
     public void ClampPosition()

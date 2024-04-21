@@ -15,7 +15,7 @@ public class SiteInteraction
         this.JSRuntime = JSRuntime;
     }
 
-    public async Task HandleStateChanged()
+    public async Task HandleSiteStateChanged()
     {
         await InvokeAsync(() => { StateHasChanged(); });
     }

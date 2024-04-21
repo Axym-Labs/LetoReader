@@ -50,13 +50,13 @@
 
 
 @code {
-    public ReaderContext ReaderContext;
+    public ReaderContext ReaderContext = default!;
 
     private string textSep = " ";
 
     List<ReaderState> savedStates = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         ReaderContext = new(
             new SiteInteraction(
@@ -66,28 +66,23 @@
             )
         );
 
-        // init reader
-        ReaderContext.InitializeReader();
+        await ReaderContext.TriggerOnInitializedEvents();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
-            // init state
+            // load state
             await SetUpSavedStates();
-            // init config
+            // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
         }
     }
 
     private async Task SetUpSavedStates() {
-        await ReloadStatedStates();
-
+        await ReloadSavedStates();
 
         if (savedStates.Count>0) {
             await ReaderContext.SetState(savedStates[0]);
-        } else
-        {
-            await ReaderContext.SetState(ReaderState.GetDemo());
         }
         await InvokeAsync(() => { StateHasChanged(); });
     }
@@ -95,23 +90,21 @@
     private async Task LoadTextState(ReaderState newState) {
         await ReaderContext.SetState(newState);
 
-        await ReloadStatedStates();
         await InvokeAsync(() => { StateHasChanged(); });
     }
 
     private async Task DeleteTextState(string title) {
         await JSRuntime.InvokeVoidAsync("deleteTextState", title);
 
-        await ReloadStatedStates();
+        await ReloadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
     }
-    private async Task ReloadStatedStates() {
+
+    private async Task ReloadSavedStates() {
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
         savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
         savedStates = savedStates
             .OrderByDescending(x => x.LastRead)
-            // should work without this line
-            // .Where(x => x.Title != ProductStorage.DemoTitle)
             .ToList();
     }
 }

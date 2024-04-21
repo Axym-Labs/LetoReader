@@ -16,6 +16,11 @@ public class ReaderConfig
     public int WordNavCount = 10;
     public int WordCharLimit = 30;
     public string MiddleCharHighlightingColor = "#FFFFFF";
+
+    public static ReaderConfig GetDefault()
+    {
+        return new ReaderConfig();
+    }
 }
 
 public enum Font {

@@ -28,32 +28,32 @@ public class ReaderContext
         SiteInteraction = siteInteraction;
     }
 
-    public async Task SetState(ReaderState newState)
+    public async Task TriggerOnInitializedEvents()
     {
-        if (Manager == null)
-            ReInitManager();
+        // set default state and config for initialization of reader
+        await SetState(ReaderState.GetDemo());
+        await SetConfig(ReaderConfig.GetDefault());
 
-        await HandleStateUpdated(newState);
-
-        await SiteInteraction.HandleStateChanged();
-    }
-
-    public void InitializeReader()
-    {
-        ReInitManager();
-    }
-
-    private void ReInitManager()
-    {
-        Manager = new(ref _state, ref _config, SiteInteraction);
+        // init reader
+        InitializeReader();
+        // init config manager
+        InitializeConfigManager();
     }
 
     public async Task TriggerAfterFirstRenderEvents()
     {
+        if (State == null)
+            throw new("State must be initialized");
+        if (Manager == null)
+            throw new("Manager must be initialized");
+
         Manager.jsInteropAllowed = true;
+
         await LoadConfig();
-        // start reader
-        Manager.HandleStartStop();
+
+        // start reader if demo
+        if (State.Title == ReaderState.GetDemo().Title)
+            Manager.StartReadingTask();
     }
 
     private async Task LoadConfig()
@@ -62,7 +62,40 @@ public class ReaderContext
         if (!string.IsNullOrEmpty(loadedConfigStr))
         {
             _config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
+            InitializeConfigManager();
         }
+    }
+
+    public async Task SetState(ReaderState newState)
+    {
+        await HandleStateUpdated(newState);
+        await SiteInteraction.HandleSiteStateChanged();
+    }
+
+    public async Task SetConfig(ReaderConfig newConfig)
+    {
+        Config = newConfig;
+        await SiteInteraction.HandleSiteStateChanged();
+    }
+
+    private void InitializeReader()
+    {
+        if (State == null)
+            throw new("State must be initialized");
+        if (Config == null)
+            throw new("Config must be initialized");
+
+        Manager = new(ref _state, ref _config, SiteInteraction);
+    }
+
+    private void InitializeConfigManager()
+    {
+        if (Manager == null)
+            throw new("Manager must be initialized");
+        if (Config == null)
+            throw new("Config must be initialized");
+
+        ConfigManager = new(ref _config, SiteInteraction, Manager.SetupTextPieces);
     }
 
     public async Task HandleNewText()
@@ -75,28 +108,33 @@ public class ReaderContext
 
     public async Task HandleStateUpdated(ReaderState newState)
     {
-        Manager.StopReadingTask();
+        if (Manager != null)
+            Manager.StopReadingTask();
         State = newState;
-        // should work without this line
-        //Manager.State = newState;
-        Manager.ClampPosition();
-
         await stateTitle.SetText(State.Title);
         await stateText.SetText(State.Text);
+        // should work without this line
+        //Manager.State = newState;
+        if (Manager != null)
+            Manager.ClampPosition();
+
+        // should work without this line
+        //await stateTitle.SetText(State.Title);
+        //await stateText.SetText(State.Text);
     }
 
     public async Task HandlePasteTitle()
     {
         State.Title = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
-        // should work without this line
-        // await stateTitle.SetText(title);
+        await stateTitle.SetText(State.Title);
+        await SiteInteraction.HandleSiteStateChanged();
     }
 
     public async Task HandlePasteText()
     {
-        State.Title = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
-        // should work without this line
-        //await stateText.SetText(text);
+        State.Text  = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
+        await stateText.SetText(State.Text);
+        await SiteInteraction.HandleSiteStateChanged();
     }
 
     public async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
