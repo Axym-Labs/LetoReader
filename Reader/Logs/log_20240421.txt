@@ -764,3 +764,8 @@
 2024-04-21 19:31:32.245 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.553
 2024-04-21 19:31:32.392 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.169
 2024-04-21 19:31:32.451 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.374
+2024-04-21 19:32:58.005 +02:00 [INF] Test info channel
+2024-04-21 19:32:58.602 +02:00 [INF] Request Ip=::1 Url=/ Time=274.476
+2024-04-21 19:32:58.677 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=004.825
+2024-04-21 19:32:58.893 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=003.928
+2024-04-21 19:32:58.946 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=005.277

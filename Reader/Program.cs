@@ -10,10 +10,27 @@ using Reader.Modules.Logging;
 using Reader.Modules.Middleware;
 using Reader.Modules.Db;
 using Reader.Data.Storage;
+using Reader.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("Config/appsettings.json");
 builder.Configuration.AddJsonFile("Config/appsettings.Development.json");
+
+// CONFIG
+
+var clArgs = Environment.GetCommandLineArgs();
+
+AppConfig config;
+
+if (clArgs.Length >= 2)
+{
+    config = AppConfig.GetFromJsonFile(clArgs[1]);
+} else
+{
+    config = AppConfig.GetFromJsonFile("Config/AppConfig_Default.json");
+}
+
+// SERVICES SETUP
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -33,6 +50,7 @@ builder.Services.AddMudServices(config =>
 });
 
 // API
+
 builder.Services.AddControllersWithViews(options =>
 {
     options.Conventions.Add(new RoutePrefixConvention("api"));
@@ -50,13 +68,11 @@ builder.Services.AddSignalR(e => {
 //string ConnectionString  = builder.Configuration["Database:ConnectionStringProduction"]!;
 //#endif
 
-
 // DB TESTING 
 
 #if DEBUG
 var con = new TestDbContext();
 Log.Information("Test info channel");
-
 #endif
 
 // MODULES
@@ -65,6 +81,7 @@ builder.Services.AddSingleton<Constants>();
 builder.Services.AddSingleton<FundamentalStorage>();
 builder.Services.AddSingleton<MainStorage>();
 builder.Services.AddScoped<LoggingMiddleware>();
+builder.Services.AddScoped<AppConfig>();
 
 builder.Services.AddScoped(provider =>
 {
@@ -105,8 +122,6 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "static")),
     RequestPath = "/static"
 });
-
-
 
 app.MapControllers();
 app.MapBlazorHub();

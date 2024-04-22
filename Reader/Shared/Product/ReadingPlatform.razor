@@ -7,16 +7,18 @@
 @using Newtonsoft.Json
 @using Reader.Data.Storage
 @using Reader.Data.Product
+@using Reader.Data
 @inject IJSRuntime JSRuntime
 @inject Constants constants
 @inject MainStorage mainstorage
+@inject AppConfig config
 
 <div class="mb-24">
     <ReaderView ReaderContext="ReaderContext" />
 </div>
 
 <h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
-    Saved Texts
+    Saved Texts in the browser
 </h1>
 
 <div>
@@ -48,7 +50,6 @@
     }
 </div>
 
-
 @code {
     public ReaderContext ReaderContext = default!;
 
@@ -72,7 +73,6 @@
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
             // load state
-            Console.WriteLine("loading saved states");
             await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
@@ -81,11 +81,9 @@
 
     private async Task SetUpSavedStates() {
         await ReloadSavedStates();
-        Console.WriteLine("setting first saved state");
         if (savedStates.Count>0) {
             await ReaderContext.SetState(savedStates[0]);
         }
-        Console.WriteLine("done");
         await InvokeAsync(() => { StateHasChanged(); });
     }
 
@@ -103,14 +101,10 @@
     }
 
     private async Task ReloadSavedStates() {
-        Console.WriteLine("loading states from storage");
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
-        Console.WriteLine("deserialization");
         savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
-        Console.WriteLine("sorting");
         savedStates = savedStates
             .OrderByDescending(x => x.LastRead)
             .ToList();
-        Console.WriteLine("done");
     }
 }

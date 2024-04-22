@@ -78,8 +78,6 @@ public class FileHelper
            file => file.Name.Substring(0, file.Name.LastIndexOf('.'))
         ));
 
-        //Console.WriteLine(sb.ToString().Split(" ").Length);
-
         return new ReaderState(title, sb.ToString());
     }
 
