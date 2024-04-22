@@ -70,7 +70,8 @@
 
         await ReaderContext.TriggerOnInitializedEvents();
 
-        Log.Verbose("ReaderPlatform: Initialized | {@ReaderContext}", ReaderContext);
+        Log.Verbose("ReaderPlatform: OnInitializedAsync");
+        Log.Verbose("Data-ReaderContext: {@ReaderContext}", ReaderContext);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
@@ -104,7 +105,7 @@
         await ReloadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Verbose("ReaderPlatformL: Deleting State");
+        Log.Verbose("ReaderPlatformL: DeleteTextState");
     }
 
     private async Task ReloadSavedStates() {
@@ -114,6 +115,6 @@
             .OrderByDescending(x => x.LastRead)
             .ToList();
 
-        Log.Verbose("ReaderPlatformL: Reloading saved states");
+        Log.Verbose("ReaderPlatformL: ReloadSavedStates");
     }
 }
