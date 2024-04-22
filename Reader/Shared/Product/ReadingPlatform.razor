@@ -3,6 +3,7 @@
 @using MudBlazor
 @using Reader.Shared
 @using Reader.Modules
+@using Reader.Modules.Logging
 @using Reader.Modules.Product
 @using Newtonsoft.Json
 @using Reader.Data.Storage
@@ -68,6 +69,8 @@
         );
 
         await ReaderContext.TriggerOnInitializedEvents();
+
+        Log.Verbose("ReaderPlatform: Initialized | {@ReaderContext}", ReaderContext);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
@@ -76,6 +79,8 @@
             await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
+
+            Log.Verbose("ReaderPlatform: Rendering");
         }
     }
 
@@ -98,6 +103,8 @@
 
         await ReloadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
+
+        Log.Verbose("ReaderPlatformL: Deleting State");
     }
 
     private async Task ReloadSavedStates() {
@@ -106,5 +113,7 @@
         savedStates = savedStates
             .OrderByDescending(x => x.LastRead)
             .ToList();
+
+        Log.Verbose("ReaderPlatformL: Reloading saved states");
     }
 }

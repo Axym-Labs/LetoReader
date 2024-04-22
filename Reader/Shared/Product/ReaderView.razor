@@ -9,6 +9,7 @@
 @using Newtonsoft.Json
 @using System.Text
 @using Reader.Data.ProductExceptions
+@using Reader.Modules.Logging
 @inject Constants constants
 @inject IJSRuntime JSRuntime
 @inject MainStorage mainstorage
@@ -146,12 +147,16 @@
             ReaderContext.Manager.StopReadingTask();
 
         ConfigOpen = !ConfigOpen;
+
+        Log.Information("ReaderView: ToggleConfigOpen");
     }
 
     private async Task ToggleFocusMode()
     {
         await JSRuntime.InvokeVoidAsync(FocusModeOn ? "deactivateFocusMode" : "activateFocusMode");
         FocusModeOn = !FocusModeOn;
+
+        Log.Information("ReaderView: ToggleFocusMode");
     }
 
     private async Task HandleCopyText() {
@@ -165,6 +170,8 @@
         } catch (UnsupportedOperationException e) {
             Snackbar.Add(e.Message, Severity.Error);
         }
+
+        Log.Information("ReaderView: HandleCopyText");
     }
 
 }

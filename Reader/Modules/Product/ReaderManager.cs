@@ -2,7 +2,7 @@ using Reader.Data.Product;
 using Microsoft.JSInterop;
 using System.Text;
 using Newtonsoft.Json;
-using Reader.Data.Storage;
+using Reader.Modules.Logging;
 
 namespace Reader.Modules.Product;
 
@@ -45,6 +45,8 @@ public class ReaderManager
 
         TextPieces = newTextPieces;
         ClampPosition();
+
+        Log.Verbose("ReaderContext: SetupTextPieces");
     }
 
     public void HandleStartStop()
@@ -72,6 +74,8 @@ public class ReaderManager
             await ReadingTask((double)60 / Config.ReadingSpeed, ReadingTaskTokenSource.Token);
         }, ReadingTaskTokenSource.Token);
         readerTask.Start();
+
+        Log.Verbose("ReaderContext: StartReadingTask");
     }
 
     public void StopReadingTask()
@@ -86,6 +90,8 @@ public class ReaderManager
             ReadingTaskTokenSource.Cancel();
             ReadingTaskTokenSource.Dispose();
         }
+
+        Log.Verbose("ReaderContext: StartReadingTask");
     }
 
     private async Task ReadingTask(double interval, CancellationToken ct)

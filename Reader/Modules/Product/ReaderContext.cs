@@ -6,6 +6,7 @@ using MudBlazor;
 using Newtonsoft.Json;
 using Reader.Data.Product;
 using Reader.Data.Storage;
+using Reader.Modules.Logging;
 
 public class ReaderContext
 {
@@ -98,6 +99,8 @@ public class ReaderContext
             throw new("Config must be initialized");
 
         Manager = new(ref _state, ref _config, SiteInteraction);
+
+        Log.Verbose("ReaderContext: InitializeReader");
     }
 
     private void InitializeConfigManager()
@@ -125,6 +128,8 @@ public class ReaderContext
         skipNextStateUpdate = true;
         await SetState(readerState);
         await Manager.UpdateSavedState();
+
+        Log.Verbose("ReaderContext: HandleNewText");
     }
 
     public async Task HandleStateUpdated(ReaderState newState)
@@ -136,7 +141,6 @@ public class ReaderContext
         if (Manager != null)
             Manager.StopReadingTask();
         State = newState;
-
 
         // should work without this line
         if (Manager != null)
