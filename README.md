@@ -1,4 +1,4 @@
-# Reader
+# Axym 
 - **[Demo Version](https://reader.davidewiest.com/)**
 - **[Docker Image](https://hub.docker.com/r/davidewiest/reader)**
 
