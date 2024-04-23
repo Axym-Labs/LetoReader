@@ -80,8 +80,6 @@
             await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
-
-            Log.Verbose("ReaderPlatform: Rendering");
         }
     }
 
@@ -97,6 +95,8 @@
         await ReaderContext.SetState(newState);
 
         await InvokeAsync(() => { StateHasChanged(); });
+
+        Log.Verbose("ReaderPlatformL: LoadTextState");
     }
 
     private async Task DeleteTextState(string title) {
