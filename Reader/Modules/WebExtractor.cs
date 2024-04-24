@@ -10,27 +10,26 @@ public class ScrapingException : Exception
     }
 }
 
+public record WebsiteData<T>()
+{
+    public string Url { get; set; }
+    public string Title { get; set; }
+    public T Content { get; set; }
+}
+
 public class WebExtractor
 {
     private readonly HttpClient _httpClient;
 
+    private readonly HtmlDocument doc = new HtmlDocument();
+
     public WebExtractor()
     {
         _httpClient = new HttpClient();
+
     }
 
-    public async Task<string> GetNodeByXPath(string url, string xpath)
-    {
-        return (await GetNodeByXPathJoined(url, xpath)).First();
-    }
-
-    public async Task<IEnumerable<string>> GetAllNodesByXPath(string url, string xpath)
-    {
-        return await GetNodeByXPathJoined(url, xpath);
-    }
-
-    public async Task<IEnumerable<string>> GetNodeByXPathJoined(string url, string xpath)
-    {
+    public async Task Load(string url) {
         var html = await GetHtml(url);
         if (string.IsNullOrEmpty(html))
         {
@@ -39,32 +38,40 @@ public class WebExtractor
 
         var doc = new HtmlDocument();
         doc.LoadHtml(html);
+    }
+    
+    public HtmlNode GetNodeByXPath( string xpath)
+    {
+        return GetNodeByXPathJoined(xpath).First();
+    }
 
+    public IEnumerable<HtmlNode> GetAllNodesByXPath(string xpath)
+    {
+        return GetNodeByXPathJoined(xpath);
+    }
+
+    public IEnumerable<HtmlNode> GetNodeByXPathJoined(string xpath)
+    {
         var nodes = doc.DocumentNode.SelectNodes(xpath);
         if (nodes == null || nodes.Count == 0)
         {
             throw new ScrapingException("No node found with this xPath. The xPath is invalid.");
         }
 
-        return nodes.Select(n => n.InnerText);
+        return nodes;
     }
 
-    public async Task<string> GetHtmlByLargestArticle(string url)
+    public HtmlNode GetLargestArticleNode()
     {
-        var html = await GetHtml(url);
-        if (string.IsNullOrEmpty(html))
-        {
-            throw new ScrapingException("Empty html document");
-        }
-
-        var doc = new HtmlDocument();
-        doc.LoadHtml(html);
-
-        var articles = doc.DocumentNode.Descendants("article")
+        var article = doc.DocumentNode.Descendants("article")
                                      .OrderByDescending(a => a.InnerText.Length)
                                      .FirstOrDefault();
+        if (article == null)
+        {
+            throw new ScrapingException("No article found in the html document");
+        }
 
-        return articles?.InnerHtml;
+        return article;
     }
 
     private async Task<string> GetHtml(string url)
@@ -79,5 +86,16 @@ public class WebExtractor
         {
             throw new ScrapingException("Exception during request (" + ex.Message + ")");
         }
+    }
+
+    public string GetTitle()
+    {
+        var title = doc.DocumentNode.SelectSingleNode("//head/title");
+        if (title == null)
+        {
+            throw new ScrapingException("No title found in the html document");
+        }
+
+        return title.InnerText;
     }
 }

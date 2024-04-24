@@ -48,7 +48,7 @@
 </div>
 
 <div class="mb-10">
-    <MudSlider @bind-Value="@ReaderContext.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-700 text-sm">Position: @(ReaderContext.State.Position+1) @((int)(ReaderContext.State.Position+1)*100/ReaderContext.Manager.TextPieces.Count())%</MudSlider>
+    <MudSlider @bind-Value="@ReaderContext.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">Position: @(ReaderContext.State.Position+1) @((int)(ReaderContext.State.Position+1)*100/ReaderContext.Manager.TextPieces.Count())%</MudSlider>
 </div>
 <div class="mb-16">
     <div class="d-flex mb-4">
@@ -90,26 +90,23 @@
 <div>
     <div class="md:flex my-5">
         <MudTextField @ref="ReaderContext.stateTitle" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;"/>
-        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Tertiary" Class="w-full md:w-auto mt-2 md:ml-3 hover:!bg-neutral-900">
+        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="w-full md:w-auto mt-2 md:ml-3 hover:!bg-neutral-900">
             Paste
         </MudButton>
     </div>
-    <MudTextField @ref="ReaderContext.stateText" Disabled="@(ReaderContext.State.Text.Length >= ProductStorage.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
+    <MudTextField @ref="ReaderContext.stateText" class="focus:!border-tertiary" Disabled="@(ReaderContext.State.Text.Length >= ProductStorage.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
     <div class="my-3">
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 py-3 hover:!bg-neutral-900" StartIcon="@Icons.Material.Filled.ContentPaste">
             Paste
         </MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
+        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 py-3 hover:!bg-neutral-900">
             Copy
         </MudButton>
         <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Secondary" Class="m-3">
             @(NewTextPanelOpen ? "Close" : "Open") new text panel
         </MudButton>
         <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="rounded-lg shadow-xl" Style="background-color: rgb(22, 22, 26);">
-            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
-                Free up fields
-            </MudButton>
             <div class="my-3 flex gap-4">
                 <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">
                     <ButtonTemplate>
@@ -128,6 +125,27 @@
                     </p>
                 </div>
             </div>
+            <MudDivider />
+            <div>
+                <MudForm>
+                    <MudRadioGroup T="string" @bind-Value="@ScrapeInputs.NewTextInputMethodString">
+                        <MudRadio T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Primary</MudRadio>
+                        <MudRadio T="string" Value="@("XPath")" Color="Color.Secondary">Tertiary</MudRadio>
+                    </MudRadioGroup>
+                    @if (ScrapeInputs.NewTextInputMethod == NewTextInputMethod.XPath)
+                    {
+                        <MudTextField T="string" Label="XPath" Variant="Variant.Outlined" Value="@ScrapeInputs.XPathInputs.XPath" />
+                        <MudSwitch T="bool" Label="Select all elements that match" @bind-Checked="@ScrapeInputs.XPathInputs.SelectAll" />
+                    }
+                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
+                        Load
+                    </MudButton>
+                </MudForm>
+            </div>
+            <MudDivider />
+            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
+                Empty fields
+            </MudButton>
         </MudPopover>
     </div>
     
@@ -144,6 +162,8 @@
 
     bool ConfigPanelOpen = false;
     bool FocusModeOn = false;
+
+    private ScrapeInputs ScrapeInputs = new();
 
     bool NewTextPanelOpen = false;
 
@@ -188,6 +208,22 @@
         }
 
         Log.Information("ReaderView: HandleCopyText");
+    }
+
+    private async Task SubmitScrapingForm() {
+        var scraper = new ScrapingHandler();
+        try
+        {
+            await ReaderContext.SetState(await scraper.Scrape(ScrapeInputs));
+        }
+        catch (ScrapingException e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+        }
+
+        await InvokeAsync(() => { StateHasChanged(); });
+
+        Log.Information("ReaderView: SubmitScrapingForm");
     }
 
 }

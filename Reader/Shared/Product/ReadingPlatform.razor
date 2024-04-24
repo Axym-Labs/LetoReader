@@ -39,7 +39,7 @@
                 </p>
             </div>
             <div>
-                <MudProgressLinear Color="Color.Primary" Rounded="true" Size="Size.Small" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
+                <MudProgressLinear Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
             </div>
             <div class="flex justify-between mt-3">
                 <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />

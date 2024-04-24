@@ -186,6 +186,9 @@ public class ReaderManager
 
     public async Task RenameSavedState(string oldTitle, string newTitle)
     {
+        if (oldTitle == newTitle)
+            return;
+        Console.WriteLine("oldTitle: " + oldTitle + " newtitle: " + newTitle);
         await SiteInteraction.JSRuntime.InvokeVoidAsync("renameState", oldTitle, newTitle);
     }
 
