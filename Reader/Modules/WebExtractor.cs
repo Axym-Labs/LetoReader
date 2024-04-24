@@ -46,7 +46,7 @@ public class WebExtractor
             throw new ScrapingException("No node found with this xPath. The xPath is invalid.");
         }
 
-        return nodes.Select(n => n.InnerHtml);
+        return nodes.Select(n => n.InnerText);
     }
 
     public async Task<string> GetHtmlByLargestArticle(string url)
@@ -61,7 +61,7 @@ public class WebExtractor
         doc.LoadHtml(html);
 
         var articles = doc.DocumentNode.Descendants("article")
-                                     .OrderByDescending(a => a.InnerHtml.Length)
+                                     .OrderByDescending(a => a.InnerText.Length)
                                      .FirstOrDefault();
 
         return articles?.InnerHtml;

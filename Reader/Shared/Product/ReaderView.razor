@@ -53,13 +53,13 @@
 <div class="mb-16">
     <div class="d-flex mb-4">
         <div>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleConfigOpen" Color="Color.Secondary" Class="m-3">
-                @(ConfigOpen? "Close" : "Open") Configuration
+            <MudButton Variant="Variant.Filled" OnClick="@ToggleConfigPanelOpen" Color="Color.Secondary" Class="m-3">
+                @(ConfigPanelOpen? "Close" : "Open") Configuration
             </MudButton>
             <MudButton Variant="Variant.Filled" OnClick="@ToggleFocusMode" Color="Color.Secondary" Class="m-3">
                 @(FocusModeOn? "Deactivate" : "Activate") Focus mode
             </MudButton>
-            <MudPopover Open="@ConfigOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="!rounded-lg shadow-xl" Style="background-color: rgb(22, 22, 26);">
+            <MudPopover Open="@ConfigPanelOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="rounded-lg shadow-xl !bg-bgcol">
                 <div class="m-5" style="width: min(30rem, 90vw);">
                     <MudSlider Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
                     <MudSlider Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
@@ -103,33 +103,37 @@
         <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
             Copy
         </MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
-            New text
+        <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Secondary" Class="m-3">
+            @(NewTextPanelOpen ? "Close" : "Open") new text panel
         </MudButton>
-    </div>
-    <div class="my-3 flex gap-4">
-        <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">
-            <ButtonTemplate>
-                <MudButton HtmlTag="label"
-                        Variant="Variant.Filled"
-                        Color="Color.Secondary"
-                        StartIcon="@Icons.Material.Filled.CloudUpload"
-                        for="@context">
-                    Load File
-                </MudButton>
-            </ButtonTemplate>
-        </MudFileUpload>
-        <div class="flex flex-col justify-center">
-            <p>
-                Supported: @ProductStorage.SupportedFileImports
-            </p>
-        </div>
+        <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="rounded-lg shadow-xl" Style="background-color: rgb(22, 22, 26);">
+            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
+                Free up fields
+            </MudButton>
+            <div class="my-3 flex gap-4">
+                <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">
+                    <ButtonTemplate>
+                        <MudButton HtmlTag="label"
+                                Variant="Variant.Filled"
+                                Color="Color.Secondary"
+                                StartIcon="@Icons.Material.Filled.CloudUpload"
+                                for="@context">
+                            Upload Files
+                        </MudButton>
+                    </ButtonTemplate>
+                </MudFileUpload>
+                <div class="flex flex-col justify-center">
+                    <p>
+                        Supported: @ProductStorage.SupportedFileImports
+                    </p>
+                </div>
+            </div>
+        </MudPopover>
     </div>
     
     <p class="text-gray-400 text-sm">
         Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
         Titles must be unique.
-        Clicking 'New Text' will save the existing text and free up the fields.
     </p>
 </div>
 
@@ -138,17 +142,29 @@
     [Parameter]
     public ReaderContext ReaderContext { get; set; } = default!;
 
-    bool ConfigOpen = false;
+    bool ConfigPanelOpen = false;
     bool FocusModeOn = false;
 
-    private void ToggleConfigOpen()
+    bool NewTextPanelOpen = false;
+
+    private void ToggleConfigPanelOpen()
     {
-        if (!ConfigOpen && ReaderContext.Manager.ReadingStatus)
+        if (!ConfigPanelOpen && ReaderContext.Manager.ReadingStatus)
             ReaderContext.Manager.StopReadingTask();
 
-        ConfigOpen = !ConfigOpen;
+        ConfigPanelOpen = !ConfigPanelOpen;
 
         Log.Information("ReaderView: ToggleConfigOpen");
+    }
+
+    private void ToggleNewTextPanelOpen()
+    {
+        if (!ConfigPanelOpen && ReaderContext.Manager.ReadingStatus)
+            ReaderContext.Manager.StopReadingTask();
+
+        NewTextPanelOpen = !NewTextPanelOpen;
+
+        Log.Information("ReaderView: ToggleNewTextPanelOpen");
     }
 
     private async Task ToggleFocusMode()
