@@ -21,7 +21,7 @@ public class WebExtractor
 {
     private readonly HttpClient _httpClient;
 
-    private readonly HtmlDocument doc = new HtmlDocument();
+    private HtmlDocument doc = new HtmlDocument();
 
     public WebExtractor()
     {
@@ -36,7 +36,6 @@ public class WebExtractor
             throw new ScrapingException("Empty html document");
         }
 
-        var doc = new HtmlDocument();
         doc.LoadHtml(html);
     }
     
@@ -90,7 +89,7 @@ public class WebExtractor
 
     public string GetTitle()
     {
-        var title = doc.DocumentNode.SelectSingleNode("//head/title");
+        var title = doc.DocumentNode.SelectSingleNode("//title");
         if (title == null)
         {
             throw new ScrapingException("No title found in the html document");
