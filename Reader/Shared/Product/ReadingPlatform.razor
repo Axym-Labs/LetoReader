@@ -19,7 +19,7 @@
 </div>
 
 <h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
-    Saved Texts in the browser
+    Saved Texts
 </h1>
 
 <div>
@@ -71,7 +71,6 @@
         await ReaderContext.TriggerOnInitializedEvents();
 
         Log.Verbose("ReaderPlatform: OnInitializedAsync");
-        Log.Verbose("Data-ReaderContext: {@ReaderContext}", ReaderContext);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
@@ -96,7 +95,7 @@
 
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Verbose("ReaderPlatformL: LoadTextState");
+        Log.Verbose("ReaderPlatform: LoadTextState");
     }
 
     private async Task DeleteTextState(string title) {
@@ -105,7 +104,7 @@
         await ReloadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Verbose("ReaderPlatformL: DeleteTextState");
+        Log.Verbose("ReaderPlatform: DeleteTextState");
     }
 
     private async Task ReloadSavedStates() {
@@ -115,6 +114,6 @@
             .OrderByDescending(x => x.LastRead)
             .ToList();
 
-        Log.Verbose("ReaderPlatformL: ReloadSavedStates");
+        Log.Verbose("ReaderPlatform: ReloadSavedStates");
     }
 }

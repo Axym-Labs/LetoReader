@@ -13,7 +13,7 @@ public class LoggingEventHandler : ILogEventSink
 
         using (var httpClient = new HttpClient())
         {
-            _ = Task.Run(() => httpClient.PostAsync(Data.Storage.Constants.CentralLoggerEndpoint, content));
+            _ = httpClient.PostAsync(Data.Storage.Constants.CentralLoggerEndpoint, content).Result;
         }
     }
 }

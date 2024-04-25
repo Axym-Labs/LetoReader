@@ -188,7 +188,6 @@ public class ReaderManager
     {
         if (oldTitle == newTitle)
             return;
-        Console.WriteLine("oldTitle: " + oldTitle + " newtitle: " + newTitle);
         await SiteInteraction.JSRuntime.InvokeVoidAsync("renameState", oldTitle, newTitle);
     }
 
