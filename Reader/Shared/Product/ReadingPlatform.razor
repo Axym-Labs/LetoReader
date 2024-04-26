@@ -9,18 +9,83 @@
 @using Reader.Data.Storage
 @using Reader.Data.Product
 @using Reader.Data
+@using Reader.Data.ProductExceptions
 @inject IJSRuntime JSRuntime
 @inject Constants constants
 @inject MainStorage mainstorage
 @inject AppConfig config
+@inject ISnackbar Snackbar
 
 <div class="mb-24">
     <ReaderView ReaderContext="ReaderContext" />
 </div>
 
-<h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
-    Saved Texts
-</h1>
+<div class="flex justify-between">
+    <h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
+        Saved Texts
+    </h1>
+    <div>
+        <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-5 !px-5 hover:!bg-neutral-900 centered-button-icon">
+            <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
+        </MudButton>
+        <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
+            <div class="m-8 md:m-12" style="width: min(30rem, 90vw);">
+                <div>
+                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                        1) Extract from website
+                    </h5>
+                    <MudTextField T="string" Label="Url" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.Url" />
+                    <MudRadioGroup T="string" @bind-Value="@ScrapeInputs.NewTextInputMethodString" SelectedOptionChanged="SetNewTextInputMethodString">
+                    </MudRadioGroup>
+                    <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
+                               T="string"
+                               @bind-Value="ScrapeInputs.NewTextInputMethodString">
+                        <MudSelectItem T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Largest article subsection</MudSelectItem>
+                        <MudSelectItem T="string" Value="@("XPath")" Color="Color.Tertiary">XPath</MudSelectItem>
+                    </MudSelect>
+                    @if (ScrapeInputs.NewTextInputMethodString == "XPath")
+                    {
+                        <div class="my-4">
+                            <MudTextField T="string" Label="XPath" Class="my-2" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.XPathInputs.XPath" />
+                            <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Checked="@ScrapeInputs.XPathInputs.SelectAll" />
+                        </div>
+                    }
+                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class=" hover:!bg-neutral-900">
+                        Load
+                    </MudButton>
+                </div>
+                <MudDivider Class="my-4 md:my-8" />
+                <div class="">
+                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                        2) File upload
+                    </h5>
+                    <p class="my-2">
+                        Supported file formats: @ProductStorage.SupportedFileImports
+                    </p>
+                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="">
+                        <ButtonTemplate>
+                            <MudButton Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       StartIcon="@Icons.Material.Filled.CloudUpload"
+                                       for="@context">
+                                Upload Files
+                            </MudButton>
+                        </ButtonTemplate>
+                    </MudFileUpload>
+                </div>
+                <MudDivider Class="my-4 md:my-8" />
+                <div>
+                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                        3) Empty fields
+                    </h5>
+                    <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Secondary" Class="hover:!bg-neutral-900">
+                        Create
+                    </MudButton>
+                </div>
+            </div>
+        </MudPopover>
+    </div>
+</div>
 
 <div>
     @foreach (var savedState in savedStates) {
@@ -57,6 +122,10 @@
     private string textSep = " ";
 
     List<ReaderState> savedStates = new();
+
+    bool NewTextPanelOpen = false;
+    public ScrapeInputs ScrapeInputs = new();
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -115,5 +184,56 @@
             .ToList();
 
         Log.Verbose("ReaderPlatform: ReloadSavedStates");
+    }
+
+
+
+    private void ToggleNewTextPanelOpen()
+    {
+        if (!NewTextPanelOpen && ReaderContext.Manager.ReadingStatus)
+            ReaderContext.Manager.StopReadingTask();
+
+        NewTextPanelOpen = !NewTextPanelOpen;
+
+        Log.Verbose("ReaderView: ToggleNewTextPanelOpen");
+    }
+
+    private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
+    {
+        try
+        {
+            await ReaderContext.HandleFileUpload(files);
+        }
+        catch (UnsupportedOperationException e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+            Log.Verbose("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+        }
+
+        Log.Verbose("ReaderView: HandleCopyText");
+    }
+
+    private async Task SubmitScrapingForm()
+    {
+        var scraper = new ScrapingHandler();
+        try
+        {
+            await ReaderContext.SetState(await scraper.Scrape(ScrapeInputs));
+        }
+        catch (ScrapingException e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+            Log.Verbose("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+        }
+
+        await InvokeAsync(() => { StateHasChanged(); });
+
+        Log.Verbose("ReaderView: SubmitScrapingForm");
+    }
+
+    private async Task SetNewTextInputMethodString(string text)
+    {
+        ScrapeInputs.NewTextInputMethodString = text;
+        await InvokeAsync(() => { StateHasChanged(); });
     }
 }

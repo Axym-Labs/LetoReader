@@ -36,15 +36,28 @@
         </div>
     </div>
 
-    <div class="flex justify-center mb-10">
-        <div class="m-3">
-            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateBefore" OnClick="ReaderContext.Manager.HandleNavBefore" />
+    <div class="mb-10 grid grid-cols-7 w-full">
+        <div class="col-span-2 flex justify-start">
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
+            </div>
         </div>
-        <div class="m-3">
-            <MudFab Color="Color.Primary" StartIcon="@(ReaderContext.Manager.ReadingStatus ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" OnClick="ReaderContext.Manager.HandleStartStop" />
+        <div class="flex justify-center col-span-3">
+            <div class="m-3">
+                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateBefore" OnClick="ReaderContext.Manager.HandleNavBefore" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Primary" StartIcon="@(ReaderContext.Manager.ReadingStatus ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" OnClick="ReaderContext.Manager.HandleStartStop" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
+            </div>
         </div>
-        <div class="m-3">
-            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
+        <div class="col-span-2">
+
         </div>
     </div>
 </div>
@@ -55,22 +68,13 @@
 <div class="mb-16">
     <div class="d-flex mb-4">
         <div>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleConfigPanelOpen" Color="Color.Secondary" Class="m-3">
-                Settings
-            </MudButton>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Secondary" Class="m-3">
-                New text
-            </MudButton>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleFocusMode" Color="Color.Secondary" Class="m-3">
-                Focus mode @(FocusModeOn ? "off" : "on")
-            </MudButton>
 
-            <MudPopover Open="@ConfigPanelOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="rounded-lg shadow-xl !bg-bgcol">
-                <div class="m-5" style="width: min(30rem, 90vw);">
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(ReaderContext.ConfigManager.FrontTextSize)</MudSlider>
+            <MudPopover Open="@ConfigPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol">
+                <div class="m-8 md:m-12" style="width: min(30rem, 90vw);">
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(ReaderContext.ConfigManager.FrontTextSize)</MudSlider>
                     <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
                             T="string"
                             @bind-Value="ReaderContext.ConfigManager.FrontFont">
@@ -80,63 +84,13 @@
                             <MudSelectItem Value="@type.ToString()" />
                         }
                     </MudSelect>
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontWordCharLimit" Min="1" Max="40" Step="1">Character limit per word: @(ReaderContext.ConfigManager.FrontWordCharLimit)</MudSlider>
-                    <MudSlider Color="Color.Tertiary" Class="md:my-2" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
-                    <MudColorPicker class="md:my-2" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
-                    <p class="mt-3">
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordCharLimit" Min="1" Max="40" Step="1">Character limit per word: @(ReaderContext.ConfigManager.FrontWordCharLimit)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
+                    <MudColorPicker class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
+                    <p class="my-2 md:my-4">
                         'Character limit per word' may change the reading position. Do not update it while reading.
                     </p>
-                </div>
-            </MudPopover>
-            <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
-                <div>
-                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                        1) Extract from website
-                    </h5>
-                    <MudTextField T="string" Label="Url" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.Url"/>
-                    <MudRadioGroup T="string" @bind-Value="@ScrapeInputs.NewTextInputMethodString" SelectedOptionChanged="SetNewTextInputMethodString">
-                        <MudRadio T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Largest article subsection</MudRadio>
-                        <MudRadio T="string" Value="@("XPath")" Color="Color.Tertiary">XPath</MudRadio>
-                    </MudRadioGroup>
-                    <p>
-                        @ScrapeInputs.NewTextInputMethodString
-                    </p>
-                    <div class="my-4">
-                        <MudTextField T="string" Label="XPath" Class="my-2" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.XPathInputs.XPath" Disabled="@(ScrapeInputs.NewTextInputMethodString != "XPath")" />
-                        <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Checked="@ScrapeInputs.XPathInputs.SelectAll" Disabled="@(ScrapeInputs.NewTextInputMethodString != "XPath")" />
-                    </div>
-                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class=" hover:!bg-neutral-900">
-                        Load
-                    </MudButton>
-                </div>
-                <MudDivider Class="my-4 md:my-8" />
-                <div class="">
-                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                        2) File upload
-                    </h5>
-                    <p class="my-2">
-                        Supported file formats: @ProductStorage.SupportedFileImports
-                    </p>
-                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="">
-                        <ButtonTemplate>
-                            <MudButton Variant="Variant.Filled"
-                                       Color="Color.Primary"
-                                       StartIcon="@Icons.Material.Filled.CloudUpload"
-                                       for="@context">
-                                Upload Files
-                            </MudButton>
-                        </ButtonTemplate>
-                    </MudFileUpload>
-                </div>
-                <MudDivider Class="my-4 md:my-8" />
-                <div>
-                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                        3) Empty fields
-                    </h5>
-                    <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Secondary" Class="hover:!bg-neutral-900">
-                        Create
-                    </MudButton>
                 </div>
             </MudPopover>
         </div>
@@ -144,7 +98,7 @@
 </div>
 
 <div>
-    <div class="md:flex my-5">
+    <div class="flex my-5">
         <MudTextField @ref="ReaderContext.stateTitle" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
         <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
@@ -169,9 +123,6 @@
 
     bool ConfigPanelOpen = false;
     bool FocusModeOn = false;
-    bool NewTextPanelOpen = false;
-
-    public ScrapeInputs ScrapeInputs = new();
 
 
     private void ToggleConfigPanelOpen()
@@ -182,16 +133,6 @@
         ConfigPanelOpen = !ConfigPanelOpen;
 
         Log.Verbose("ReaderView: ToggleConfigOpen");
-    }
-
-    private void ToggleNewTextPanelOpen()
-    {
-        if (!ConfigPanelOpen && ReaderContext.Manager.ReadingStatus)
-            ReaderContext.Manager.StopReadingTask();
-
-        NewTextPanelOpen = !NewTextPanelOpen;
-
-        Log.Verbose("ReaderView: ToggleNewTextPanelOpen");
     }
 
     private async Task ToggleFocusMode()
@@ -208,41 +149,6 @@
 
     private async Task HandleCopyTitle() {
         await JSRuntime.InvokeVoidAsync("copyTitle");
-    }
-
-    private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files) {
-        try
-        {
-            await ReaderContext.HandleFileUpload(files);
-        } catch (UnsupportedOperationException e) {
-            Snackbar.Add(e.Message, Severity.Error);
-            Log.Verbose("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
-        }
-
-        Log.Verbose("ReaderView: HandleCopyText");
-    }
-
-    private async Task SubmitScrapingForm() {
-        var scraper = new ScrapingHandler();
-        try
-        {
-            await ReaderContext.SetState(await scraper.Scrape(ScrapeInputs));
-        }
-        catch (ScrapingException e)
-        {
-            Snackbar.Add(e.Message, Severity.Error);
-            Log.Verbose("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
-        }
-
-        await InvokeAsync(() => { StateHasChanged(); });
-
-        Log.Verbose("ReaderView: SubmitScrapingForm");
-    }
-
-    private async Task SetNewTextInputMethodString(string text)
-    {
-        ScrapeInputs.NewTextInputMethodString = text;
-        await InvokeAsync(() => { StateHasChanged(); });
     }
 
 }
