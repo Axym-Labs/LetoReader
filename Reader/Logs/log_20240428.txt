@@ -1,0 +1,19 @@
+2024-04-28 12:03:49.952 +02:00 [INF] Test info channel
+2024-04-28 12:03:52.396 +02:00 [INF] Request Ip=::1 Url=/ Time=425.086
+2024-04-28 12:03:52.466 +02:00 [INF] Request Ip=::1 Url=/static/css/site.css Time=004.055
+2024-04-28 12:03:52.466 +02:00 [INF] Request Ip=::1 Url=/static/js/twConfig.js Time=000.440
+2024-04-28 12:03:52.467 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=001.208
+2024-04-28 12:03:52.466 +02:00 [INF] Request Ip=::1 Url=/static/assets/logo.png Time=000.405
+2024-04-28 12:03:52.560 +02:00 [INF] Request Ip=::1 Url=/static/js/baseDomManagement.js Time=001.409
+2024-04-28 12:03:52.560 +02:00 [INF] Request Ip=::1 Url=/static/js/readerStorageManagement.js Time=000.207
+2024-04-28 12:03:52.779 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.687
+2024-04-28 12:03:52.888 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=008.214
+2024-04-28 12:11:43.715 +02:00 [INF] Request Ip=::1 Url=/ Time=020.176
+2024-04-28 12:11:43.737 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=470838.487
+2024-04-28 12:11:43.760 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.996
+2024-04-28 12:11:43.768 +02:00 [INF] Request Ip=::1 Url=/static/js/twConfig.js Time=001.820
+2024-04-28 12:11:44.442 +02:00 [INF] Request Ip=::1 Url=/static/js/baseDomManagement.js Time=000.424
+2024-04-28 12:11:44.468 +02:00 [INF] Request Ip=::1 Url=/static/js/readerStorageManagement.js Time=026.431
+2024-04-28 12:11:45.803 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.596
+2024-04-28 12:11:46.507 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.489
+2024-04-28 12:11:47.839 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.051

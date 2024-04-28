@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="mb-10 grid grid-cols-7 w-full">
+    <div class="mb-10 grid sm:grid-cols-7 grid-cols-3 w-full">
         <div class="col-span-2 flex justify-start">
             <div class="m-3">
                 <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
@@ -137,6 +137,10 @@
 
     private async Task ToggleFocusMode()
     {
+
+        if (ConfigPanelOpen)
+            ToggleConfigPanelOpen();
+
         await JSRuntime.InvokeVoidAsync(FocusModeOn ? "deactivateFocusMode" : "activateFocusMode");
         FocusModeOn = !FocusModeOn;
 

@@ -326,3 +326,14 @@
 2024-04-26 12:58:04.176 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.374
 2024-04-26 12:58:06.223 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.389
 2024-04-26 12:58:08.256 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.270
+2024-04-26 13:00:33.388 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=1042138.859
+2024-04-26 13:00:33.366 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=145100.581
+2024-04-26 13:30:23.431 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=2833514.329
+2024-04-26 13:30:28.846 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.216
+2024-04-26 13:31:24.645 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=55794.748
+2024-04-26 13:31:28.703 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.120
+2024-04-26 13:32:29.301 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=60591.509
+2024-04-26 17:10:19.229 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.214
+2024-04-26 17:10:29.608 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=10373.301
+2024-04-26 19:37:30.291 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.397
+2024-04-26 19:37:30.916 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=526.145
