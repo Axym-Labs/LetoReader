@@ -47,7 +47,7 @@ public class ReaderManager
         TextPieces = newTextPieces;
         ClampPosition();
 
-        Log.Verbose("ReaderContext: SetupTextPieces");
+        Log.Information("ReaderContext: SetupTextPieces");
     }
 
     public void HandleStartStop()
@@ -76,7 +76,7 @@ public class ReaderManager
         }, ReadingTaskTokenSource.Token);
         readerTask.Start();
 
-        Log.Verbose("ReaderContext: StartReadingTask");
+        Log.Information("ReaderContext: StartReadingTask");
     }
 
     public void StopReadingTask()
@@ -92,7 +92,7 @@ public class ReaderManager
             ReadingTaskTokenSource.Dispose();
         }
 
-        Log.Verbose("ReaderContext: StartReadingTask");
+        Log.Information("ReaderContext: StartReadingTask");
     }
 
     private async Task ReadingTask(double interval, CancellationToken ct)

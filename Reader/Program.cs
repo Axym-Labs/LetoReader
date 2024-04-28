@@ -8,7 +8,6 @@ using MudBlazor.Services;
 
 using Reader.Modules.Logging;
 using Reader.Modules.Middleware;
-using Reader.Modules.Db;
 using Reader.Data.Storage;
 using Reader.Data;
 
@@ -71,8 +70,7 @@ builder.Services.AddSignalR(e => {
 // DB TESTING 
 
 #if DEBUG
-var con = new TestDbContext();
-Log.Information("Test info channel");
+Log.Warning("Test");
 #endif
 
 // MODULES
@@ -81,11 +79,6 @@ builder.Services.AddSingleton<Constants>();
 builder.Services.AddSingleton<BaseUIStorage>();
 builder.Services.AddScoped<LoggingMiddleware>();
 builder.Services.AddScoped<AppConfig>();
-
-builder.Services.AddScoped(provider =>
-{
-    return new UserManager(new TestDbContext());
-});
 
 // prevents 404 when switching environments - see https://github.com/MudBlazor/Templates/commit/62e13c61058b419b8957f7d19f38c69a70ef50e6
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);

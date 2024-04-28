@@ -146,7 +146,7 @@
 
         await ReaderContext.TriggerOnInitializedEvents();
 
-        Log.Verbose("ReaderPlatform: OnInitializedAsync");
+        Log.Information("ReaderPlatform: OnInitializedAsync");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
@@ -171,7 +171,7 @@
 
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Verbose("ReaderPlatform: LoadTextState");
+        Log.Information("ReaderPlatform: LoadTextState");
     }
 
     private async Task DeleteTextState(string title) {
@@ -180,7 +180,7 @@
         await ReloadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Verbose("ReaderPlatform: DeleteTextState");
+        Log.Information("ReaderPlatform: DeleteTextState");
     }
 
     private async Task ReloadSavedStates() {
@@ -190,7 +190,7 @@
             .OrderByDescending(x => x.LastRead)
             .ToList();
 
-        Log.Verbose("ReaderPlatform: ReloadSavedStates");
+        Log.Information("ReaderPlatform: ReloadSavedStates");
     }
 
 
@@ -202,7 +202,7 @@
 
         NewTextPanelOpen = !NewTextPanelOpen;
 
-        Log.Verbose("ReaderView: ToggleNewTextPanelOpen");
+        Log.Information("ReaderView: ToggleNewTextPanelOpen");
     }
 
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
@@ -214,10 +214,10 @@
         catch (UnsupportedOperationException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Verbose("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            Log.Information("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
 
-        Log.Verbose("ReaderView: HandleCopyText");
+        Log.Information("ReaderView: HandleCopyText");
     }
 
     private async Task SubmitScrapingForm()
@@ -230,12 +230,12 @@
         catch (ScrapingException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Verbose("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            Log.Information("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
 
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Verbose("ReaderView: SubmitScrapingForm");
+        Log.Information("ReaderView: SubmitScrapingForm");
     }
 
     private async Task SetNewTextInputMethodString(string text)

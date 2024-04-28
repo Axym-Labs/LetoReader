@@ -101,7 +101,7 @@ public class ReaderContext
 
         Manager = new(ref _state, ref _config, SiteInteraction);
 
-        Log.Verbose("ReaderContext: InitializeReader");
+        Log.Information("ReaderContext: InitializeReader");
     }
 
     private void InitializeConfigManager()
@@ -130,7 +130,7 @@ public class ReaderContext
         await SetState(readerState);
         await Manager.UpdateSavedState();
 
-        Log.Verbose("ReaderContext: HandleNewText");
+        Log.Information("ReaderContext: HandleNewText");
     }
 
     public async Task HandleStateUpdated(ReaderState newState)

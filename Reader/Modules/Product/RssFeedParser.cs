@@ -37,7 +37,7 @@ public static class RssFeedParser
 
                 if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(link) || string.IsNullOrEmpty(pubDate))
                 {
-                    throw new FeedException("Invalid RSS feed format. Required elements not found.");
+                    
                 }
 
                 DateTime? date = null;
