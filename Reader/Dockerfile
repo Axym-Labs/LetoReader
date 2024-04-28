@@ -9,7 +9,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Reader.csproj", "/src/Reader.csproj"]
+COPY ["Reader/Reader.csproj", "/src/Reader.csproj"]
 RUN dotnet restore "Reader.csproj"
 COPY . .
 WORKDIR /src
