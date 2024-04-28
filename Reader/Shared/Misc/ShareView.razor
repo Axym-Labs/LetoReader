@@ -2,6 +2,8 @@
 
 @using MudBlazor
 @using Reader.Modules.Logging
+@using System.Web
+@using Reader.Data.Storage
 
 <div class="flex justify-center">
     <MudButton Class="m-3 rounded-lg text-white !border !border-gray-500 p-2 px-4 bg-black shadow-lg" OnClick="ToggleSharePopover">
@@ -15,22 +17,20 @@
                 </path>
             </svg> *@
             <MudIcon Icon="@Icons.Material.Filled.Star" Size="Size.Small" Class="mr-1"></MudIcon>
-            <p style="font-size: 1rem;" class="inline-block ml-0.5">
-                Star
-            </p>
+            Star
         </a>
     </MudButton>
 
     <MudPopover Open="@SharePopoverOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
         <div class="grid grid-cols-4">
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/x?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/reddit.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/mastodon.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/whatsapp?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/whatsapp.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" class="w-12 h-10"></a>
-            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Faxym.davidewiest.com&amp;linkname=Axym%20Reader%20-%20Free%20Open-Source%20Speed%20Reading" target="_blank"><img src="https://static.addtoany.com/buttons/link.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/x?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/reddit?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/reddit.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/facebook?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/linkedin?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/mastodon?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/mastodon.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/whatsapp?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/whatsapp.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/email?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/copy_link?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/link.svg" class="w-12 h-10"></a>
         </div>
         <!-- AddToAny END -->
     </MudPopover>

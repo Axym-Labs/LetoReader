@@ -7,12 +7,18 @@
 @using Reader.Modules
 @inject IJSRuntime JSRuntime
 
-<div>
-
-    @foreach (var announcement in Announcements)
-    {
-        <AnnouncementComponent Announcement="announcement" Read="ReadAnnouncements.Contains(announcement.Id)" />
-    }
+<div class="border border-neutral-500 rounded-md">
+    <div class="border-b border-neutral-500 mb-6">
+        <h1 class="text-xl px-8 text-uppercase font-semibold text-b700 text-neutral-500 py-4 rounded-tl-xl rounded-tr-xl">
+            News
+        </h1>
+    </div>
+    <div class="overflow-scroll" style="max-height: 32rem;">
+        @foreach (var announcement in Announcements)
+        {
+            <AnnouncementComponent Announcement="announcement" Read="ReadAnnouncements.Contains(announcement.Id)" CloseAnnouncement="(() => CloseAnnouncement(announcement.Id))" />
+        }
+    </div>
 </div>
 
 
@@ -35,4 +41,9 @@
         }
     }
 
+    private void CloseAnnouncement(int id)
+    {
+        Announcements.RemoveAll(x => x.Id == id);
+        StateHasChanged();
+    }
 }

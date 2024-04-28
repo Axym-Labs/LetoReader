@@ -13,6 +13,7 @@
     <PackageReference Include="EpubSharp.dll" Version="1.1.5" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.58" />
     <PackageReference Include="iTextSharp.LGPLv2.Core" Version="3.4.15" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
     <PackageReference Include="MarkedNet" Version="2.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />

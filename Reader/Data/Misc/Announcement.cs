@@ -1,4 +1,8 @@
-﻿namespace Reader.Data.Misc;
+﻿using MudBlazor;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Reader.Data.Misc;
 
 public class Announcement
 {
@@ -7,16 +11,26 @@ public class Announcement
     public int ShowForDays { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
+    public string Type { get; set; }
+    public Color Color => Type switch
+    {
+        "Info" => Color.Info,
+        "Success" => Color.Success,
+        "Important" => Color.Warning,
+        "Critical" => Color.Error,
+        _ => Color.Primary
+    };
     public bool Priority { get; set; }
     public AnnouncementAction Action { get; set; }
 
-    public Announcement(int id, DateTime date, int showForDays, string title, string description, bool priority, AnnouncementAction action)
+    public Announcement(int id, DateTime date, int showForDays, string title, string description, string type, bool priority, AnnouncementAction action)
     {
         Id = id;
         Date = date;
         ShowForDays = showForDays;
         Title = title;
         Description = description;
+        Type = type;
         Priority = priority;
         Action = action;
     }
