@@ -1,0 +1,32 @@
+﻿@namespace Reader.Shared.Misc
+
+
+@using MudBlazor
+@using Reader.Data.Misc
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<div>
+
+</div>
+
+
+
+
+@code {
+    [Parameter]
+    public Announcement Announcement { get; set; } = default!;
+
+    [Parameter]
+    public bool Read { get; set; }
+
+    public bool IsOpen { get; set; } = false; 
+
+    private async Task MarkAsRead()
+    {
+        IsOpen = false;
+        await JSRuntime.InvokeVoidAsync("markAnnouncementRead", Announcement.Id);
+    }
+
+}
+

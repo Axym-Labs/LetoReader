@@ -37,6 +37,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="static\js\announcementManagement.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="static\js\announcementManagement.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
     <!-- <Content Include="static\**"> 

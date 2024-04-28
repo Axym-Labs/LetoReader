@@ -71,6 +71,12 @@
 
             <MudPopover Open="@ConfigPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol">
                 <div class="m-8 md:m-12" style="width: min(30rem, 90vw);">
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-xl font-semibold">
+                            Configuration
+                        </p>
+                        <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleConfigPanelOpen" />
+                    </div>
                     <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
                     <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
                     <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
@@ -91,6 +97,7 @@
                     <p class="my-2 md:my-4">
                         'Character limit per word' may change the reading position. Do not update it while reading.
                     </p>
+                    
                 </div>
             </MudPopover>
         </div>

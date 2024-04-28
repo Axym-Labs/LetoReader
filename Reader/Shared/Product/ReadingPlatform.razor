@@ -30,14 +30,18 @@
         </MudButton>
         <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
             <div class="m-8 md:m-12" style="width: min(30rem, 90vw);">
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-xl font-semibold">
+                        Create new text
+                    </p>
+                    <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleNewTextPanelOpen" />
+                </div>
                 <div>
                     <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
                         1) Extract from website
                     </h5>
                     <MudTextField T="string" Label="Url" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.Url" />
-                    <MudRadioGroup T="string" @bind-Value="@ScrapeInputs.NewTextInputMethodString" SelectedOptionChanged="SetNewTextInputMethodString">
-                    </MudRadioGroup>
-                    <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
+                    <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Method" Class="mt-4"
                                T="string"
                                @bind-Value="ScrapeInputs.NewTextInputMethodString">
                         <MudSelectItem T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Largest article subsection</MudSelectItem>
@@ -50,11 +54,13 @@
                             <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Checked="@ScrapeInputs.XPathInputs.SelectAll" />
                         </div>
                     }
-                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class=" hover:!bg-neutral-900">
+                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class="mt-8 hover:!bg-neutral-900">
                         Load
                     </MudButton>
                 </div>
-                <MudDivider Class="my-4 md:my-8" />
+                <div class="my-8 md:my-16">
+                    <MudDivider />
+                </div>
                 <div class="">
                     <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
                         2) File upload
@@ -62,18 +68,20 @@
                     <p class="my-2">
                         Supported file formats: @ProductStorage.SupportedFileImports
                     </p>
-                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="">
+                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="my-8">
                         <ButtonTemplate>
                             <MudButton Variant="Variant.Filled"
                                        Color="Color.Primary"
-                                       StartIcon="@Icons.Material.Filled.CloudUpload"
+                                       StartIcon="@Icons.Material.Filled.FileUpload"
                                        for="@context">
-                                Upload Files
+                                Select Files
                             </MudButton>
                         </ButtonTemplate>
                     </MudFileUpload>
                 </div>
-                <MudDivider Class="my-4 md:my-8" />
+                <div class="my-8 md:my-16">
+                    <MudDivider />
+                </div>
                 <div>
                     <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
                         3) Empty fields
@@ -125,7 +133,6 @@
 
     bool NewTextPanelOpen = false;
     public ScrapeInputs ScrapeInputs = new();
-
 
     protected override async Task OnInitializedAsync()
     {
