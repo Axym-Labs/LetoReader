@@ -37,6 +37,6 @@ jobs:
       with:
         context: .
         push: true
-        file: Dockerfile
+        file: Reader/Dockerfile
         tags: davidewiest/reader:latest
 
