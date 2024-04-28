@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using Newtonsoft.Json;
 using Reader.Data.Product;
+using Reader.Data.Reading;
 using Reader.Data.Storage;
 using Reader.Modules.Logging;
 
@@ -181,7 +182,7 @@ public class ReaderContext
         State.Text = Text.Trim();
         if (State.Text == string.Empty)
         {
-            State.Text = ProductStorage.DefaultNewText;
+            State.Text = ProductConstants.DefaultNewText;
 
             // should work without this line
             await SetState(State);
@@ -205,7 +206,7 @@ public class ReaderContext
 
         if (State.Text == string.Empty)
         {
-            State.Text = ProductStorage.DefaultNewTitle;
+            State.Text = ProductConstants.DefaultNewTitle;
 
             // should work without this line
             await SetState(State);

@@ -1,14 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace Reader.Modules;
-
-public class ScrapingException : Exception
-{
-    public ScrapingException(string message) : base(message)
-    {
-
-    }
-}
+namespace Reader.Modules.Product;
 
 public record WebsiteData<T>()
 {
@@ -29,7 +21,8 @@ public class WebExtractor
 
     }
 
-    public async Task Load(string url) {
+    public async Task Load(string url)
+    {
         var html = await GetHtml(url);
         if (string.IsNullOrEmpty(html))
         {
@@ -38,8 +31,8 @@ public class WebExtractor
 
         doc.LoadHtml(html);
     }
-    
-    public HtmlNode GetNodeByXPath( string xpath)
+
+    public HtmlNode GetNodeByXPath(string xpath)
     {
         return GetNodeByXPathJoined(xpath).First();
     }

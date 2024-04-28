@@ -3,6 +3,7 @@ using Microsoft.JSInterop;
 using System.Text;
 using Newtonsoft.Json;
 using Reader.Modules.Logging;
+using Reader.Data.Reading;
 
 namespace Reader.Modules.Product;
 

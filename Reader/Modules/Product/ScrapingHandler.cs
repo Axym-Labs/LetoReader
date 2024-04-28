@@ -1,6 +1,7 @@
-﻿namespace Reader.Modules;
+﻿namespace Reader.Modules.Product;
 
 using Reader.Data.Product;
+using Reader.Data.Reading;
 
 public class ScrapingHandler
 {
@@ -18,8 +19,8 @@ public class ScrapingHandler
         var text = inputs.NewTextInputMethod switch
         {
             NewTextInputMethod.LargestArticleSubsection => websiteInfo.GetLargestArticleNode().InnerText,
-            NewTextInputMethod.XPath => 
-            inputs.XPathInputs.SelectAll 
+            NewTextInputMethod.XPath =>
+            inputs.XPathInputs.SelectAll
             ? websiteInfo.GetAllNodesByXPath(inputs.XPathInputs.XPath).Select(node => node.InnerText).Aggregate(JoinSections)
             : websiteInfo.GetNodeByXPath(inputs.XPathInputs.XPath).InnerText,
             _ => throw new ScrapingException("Invalid new text input method")

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Reader.Data.ProductExceptions;
 using Microsoft.VisualBasic;
 using Reader.Data.Storage;
-using Reader.Data.Product;
+using Reader.Data.Reading;
 
 namespace Reader.Modules;
 
@@ -71,7 +71,7 @@ public class FileHelper
 
         if (fileSupported.All(x => !x))
         {
-            throw new UnsupportedOperationException("Unsupported file type", "Supported file type are: " + ProductStorage.SupportedFileImports);
+            throw new UnsupportedOperationException("Unsupported file type", "Supported file type are: " + ProductConstants.SupportedFileImports);
         }
 
         string title = String.Join(", ", files.Select(

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Reader.Data.Product;
+namespace Reader.Data.Reading;
 
 public class ReaderConfig
 {
@@ -23,7 +23,8 @@ public class ReaderConfig
     }
 }
 
-public enum Font {
+public enum Font
+{
     Inter,
     InterTight,
     Merriweather,

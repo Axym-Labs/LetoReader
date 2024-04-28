@@ -14,7 +14,7 @@ public class Link
     }
 }
 
-public class FundamentalStorage
+public class BaseUIStorage
 {
     public class Navbar
     {

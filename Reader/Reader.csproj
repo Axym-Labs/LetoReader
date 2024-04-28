@@ -48,6 +48,7 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
+    <Folder Include="static\img\" />
     <!-- <Content Include="static\**"> 
       <CopyToOutputDirectory>Always</CopyToOutputDirectory> 
     </Content> 

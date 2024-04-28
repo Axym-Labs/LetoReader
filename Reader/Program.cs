@@ -78,8 +78,7 @@ Log.Information("Test info channel");
 // MODULES
 
 builder.Services.AddSingleton<Constants>();
-builder.Services.AddSingleton<FundamentalStorage>();
-builder.Services.AddSingleton<MainStorage>();
+builder.Services.AddSingleton<BaseUIStorage>();
 builder.Services.AddScoped<LoggingMiddleware>();
 builder.Services.AddScoped<AppConfig>();
 

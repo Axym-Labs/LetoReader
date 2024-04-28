@@ -6,6 +6,7 @@ using Reader.Data.Product;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using Reader.Data.Reading;
 
 namespace Reader.Modules.Product;
 
