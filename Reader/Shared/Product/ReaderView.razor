@@ -1,19 +1,20 @@
 @namespace Reader.Shared.Product
 
-@    using MudBlazor
-@    using MudBlazorFix
-@    using Reader.Shared
-@    using Reader.Modules
-@    using Reader.Modules.Product
-@    using Reader.Data.Storage
-@    using Reader.Data.Product
-@    using Newtonsoft.Json
-@    using System.Text
-@    using Reader.Data.ProductExceptions
-@    using Reader.Modules.Logging
+@using MudBlazor
+@using MudBlazorFix
+@using Reader.Shared
+@using Reader.Modules
+@using Reader.Modules.Product
+@using Reader.Modules.Reading
+@using Reader.Data.Storage
+@using Reader.Data.Product
+@using Newtonsoft.Json
+@using System.Text
+@using Reader.Data.ProductExceptions
+@using Reader.Modules.Logging
+@using Reader.Data.Reading
 @inject Constants constants
 @inject IJSRuntime JSRuntime
-@inject MainStorage mainstorage
 @inject ISnackbar Snackbar
 
 
@@ -110,7 +111,7 @@
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
         <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
     </div>
-    <MudTextField @ref="ReaderContext.stateText" class="focus:!border-tertiary" Disabled="@(ReaderContext.State.Text.Length >= ProductStorage.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
+    <MudTextField @ref="ReaderContext.stateText" class="focus:!border-tertiary" Disabled="@(ReaderContext.State.Text.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
     <div class="my-3">
         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>

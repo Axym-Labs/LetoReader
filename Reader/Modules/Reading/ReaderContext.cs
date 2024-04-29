@@ -1,4 +1,4 @@
-﻿namespace Reader.Modules.Product;
+﻿namespace Reader.Modules.Reading;
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -8,6 +8,7 @@ using Reader.Data.Product;
 using Reader.Data.Reading;
 using Reader.Data.Storage;
 using Reader.Modules.Logging;
+using Reader.Modules.Product;
 
 public class ReaderContext
 {
@@ -35,7 +36,7 @@ public class ReaderContext
     public async Task TriggerOnInitializedEvents()
     {
         // set default state and config for initialization of reader
-        await SetState(ReaderState.GetDemo());
+        await SetState(ReaderState.GetDemo(ReaderStateSource.Program, "Automatic initialization until storage is loaded"));
         await SetConfig(ReaderConfig.GetDefault());
 
         // init reader
@@ -56,7 +57,7 @@ public class ReaderContext
         await LoadConfig();
 
         // start reader if demo
-        if (State.Title == ReaderState.GetDemo().Title)
+        if (State.Title == ReaderState.GetDemo(ReaderStateSource.Program).Title)
             Manager.StartReadingTask();
     }
 
@@ -116,12 +117,12 @@ public class ReaderContext
 
     public async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
-        await HandleNewText(await FileHelper.ExtractFromBrowserFiles(files));
+        await HandleNewText(await FileImporter.ExtractFromBrowserFiles(files));
     }
 
     public async Task HandleNewText()
     {
-        await HandleNewText(ReaderState.GetNew());
+        await HandleNewText(ReaderState.GetNew(ReaderStateSource.Internal, "Manual creation"));
     }
 
     private async Task HandleNewText(ReaderState readerState)

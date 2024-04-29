@@ -1,18 +1,19 @@
 @namespace Reader.Shared.Product
 
-@    using MudBlazor
-@    using Reader.Shared
-@    using Reader.Modules
-@    using Reader.Modules.Logging
-@    using Reader.Modules.Product
-@    using Newtonsoft.Json
-@    using Reader.Data.Storage
-@    using Reader.Data.Product
-@    using Reader.Data
-@    using Reader.Data.ProductExceptions
+@using MudBlazor
+@using Reader.Shared
+@using Reader.Modules
+@using Reader.Modules.Logging
+@using Reader.Modules.Product
+@using Reader.Modules.Reading
+@using Newtonsoft.Json
+@using Reader.Data.Storage
+@using Reader.Data.Product
+@using Reader.Data.Reading
+@using Reader.Data
+@using Reader.Data.ProductExceptions
 @inject IJSRuntime JSRuntime
 @inject Constants constants
-@inject MainStorage mainstorage
 @inject AppConfig config
 @inject ISnackbar Snackbar
 
@@ -66,7 +67,7 @@
                         2) File upload
                     </h5>
                     <p class="my-2">
-                        Supported file formats: @ProductStorage.SupportedFileImports
+                        Supported file formats: @ProductConstants.SupportedFileImports
                     </p>
                     <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="my-8">
                         <ButtonTemplate>
@@ -222,10 +223,9 @@
 
     private async Task SubmitScrapingForm()
     {
-        var scraper = new ScrapingHandler();
         try
         {
-            await ReaderContext.SetState(await scraper.Scrape(ScrapeInputs));
+            await ReaderContext.SetState(await ReaderState.Scrape(ScrapeInputs));
         }
         catch (ScrapingException e)
         {

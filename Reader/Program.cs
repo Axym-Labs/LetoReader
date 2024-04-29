@@ -98,7 +98,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Fundamental/Error");
+    app.UseExceptionHandler("/Base/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -117,6 +117,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.MapControllers();
 app.MapBlazorHub();
-app.MapFallbackToPage("/Fundamental/_Host");
+app.MapFallbackToPage("/Base/_Host");
 
 app.Run();

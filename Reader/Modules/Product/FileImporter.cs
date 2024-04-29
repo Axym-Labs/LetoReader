@@ -11,13 +11,12 @@ using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components.Forms;
 using Reader.Data.ProductExceptions;
-using Microsoft.VisualBasic;
 using Reader.Data.Storage;
 using Reader.Data.Reading;
 
-namespace Reader.Modules;
+namespace Reader.Modules.Product;
 
-public class FileHelper
+public class FileImporter
 {
     private static Regex trimWhitespace = new(@"\s\s+", RegexOptions.Compiled);
 
@@ -55,7 +54,8 @@ public class FileHelper
                 else if (file.ContentType == "text/html")
                 {
                     sb.Append(ExtractStringFromHTMLStr(Encoding.UTF8.GetString(fileBytes)));
-                } else
+                }
+                else
                 {
                     fileSupported[i] = false;
                     continue;
@@ -74,14 +74,19 @@ public class FileHelper
             throw new UnsupportedOperationException("Unsupported file type", "Supported file type are: " + ProductConstants.SupportedFileImports);
         }
 
-        string title = String.Join(", ", files.Select(
+        string title = string.Join(", ", files.Select(
            file => file.Name.Substring(0, file.Name.LastIndexOf('.'))
         ));
 
-        return new ReaderState(title, sb.ToString());
+        string sourceDescription = "Upload of: " + string.Join(", ", files.Select(
+           file => file.Name)
+        );
+
+        return new ReaderState(title, sb.ToString(), ReaderStateSource.FileUpload, sourceDescription);
     }
 
-    public static string ExtractStringFromPDF(byte[] byteArr) {
+    public static string ExtractStringFromPDF(byte[] byteArr)
+    {
         StringBuilder sb = new();
 
         using (var document = PdfDocument.Open(byteArr))
@@ -94,9 +99,10 @@ public class FileHelper
             }
         }
         return sb.ToString();
-    }   
+    }
 
-    public static string ExtractStringFromHTMLStr(string htmlstr) {
+    public static string ExtractStringFromHTMLStr(string htmlstr)
+    {
         var doc = new HtmlDocument();
         doc.LoadHtml(htmlstr);
         return doc.DocumentNode.InnerText;
@@ -105,11 +111,12 @@ public class FileHelper
     public static string ExtractFromEpub(byte[] arr)
     {
         EpubBook book = EpubReader.Read(arr);
-        return trimWhitespace.Replace(book.ToPlainText()," ");
+        return trimWhitespace.Replace(book.ToPlainText(), " ");
 
     }
 
-    public static string ExtractStringFromMdStr(string mdStr) {
+    public static string ExtractStringFromMdStr(string mdStr)
+    {
         return ExtractStringFromHTMLStr(new Marked().Parse(mdStr));
     }
 }

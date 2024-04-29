@@ -2,6 +2,8 @@
 
 namespace Reader.Modules.Product;
 
+using Reader.Data.ProductExceptions;
+
 public record WebsiteData<T>()
 {
     public string Url { get; set; }

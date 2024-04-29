@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Reader.Modules.Logging;
 using Reader.Data.Reading;
 
-namespace Reader.Modules.Product;
+namespace Reader.Modules.Reading;
 
 public class ReaderManager
 {

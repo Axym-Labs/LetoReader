@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Reader.Data.Reading;
 
-namespace Reader.Modules.Product;
+namespace Reader.Modules.Reading;
 
 public class ReaderConfigManager
 {
