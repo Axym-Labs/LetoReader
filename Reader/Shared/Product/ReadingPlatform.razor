@@ -199,8 +199,13 @@
             Snackbar.Add("Request body was set, but not in JSON-format. This is an error of the application you are using, that directed you to the reader.", Severity.Warning);
         }
 
-        var RequestReaderState = requestObj!["ReaderState"]?.Value<ReaderState?>();
-        var RequestFiles = requestObj!["Files"]?.Value<List<IBrowserFile>?>();
+        ReaderState? RequestReaderState = null;
+        if (requestObj!["ReaderState"] != null && requestObj["ReaderState"]?.Value<string>() != null)
+        {
+            RequestReaderState = ReaderState.ImportFromJson(requestObj!["ReaderState"]!.Value<string>()!);
+        }
+
+        var RequestFiles = requestObj!["Files"]?.Value<List<GenericFile>?>();
         var RequestScrapeInputs = requestObj!["ScrapeInputs"]?.Value<ScrapeInputs?>();
 
         if (RequestReaderState != null)
@@ -278,7 +283,10 @@
 
     private async Task ReloadSavedStates() {
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
-        savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
+        if (JsonConvert.DeserializeObject<List<string>>(savedStatesStr) == null)
+            return;
+
+        savedStates = JsonConvert.DeserializeObject<List<string>>(savedStatesStr)!.Select(x => ReaderState.ImportFromJson(x)).ToList() ?? new List<ReaderState>();
         savedStates = savedStates
             .OrderByDescending(x => x.LastRead)
             .ToList();

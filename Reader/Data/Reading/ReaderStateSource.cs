@@ -2,6 +2,7 @@
 
 public enum ReaderStateSource
 {
+    Unknown,
     Program,
     Internal,
     FileUpload,

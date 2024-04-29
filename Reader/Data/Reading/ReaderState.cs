@@ -27,7 +27,7 @@ public class ReaderState
         LastRead = lastRead ?? DateTime.Now;
     }
 
-    public static ReaderState ImportFromJson(string json, ReaderStateSource sourceBackup, string? sourceDescriptionBackup = null, string? version = null)
+    public static ReaderState ImportFromJson(string json, string? version = null)
     {
         JObject? stateObj = JsonConvert.DeserializeObject<JObject>(json);
 
@@ -42,15 +42,15 @@ public class ReaderState
 
         string text = stateObj["Text"]!.Value<string>()!;
         DateTime lastRead = stateObj["LastRead"]?.Value<DateTime>() ?? DateTime.Now;
-        ReaderStateSource source;
-        if (stateObj["Source"] != null)
+   
+        if (stateObj["Source"] == null || stateObj["Source"]!.Value<string>() == null)
         {
-            source = stateObj["Source"]!.Value<ReaderStateSource>();
-        } else
-        {
-            source = sourceBackup;
+            throw new ArgumentException("Source is missing but required");
         }
-        string? sourceDescription = stateObj["SourceDescription"]?.Value<string>() ?? sourceDescriptionBackup;
+
+        ReaderStateSource source = stateObj["Source"]!.Value<ReaderStateSource>();
+
+        string? sourceDescription = stateObj["SourceDescription"]?.Value<string>();
 
         string title = stateObj["Title"]?.Value<string>() ?? GetNew(source, sourceDescription).Title;
 
