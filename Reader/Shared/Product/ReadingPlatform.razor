@@ -111,7 +111,7 @@
                     @savedState.Title
                 </h3>
                 <p class="text-gray-400 min-w-20">
-                    @savedState.LastRead
+                    <MudChip Color="Color.Default" Disabled="true">@savedState.LastRead</MudChip>
                 </p>
             </div>
             <div class="my-4">
@@ -148,12 +148,6 @@
     [Parameter]
     public bool AllowRequestAccess { get; set; } = false;
 
-    // public ReaderState? RequestReaderState { get; set; } = null;
-
-    // public List<IBrowserFile>? RequestFiles { get; set; } = null;
-
-    // public ScrapeInputs? RequestScrapeInputs { get; set; } = null;
-
     protected override async Task OnInitializedAsync()
     {
 
@@ -189,32 +183,8 @@
 
     public async Task TryImportStateRequestBody()
     {
-        if (httpContextAccessor.HttpContext == null)
-        {
-            Log.Warning("Unable to access HttpContext");
-        }
 
-        Console.WriteLine(httpContextAccessor.HttpContext);
-        Console.WriteLine(httpContextAccessor.HttpContext!.Request);
-        Console.WriteLine(httpContextAccessor.HttpContext!.Request.Body);
-
-        string requestString;
-
-        using (StreamReader reader = new StreamReader(httpContextAccessor.HttpContext!.Request.Body, Encoding.UTF8))
-        {
-            StringBuilder requestContent = new StringBuilder();
-            char[] buffer = new char[1024]; // Adjust buffer size as needed
-            int charsRead;
-            Console.WriteLine(await reader.ReadAsync(buffer, 0, buffer.Length));
-            while ((charsRead = await reader.ReadAsync(buffer, 0, buffer.Length)) > 0)
-            {
-                requestContent.Append(buffer, 0, charsRead);
-            }
-            requestString = requestContent.ToString();
-            // Use requestBody for further processing
-            Console.WriteLine("requestString");
-            Console.WriteLine(requestString);
-        }
+        string requestString = await GetRequestBody();
 
 
         if (String.IsNullOrEmpty(requestString))
@@ -226,7 +196,7 @@
 
         if (requestObj == null)
         {
-            Snackbar.Add("Request body was set, but not in JSON-format. This is an error of the application you are using, that directed you to the reader.", Severity.Error);
+            Snackbar.Add("Request body was set, but not in JSON-format. This is an error of the application you are using, that directed you to the reader.", Severity.Warning);
         }
 
         var RequestReaderState = requestObj!["ReaderState"]?.Value<ReaderState?>();
@@ -247,8 +217,38 @@
             ScrapeInputs = RequestScrapeInputs;
             await SubmitScrapingForm();
             ScrapeInputs = si2;
+        } else
+        {
+            Snackbar.Add("Importing not successful: Did not find any resource to import", Severity.Error);
+            return;
         }
 
+        Snackbar.Add("Importing successful", Severity.Success);
+
+    }
+
+    private async Task<string> GetRequestBody()
+    {
+        if (httpContextAccessor.HttpContext == null)
+        {
+            Log.Warning("Unable to access HttpContext");
+        }
+
+        using (StreamReader reader = new StreamReader(httpContextAccessor.HttpContext!.Request.Body, Encoding.UTF8))
+        {
+            string requestContent = "";
+            char[] buffer = new char[100];
+            int charReadCount = await reader.ReadAsync(buffer, 0, buffer.Length);
+            while (charReadCount > 0)
+            {
+                char[] buf2 = new char[charReadCount];
+                buf2 = buffer.Take(charReadCount).ToArray();
+                requestContent += String.Join("", buf2);
+                charReadCount = await reader.ReadAsync(buffer, 0, buffer.Length);
+            }
+
+            return requestContent;
+        }
     }
 
     private async Task SetUpSavedStates() {
