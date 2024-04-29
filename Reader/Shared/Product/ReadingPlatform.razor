@@ -15,7 +15,8 @@
 @using Microsoft.AspNetCore.Mvc
 @using Microsoft.AspNetCore.Mvc.ModelBinding
 @using Microsoft.AspNetCore.Http
-@using Newtonsoft.Json.Linq;
+@using Newtonsoft.Json.Linq
+@using System.Text
 
 @inject IJSRuntime JSRuntime
 @inject Constants constants
@@ -180,14 +181,7 @@
             // handle usage of data from the request body
             if (AllowRequestAccess)
             {
-                if (httpContextAccessor.HttpContext == null)
-                {
-                    Log.Warning("Unable to access HttpContext");
-                }
-                else
-                {
-                    await TryImportStateRequestBody();
-                }
+                await TryImportStateRequestBody();
             }
 
         }
@@ -195,7 +189,33 @@
 
     public async Task TryImportStateRequestBody()
     {
-        var requestString = new StreamReader(httpContextAccessor.HttpContext!.Request.Body).ReadToEnd();
+        if (httpContextAccessor.HttpContext == null)
+        {
+            Log.Warning("Unable to access HttpContext");
+        }
+
+        Console.WriteLine(httpContextAccessor.HttpContext);
+        Console.WriteLine(httpContextAccessor.HttpContext!.Request);
+        Console.WriteLine(httpContextAccessor.HttpContext!.Request.Body);
+
+        string requestString;
+
+        using (StreamReader reader = new StreamReader(httpContextAccessor.HttpContext!.Request.Body, Encoding.UTF8))
+        {
+            StringBuilder requestContent = new StringBuilder();
+            char[] buffer = new char[1024]; // Adjust buffer size as needed
+            int charsRead;
+            Console.WriteLine(await reader.ReadAsync(buffer, 0, buffer.Length));
+            while ((charsRead = await reader.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            {
+                requestContent.Append(buffer, 0, charsRead);
+            }
+            requestString = requestContent.ToString();
+            // Use requestBody for further processing
+            Console.WriteLine("requestString");
+            Console.WriteLine(requestString);
+        }
+
 
         if (String.IsNullOrEmpty(requestString))
         {
