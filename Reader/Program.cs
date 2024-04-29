@@ -59,6 +59,8 @@ builder.Services.AddSignalR(e => {
     e.MaximumReceiveMessageSize = 102400000; // 100 MB
 });
 
+builder.Services.AddHttpContextAccessor();
+
 // CONSTR
 
 //#if DEBUG

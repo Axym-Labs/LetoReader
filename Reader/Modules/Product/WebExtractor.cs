@@ -26,6 +26,11 @@ public class WebExtractor
     public async Task Load(string url)
     {
         var html = await GetHtml(url);
+        LoadFromHtml(html);
+    }
+
+    public void LoadFromHtml(string html)
+    {
         if (string.IsNullOrEmpty(html))
         {
             throw new ScrapingException("Empty html document");

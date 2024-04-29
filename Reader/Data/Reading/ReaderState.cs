@@ -33,11 +33,11 @@ public class ReaderState
 
         if (stateObj == null)
         {
-            throw new InvalidOperationException("Empty Json string");
+            throw new ArgumentException("Empty Json string");
         }
         if (stateObj["Text"] == null || stateObj["Text"]!.Value<string>() == null)
         {
-            throw new InvalidOperationException("Text is missing but required");
+            throw new ArgumentException("Text is missing but required");
         }
 
         string text = stateObj["Text"]!.Value<string>()!;
@@ -56,7 +56,7 @@ public class ReaderState
 
         var state = new ReaderState(text, title, source, sourceDescription, lastRead);
 
-        Log.Information("Imported ReaderState from Json", new { source, sourceDescription, version });
+        Log.Verbose("Imported ReaderState from Json", new { source, sourceDescription, version });
 
         return state;
     }
@@ -64,7 +64,13 @@ public class ReaderState
     public static async Task<ReaderState> Scrape(ScrapeInputs inputs)
     {
         var websiteInfo = new WebExtractor();
-        await websiteInfo.Load(inputs.Url);
+        if (!String.IsNullOrEmpty(inputs.Html))
+        {
+            websiteInfo.LoadFromHtml(inputs.Html);
+        } else
+        {
+            await websiteInfo.Load(inputs.Url);
+        }
         var title = websiteInfo.GetTitle();
 
         var text = inputs.NewTextInputMethod switch

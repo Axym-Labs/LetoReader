@@ -12,10 +12,16 @@
 @using Reader.Data.Reading
 @using Reader.Data
 @using Reader.Data.ProductExceptions
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json.Linq;
+
 @inject IJSRuntime JSRuntime
 @inject Constants constants
 @inject AppConfig config
 @inject ISnackbar Snackbar
+@inject IHttpContextAccessor httpContextAccessor
 
 <div class="mb-24">
     <ReaderView ReaderContext="ReaderContext" />
@@ -135,8 +141,21 @@
     bool NewTextPanelOpen = false;
     public ScrapeInputs ScrapeInputs = new();
 
+    [FromBody]
+    public string Request { get; set; } = default!;
+
+    [Parameter]
+    public bool AllowRequestAccess { get; set; } = false;
+
+    // public ReaderState? RequestReaderState { get; set; } = null;
+
+    // public List<IBrowserFile>? RequestFiles { get; set; } = null;
+
+    // public ScrapeInputs? RequestScrapeInputs { get; set; } = null;
+
     protected override async Task OnInitializedAsync()
     {
+
         ReaderContext = new(
             new SiteInteraction(
                 InvokeAsync,
@@ -156,7 +175,60 @@
             await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
+
+            // must be afterfirstrenderevents
+            // handle usage of data from the request body
+            if (AllowRequestAccess)
+            {
+                if (httpContextAccessor.HttpContext == null)
+                {
+                    Log.Warning("Unable to access HttpContext");
+                }
+                else
+                {
+                    await TryImportStateRequestBody();
+                }
+            }
+
         }
+    }
+
+    public async Task TryImportStateRequestBody()
+    {
+        var requestString = new StreamReader(httpContextAccessor.HttpContext!.Request.Body).ReadToEnd();
+
+        if (String.IsNullOrEmpty(requestString))
+        {
+            return;
+        }
+
+        var requestObj = JsonConvert.DeserializeObject<JObject>(requestString);
+
+        if (requestObj == null)
+        {
+            Snackbar.Add("Request body was set, but not in JSON-format. This is an error of the application you are using, that directed you to the reader.", Severity.Error);
+        }
+
+        var RequestReaderState = requestObj!["ReaderState"]?.Value<ReaderState?>();
+        var RequestFiles = requestObj!["Files"]?.Value<List<IBrowserFile>?>();
+        var RequestScrapeInputs = requestObj!["ScrapeInputs"]?.Value<ScrapeInputs?>();
+
+        if (RequestReaderState != null)
+        {
+            await LoadTextState(RequestReaderState);
+        }
+        else if (RequestFiles != null)
+        {
+            await HandleFileUpload(RequestFiles);
+        }
+        else if (RequestScrapeInputs != null)
+        {
+            var si2 = ScrapeInputs;
+            ScrapeInputs = RequestScrapeInputs;
+            await SubmitScrapingForm();
+            ScrapeInputs = si2;
+        }
+
     }
 
     private async Task SetUpSavedStates() {
