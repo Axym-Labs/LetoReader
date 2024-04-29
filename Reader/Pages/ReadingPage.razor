@@ -3,11 +3,26 @@
 @namespace Reader.Pages
 @using Reader.Shared.Product
 @using Reader.Shared.Sections
+@using Reader.Data.Reading
+@using Reader.Data.Product
+@using Microsoft.AspNetCore.Mvc
 
 <ContentSection>
     <ReadingPlatform />
 </ContentSection>
 
 @code {
+    [FromBody]
+    public ReaderState ReaderState { get; set; } = default!;
 
+    [FromBody]
+    public List<IBrowserFile> Files { get; set; } = default!;
+
+    [FromBody]
+    public ScrapeInputs ScrapeInputs { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 }
