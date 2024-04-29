@@ -35,8 +35,8 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        working-directory: ./Reader
+        context: ./Reader
         push: true
-        file: Reader/Dockerfile
+        file: Dockerfile
         tags: davidewiest/reader:latest
 
