@@ -96,6 +96,9 @@ public class ReaderContext
 
     private void InitializeReader()
     {
+        Log.Information("ReaderContext: InitializeReader");
+
+
         if (State == null)
             throw new("State must be initialized");
         if (Config == null)
@@ -103,7 +106,6 @@ public class ReaderContext
 
         Manager = new(ref _state, ref _config, SiteInteraction);
 
-        Log.Information("ReaderContext: InitializeReader");
     }
 
     private void InitializeConfigManager()
@@ -128,11 +130,12 @@ public class ReaderContext
 
     private async Task HandleNewText(ReaderState readerState)
     {
+        Log.Information("ReaderContext: HandleNewText");
+
         skipNextStateUpdate = true;
         await SetState(readerState);
         await Manager.UpdateSavedState();
 
-        Log.Information("ReaderContext: HandleNewText");
     }
 
     public async Task HandleStateUpdated(ReaderState newState)

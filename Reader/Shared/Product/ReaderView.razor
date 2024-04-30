@@ -135,16 +135,18 @@
 
     private void ToggleConfigPanelOpen()
     {
+        Log.Information("ReaderView: ToggleConfigOpen");
+
         if (!ConfigPanelOpen && ReaderContext.Manager.ReadingStatus)
             ReaderContext.Manager.StopReadingTask();
 
         ConfigPanelOpen = !ConfigPanelOpen;
 
-        Log.Information("ReaderView: ToggleConfigOpen");
     }
 
     private async Task ToggleFocusMode()
     {
+        Log.Information("ReaderView: ToggleFocusMode");
 
         if (ConfigPanelOpen)
             ToggleConfigPanelOpen();
@@ -152,7 +154,6 @@
         await JSRuntime.InvokeVoidAsync(FocusModeOn ? "deactivateFocusMode" : "activateFocusMode");
         FocusModeOn = !FocusModeOn;
 
-        Log.Information("ReaderView: ToggleFocusMode");
     }
 
     private async Task HandleCopyText() {
