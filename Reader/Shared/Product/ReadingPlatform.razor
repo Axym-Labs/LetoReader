@@ -68,7 +68,7 @@
                     <p class="my-2">
                         Supported file formats: @ProductStorage.SupportedFileImports
                     </p>
-                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="my-8">
+                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="files => HandleFileUpload(files)" MaximumFileCount="25" Class="my-8">
                         <ButtonTemplate>
                             <MudButton Variant="Variant.Filled"
                                        Color="Color.Primary"
@@ -205,11 +205,12 @@
         Log.Verbose("ReaderView: ToggleNewTextPanelOpen");
     }
 
-    private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
+    private void HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
         try
         {
-            await ReaderContext.HandleFileUpload(files);
+            Console.WriteLine("Handling file upload");
+            ReaderContext.HandleFileUpload(files).Wait();
         }
         catch (UnsupportedOperationException e)
         {
