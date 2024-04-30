@@ -6,19 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/upload/[controller]")]
 public class GreetingController : ControllerBase
 {
-    [HttpGet("{name}")]
-    public IActionResult GetGreetingFromUrlRoute(string name)
-    {
-        string greeting = $"Hello, {name}";
-        return Ok(new { Greeting = greeting });
-    }
 
-    [HttpGet]
-    public IActionResult GetGreetingFromQueryArg([FromQuery] string name)
-    {
-        string greeting = $"Hello, {name}!";
-        return Ok(new { Greeting = greeting });
-    }
     [HttpPost]
     public IActionResult UploadFile([FromBody] dynamic data)
     {

@@ -7,6 +7,7 @@ public class Constants
 
     public const string ShareTitle = "Axym Reader - Free Open-Source Speed Reading";
     public const string ShareUrl = "https://axym.davidewiest.com";
+    public const string ShareDescription = "";
 
     public const string ContentDir = "/static/content";
     public int CurrentYear = DateTime.Now.Year;

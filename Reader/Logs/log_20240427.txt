@@ -1,2 +1,0 @@
-2024-04-27 12:46:25.093 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.152
-2024-04-27 12:48:59.406 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=156262.130

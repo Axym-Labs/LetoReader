@@ -23,7 +23,10 @@ public static class Log
         .WriteTo.File("Logs/data_.txt", rollingInterval: RollingInterval.Day)
     )
     .WriteTo.Sink(new LoggingEventHandler())
-    .WriteTo.Console()
+    .WriteTo.Logger(lc => lc
+        .Filter.ByIncludingOnly(evt => evt.Level == LogEventLevel.Warning || evt.Level == LogEventLevel.Error || evt.Level == LogEventLevel.Fatal)
+        .WriteTo.Console()
+    )
     .WriteTo.File("Logs/log_.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 

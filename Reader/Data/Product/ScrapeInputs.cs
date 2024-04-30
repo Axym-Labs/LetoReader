@@ -31,6 +31,8 @@ public class ScrapeInputs
 
     public string Url { get; set; } = string.Empty;
 
+    public string? Html { get; set; } = null;
+
     public XPathInputs XPathInputs = new();
 
     public ScrapeInputs()

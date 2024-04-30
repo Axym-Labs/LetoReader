@@ -1,5 +1,0 @@
-﻿namespace Reader.Data.Db;
-
-
-
-

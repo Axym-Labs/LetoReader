@@ -8,7 +8,6 @@ using MudBlazor.Services;
 
 using Reader.Modules.Logging;
 using Reader.Modules.Middleware;
-using Reader.Modules.Db;
 using Reader.Data.Storage;
 using Reader.Data;
 
@@ -60,6 +59,8 @@ builder.Services.AddSignalR(e => {
     e.MaximumReceiveMessageSize = 102400000; // 100 MB
 });
 
+builder.Services.AddHttpContextAccessor();
+
 // CONSTR
 
 //#if DEBUG
@@ -71,22 +72,15 @@ builder.Services.AddSignalR(e => {
 // DB TESTING 
 
 #if DEBUG
-var con = new TestDbContext();
-Log.Information("Test info channel");
+Log.Warning("Test");
 #endif
 
 // MODULES
 
 builder.Services.AddSingleton<Constants>();
-builder.Services.AddSingleton<FundamentalStorage>();
-builder.Services.AddSingleton<MainStorage>();
+builder.Services.AddSingleton<BaseUIStorage>();
 builder.Services.AddScoped<LoggingMiddleware>();
 builder.Services.AddScoped<AppConfig>();
-
-builder.Services.AddScoped(provider =>
-{
-    return new UserManager(new TestDbContext());
-});
 
 // prevents 404 when switching environments - see https://github.com/MudBlazor/Templates/commit/62e13c61058b419b8957f7d19f38c69a70ef50e6
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
@@ -106,7 +100,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Fundamental/Error");
+    app.UseExceptionHandler("/Base/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -125,6 +119,6 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.MapControllers();
 app.MapBlazorHub();
-app.MapFallbackToPage("/Fundamental/_Host");
+app.MapFallbackToPage("/Base/_Host");
 
 app.Run();

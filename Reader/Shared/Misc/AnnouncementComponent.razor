@@ -30,7 +30,7 @@
         </p>
     </div>
     <div class="my-6 flex justify-end">
-        <MudButton OnClick="MarkAsRead" Class="m-2" Href="@Announcement.Action.Url" StartIcon="@Icons.Material.Filled.ArrowRight" Target="_blank" Variant="Variant.Filled" Color="Color.Primary">@Announcement.Action.Title</MudButton>
+        <MudButton Class="m-2" Href="@Announcement.Action.Url" StartIcon="@Icons.Material.Filled.ArrowRight" Target="_blank" Variant="Variant.Filled" Color="Color.Primary">@Announcement.Action.Title</MudButton>
     </div>
 </div>
 
@@ -43,7 +43,7 @@
     public bool Read { get; set; }
 
     [Parameter]
-    public Action CloseAnnouncement { get; set; }
+    public Action? CloseAnnouncement { get; set; }
 
     public bool IsOpen { get; set; } = false; 
 

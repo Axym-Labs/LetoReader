@@ -1,0 +1,1046 @@
+2024-04-29 12:22:49.355 +02:00 [WRN] Test
+2024-04-29 12:22:51.800 +02:00 [INF] Request Ip=::1 Url=/favicon.ico Time=005.233
+2024-04-29 13:08:53.793 +02:00 [WRN] Test
+2024-04-29 13:08:55.327 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 13:08:55.558 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 13:08:55.695 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 13:08:56.154 +02:00 [INF] Request Ip=::1 Url=/ Time=1144.435
+2024-04-29 13:08:56.232 +02:00 [INF] Request Ip=::1 Url=/static/css/site.css Time=004.985
+2024-04-29 13:08:56.233 +02:00 [INF] Request Ip=::1 Url=/static/js/twConfig.js Time=000.590
+2024-04-29 13:08:56.235 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=002.495
+2024-04-29 13:08:56.253 +02:00 [INF] Request Ip=::1 Url=/static/js/announcementManagement.js Time=001.232
+2024-04-29 13:08:56.378 +02:00 [INF] Request Ip=::1 Url=/static/js/readerStorageManagement.js Time=000.304
+2024-04-29 13:08:56.785 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=004.932
+2024-04-29 13:08:56.926 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=009.098
+2024-04-29 13:08:57.056 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 13:08:57.195 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 13:08:57.305 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 13:08:57.515 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 13:08:57.735 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 13:08:57.848 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 15:03:24.957 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=6868019.690
+2024-04-29 19:17:24.273 +02:00 [WRN] Test
+2024-04-29 19:17:26.626 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:17:26.711 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:17:26.807 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:17:27.302 +02:00 [INF] Request Ip=::1 Url=/ Time=1035.931
+2024-04-29 19:17:27.383 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=004.419
+2024-04-29 19:17:27.383 +02:00 [INF] Request Ip=::1 Url=/static/assets/logo.png Time=004.102
+2024-04-29 19:17:27.541 +02:00 [INF] Request Ip=::1 Url=/static/js/announcementManagement.js Time=001.783
+2024-04-29 19:17:27.779 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=003.898
+2024-04-29 19:17:27.878 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=008.609
+2024-04-29 19:17:28.038 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:17:28.125 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:17:28.217 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:17:28.400 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 19:17:28.505 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:17:28.615 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:19:40.964 +02:00 [INF] Request Ip=127.0.0.1 Url=/http:// Time=021.243
+2024-04-29 19:19:41.523 +02:00 [INF] Request Ip=::1 Url=/http://_framework/blazor.server.js Time=000.179
+2024-04-29 19:19:41.537 +02:00 [INF] Request Ip=::1 Url=/static/css/site.css Time=014.421
+2024-04-29 19:19:41.538 +02:00 [INF] Request Ip=::1 Url=/static/assets/logo.png Time=014.697
+2024-04-29 19:19:41.538 +02:00 [INF] Request Ip=::1 Url=/static/js/twConfig.js Time=014.804
+2024-04-29 19:19:41.523 +02:00 [INF] Request Ip=::1 Url=/http://_content/MudBlazor/MudBlazor.min.css Time=000.086
+2024-04-29 19:19:41.611 +02:00 [INF] Request Ip=::1 Url=/http://_content/MudBlazor/MudBlazor.min.js Time=000.141
+2024-04-29 19:19:41.635 +02:00 [INF] Request Ip=::1 Url=/static/js/baseDomManagement.js Time=020.707
+2024-04-29 19:19:41.726 +02:00 [INF] Request Ip=::1 Url=/static/js/readerStorageManagement.js Time=026.211
+2024-04-29 19:19:41.736 +02:00 [INF] Request Ip=::1 Url=/static/js/announcementManagement.js Time=013.819
+2024-04-29 19:19:49.665 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:19:49.756 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:19:49.847 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:19:49.938 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=280.668
+2024-04-29 19:19:50.476 +02:00 [INF] Request Ip=::1 Url=/_content/MudBlazor/MudBlazor.min.css Time=024.898
+2024-04-29 19:19:50.465 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=014.330
+2024-04-29 19:19:50.500 +02:00 [INF] Request Ip=::1 Url=/_content/MudBlazor/MudBlazor.min.js Time=046.283
+2024-04-29 19:19:50.655 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.267
+2024-04-29 19:20:33.220 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:20:33.313 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:20:33.404 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:20:33.497 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=278.675
+2024-04-29 19:20:34.001 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.460
+2024-04-29 19:20:34.238 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.111
+2024-04-29 19:23:55.611 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:23:55.745 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:23:55.832 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:23:55.927 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=323.685
+2024-04-29 19:23:56.500 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.393
+2024-04-29 19:23:56.741 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.025
+2024-04-29 19:23:59.360 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=391451.141
+2024-04-29 19:24:11.154 +02:00 [WRN] Test
+2024-04-29 19:24:13.073 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:24:13.155 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:24:13.236 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:24:13.485 +02:00 [INF] Request Ip=::1 Url=/ Time=589.059
+2024-04-29 19:24:13.549 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=005.010
+2024-04-29 19:24:13.789 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=003.382
+2024-04-29 19:24:13.887 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=004.568
+2024-04-29 19:24:13.964 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:24:14.042 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:24:14.128 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:24:14.285 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 19:24:14.375 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:24:14.477 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:24:25.708 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.547
+2024-04-29 19:24:37.963 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=12247.451
+2024-04-29 19:28:27.491 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:28:27.578 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:28:27.669 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:28:27.763 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=287.458
+2024-04-29 19:28:28.302 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.455
+2024-04-29 19:28:28.553 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.750
+2024-04-29 19:28:32.436 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:28:32.530 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:28:32.622 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:28:32.713 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=280.879
+2024-04-29 19:28:33.355 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.255
+2024-04-29 19:28:33.577 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.262
+2024-04-29 19:28:53.362 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:28:53.452 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:28:53.542 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:28:53.640 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=282.483
+2024-04-29 19:28:54.190 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.283
+2024-04-29 19:28:54.432 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.402
+2024-04-29 19:28:56.991 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:28:57.079 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:28:57.164 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:28:57.259 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=270.254
+2024-04-29 19:28:58.114 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.276
+2024-04-29 19:28:58.355 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.029
+2024-04-29 19:30:02.163 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:30:02.249 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:30:02.339 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:30:02.432 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=285.381
+2024-04-29 19:30:03.001 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.259
+2024-04-29 19:30:03.224 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.477
+2024-04-29 19:30:08.532 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 19:30:08.623 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 19:30:08.710 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 19:30:08.803 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=273.600
+2024-04-29 19:30:09.392 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.464
+2024-04-29 19:30:09.633 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.341
+2024-04-29 19:57:44.136 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=2010244.216
+2024-04-29 20:02:23.543 +02:00 [WRN] Test
+2024-04-29 20:02:24.111 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:02:24.189 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:02:24.281 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:02:24.541 +02:00 [INF] Request Ip=::1 Url=/ Time=552.294
+2024-04-29 20:02:24.577 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=003.296
+2024-04-29 20:02:24.789 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.649
+2024-04-29 20:02:24.922 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=005.330
+2024-04-29 20:02:25.001 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:02:25.085 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:02:25.165 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:02:25.319 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:02:25.417 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:02:25.512 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:02:25.735 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=807.365
+2024-04-29 20:09:52.725 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:09:52.853 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:09:52.936 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:09:53.032 +02:00 [INF] Request Ip=::1 Url=/ Time=322.193
+2024-04-29 20:09:53.086 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.517
+2024-04-29 20:09:53.098 +02:00 [INF] Request Ip=::1 Url=/static/js/twConfig.js Time=001.676
+2024-04-29 20:09:53.149 +02:00 [INF] Request Ip=::1 Url=/static/js/baseDomManagement.js Time=000.470
+2024-04-29 20:09:53.258 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.534
+2024-04-29 20:09:53.341 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.139
+2024-04-29 20:09:53.362 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:09:53.457 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:09:53.547 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:09:53.683 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:09:53.770 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:09:53.867 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:09:53.876 +02:00 [INF] Request Ip=::1 Url=/static/js/announcementManagement.js Time=000.625
+2024-04-29 20:09:53.877 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.324
+2024-04-29 20:09:53.876 +02:00 [INF] Request Ip=::1 Url=/static/js/readerStorageManagement.js Time=000.625
+2024-04-29 20:09:53.989 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=640.285
+2024-04-29 20:12:32.769 +02:00 [WRN] Test
+2024-04-29 20:12:33.842 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:12:33.923 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:12:34.010 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:12:34.272 +02:00 [INF] Request Ip=::1 Url=/ Time=600.461
+2024-04-29 20:12:34.350 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=004.124
+2024-04-29 20:12:34.608 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=003.625
+2024-04-29 20:12:34.697 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=004.880
+2024-04-29 20:12:34.778 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:12:34.857 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:12:34.945 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:12:35.095 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:12:35.191 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:12:35.282 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:19:09.283 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:19:10.402 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:20:53.317 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:20:53.406 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:20:53.496 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:20:53.581 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=277.652
+2024-04-29 20:20:54.102 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.808
+2024-04-29 20:20:54.346 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.344
+2024-04-29 20:21:05.308 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:05.408 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:05.488 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:05.582 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=279.782
+2024-04-29 20:21:06.075 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.251
+2024-04-29 20:21:06.323 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.634
+2024-04-29 20:21:19.777 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:19.867 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:19.950 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:20.043 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=270.858
+2024-04-29 20:21:20.545 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.292
+2024-04-29 20:21:20.788 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.319
+2024-04-29 20:21:23.518 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=528816.108
+2024-04-29 20:21:34.131 +02:00 [WRN] Test
+2024-04-29 20:21:35.861 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:35.947 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:36.037 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:36.292 +02:00 [INF] Request Ip=::1 Url=/ Time=605.635
+2024-04-29 20:21:36.358 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=003.561
+2024-04-29 20:21:36.596 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=005.877
+2024-04-29 20:21:36.692 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=004.472
+2024-04-29 20:21:36.769 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:36.860 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:36.943 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:37.087 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:21:37.185 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:37.285 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:37.645 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:37.730 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:37.811 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:37.896 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=262.169
+2024-04-29 20:21:38.460 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.498
+2024-04-29 20:21:38.690 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.903
+2024-04-29 20:21:39.677 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:39.770 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:39.864 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:39.960 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=286.954
+2024-04-29 20:21:40.620 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.310
+2024-04-29 20:21:40.842 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.518
+2024-04-29 20:21:41.351 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:41.441 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:41.533 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:41.628 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=279.218
+2024-04-29 20:21:42.288 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.273
+2024-04-29 20:21:42.509 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.228
+2024-04-29 20:21:44.773 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:44.865 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:44.951 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:45.046 +02:00 [INF] Request Ip=::1 Url=/ Time=275.477
+2024-04-29 20:21:45.066 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=8368.616
+2024-04-29 20:21:45.101 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.646
+2024-04-29 20:21:45.249 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.323
+2024-04-29 20:21:45.337 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.513
+2024-04-29 20:21:45.351 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:45.454 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:45.538 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:45.673 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:21:45.761 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:45.850 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:46.286 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:46.383 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:46.474 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:46.573 +02:00 [INF] Request Ip=::1 Url=/ Time=290.442
+2024-04-29 20:21:46.595 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=1255.235
+2024-04-29 20:21:46.635 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.287
+2024-04-29 20:21:46.753 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.229
+2024-04-29 20:21:46.851 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.346
+2024-04-29 20:21:46.863 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:46.960 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:21:47.047 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:21:47.171 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:21:47.260 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:47.347 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:21:49.701 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.415
+2024-04-29 20:22:13.377 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.326
+2024-04-29 20:22:13.617 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.201
+2024-04-29 20:23:48.097 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=118391.831
+2024-04-29 20:25:00.002 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:25:00.131 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:25:00.222 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:25:00.317 +02:00 [INF] Request Ip=::1 Url=/ Time=317.141
+2024-04-29 20:25:00.365 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=193510.386
+2024-04-29 20:25:00.401 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.273
+2024-04-29 20:25:00.658 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.219
+2024-04-29 20:25:00.882 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.308
+2024-04-29 20:25:00.909 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:25:00.988 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:25:01.065 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:25:01.214 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:25:01.297 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:25:01.378 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:26:32.625 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:26:32.715 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:26:32.806 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:26:32.911 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=92014.785
+2024-04-29 20:26:32.901 +02:00 [INF] Request Ip=::1 Url=/ Time=280.385
+2024-04-29 20:26:33.084 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.294
+2024-04-29 20:26:33.320 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.266
+2024-04-29 20:26:33.530 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.310
+2024-04-29 20:26:33.564 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:26:33.653 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:26:33.745 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:26:33.900 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:26:33.982 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:26:34.068 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:27:25.747 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.217
+2024-04-29 20:27:25.985 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.450
+2024-04-29 20:27:33.473 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.192
+2024-04-29 20:27:33.721 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.302
+2024-04-29 20:27:38.277 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:27:38.369 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:27:38.458 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:27:38.552 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=277.158
+2024-04-29 20:27:39.305 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.218
+2024-04-29 20:27:39.541 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.133
+2024-04-29 20:29:13.116 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:13.208 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:13.300 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:13.402 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=159849.201
+2024-04-29 20:29:13.391 +02:00 [INF] Request Ip=::1 Url=/ Time=276.946
+2024-04-29 20:29:13.460 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.410
+2024-04-29 20:29:13.714 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.165
+2024-04-29 20:29:13.813 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.309
+2024-04-29 20:29:13.830 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:13.928 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:14.023 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:14.142 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:29:14.229 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:14.323 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:18.328 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:18.426 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:18.515 +02:00 [INF] ReaderPlatform: LoadTextState
+2024-04-29 20:29:19.986 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:20.072 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:20.177 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:20.270 +02:00 [INF] Request Ip=::1 Url=/ Time=286.697
+2024-04-29 20:29:20.278 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=6459.195
+2024-04-29 20:29:20.334 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.422
+2024-04-29 20:29:20.474 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.139
+2024-04-29 20:29:20.569 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.242
+2024-04-29 20:29:20.583 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:20.663 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:20.744 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:20.876 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:29:20.963 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:21.057 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:32.065 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:32.159 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:32.256 +02:00 [INF] ReaderPlatform: LoadTextState
+2024-04-29 20:29:33.578 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:33.663 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:33.750 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:33.843 +02:00 [INF] Request Ip=::1 Url=/ Time=270.280
+2024-04-29 20:29:33.851 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=13274.360
+2024-04-29 20:29:33.914 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.503
+2024-04-29 20:29:34.066 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.210
+2024-04-29 20:29:34.168 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.408
+2024-04-29 20:29:34.186 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:34.274 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:34.363 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:34.479 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:29:34.569 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:34.661 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:37.017 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:37.107 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:37.197 +02:00 [INF] ReaderPlatform: LoadTextState
+2024-04-29 20:29:38.492 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:29:39.552 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:29:40.542 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:40.617 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:40.703 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:40.797 +02:00 [INF] Request Ip=::1 Url=/ Time=256.506
+2024-04-29 20:29:40.805 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=6625.771
+2024-04-29 20:29:40.880 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.430
+2024-04-29 20:29:41.008 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.131
+2024-04-29 20:29:41.115 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.446
+2024-04-29 20:29:41.134 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:41.221 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:29:41.307 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:29:41.438 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:29:41.526 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:29:41.615 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:27.233 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:27.359 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:30:27.451 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:30:27.543 +02:00 [INF] Request Ip=::1 Url=/ Time=311.204
+2024-04-29 20:30:27.554 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=46426.766
+2024-04-29 20:30:27.617 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=001.041
+2024-04-29 20:30:27.753 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.097
+2024-04-29 20:30:27.849 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.388
+2024-04-29 20:30:27.871 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:27.962 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:30:28.048 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:30:28.180 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:30:28.268 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:28.365 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:46.926 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:47.020 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:30:47.102 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:30:47.197 +02:00 [INF] Request Ip=::1 Url=/ Time=273.438
+2024-04-29 20:30:47.230 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=19366.679
+2024-04-29 20:30:47.305 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.232
+2024-04-29 20:30:47.434 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.123
+2024-04-29 20:30:47.530 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.213
+2024-04-29 20:30:47.541 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:47.634 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:30:47.712 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:30:47.835 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:30:47.922 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:48.012 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:52.523 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:52.608 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:30:52.691 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:30:52.784 +02:00 [INF] Request Ip=::1 Url=/ Time=266.097
+2024-04-29 20:30:52.795 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=5259.106
+2024-04-29 20:30:52.852 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.362
+2024-04-29 20:30:52.974 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.252
+2024-04-29 20:30:53.068 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.281
+2024-04-29 20:30:53.084 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:53.181 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:30:53.264 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:30:53.394 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:30:53.483 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:30:53.580 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:32:24.957 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:32:25.055 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:32:25.139 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:32:26.061 +02:00 [INF] Request Ip=::1 Url=/ Time=1106.656
+2024-04-29 20:32:26.122 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.446
+2024-04-29 20:32:26.419 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.152
+2024-04-29 20:32:26.543 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.319
+2024-04-29 20:32:26.572 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:32:26.658 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:32:26.738 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:32:26.891 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:32:26.980 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:32:27.075 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:33:15.554 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:33:15.642 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:33:15.728 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:33:15.825 +02:00 [INF] Request Ip=::1 Url=/ Time=276.699
+2024-04-29 20:33:15.856 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=49292.708
+2024-04-29 20:33:16.059 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.248
+2024-04-29 20:33:16.278 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.752
+2024-04-29 20:33:16.384 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.183
+2024-04-29 20:33:16.402 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:33:16.488 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:33:16.582 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:33:16.747 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:33:16.834 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:33:16.928 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:02.796 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:02.893 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:34:02.989 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:34:03.075 +02:00 [INF] Request Ip=::1 Url=/ Time=283.733
+2024-04-29 20:34:03.215 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=46822.284
+2024-04-29 20:34:03.268 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.205
+2024-04-29 20:34:03.492 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.056
+2024-04-29 20:34:03.613 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.339
+2024-04-29 20:34:03.627 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:03.727 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:34:03.814 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:34:03.964 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:34:04.049 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:04.145 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:10.901 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:10.990 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:34:11.078 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:34:11.162 +02:00 [INF] Request Ip=::1 Url=/ Time=263.265
+2024-04-29 20:34:11.175 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=7556.603
+2024-04-29 20:34:11.241 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.319
+2024-04-29 20:34:11.463 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.201
+2024-04-29 20:34:11.586 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.246
+2024-04-29 20:34:11.616 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:11.701 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:34:11.783 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:34:11.931 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:34:12.019 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:34:12.116 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:01.810 +02:00 [WRN] Test
+2024-04-29 20:35:02.471 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:02.556 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:35:02.649 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:35:02.903 +02:00 [INF] Request Ip=::1 Url=/ Time=595.432
+2024-04-29 20:35:02.927 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:02.977 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=005.285
+2024-04-29 20:35:03.019 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:35:03.108 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:35:03.201 +02:00 [INF] Request Ip=::1 Url=/ Time=295.779
+2024-04-29 20:35:03.257 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=004.960
+2024-04-29 20:35:03.281 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.558
+2024-04-29 20:35:03.390 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=006.218
+2024-04-29 20:35:03.468 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:03.556 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:35:03.575 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.434
+2024-04-29 20:35:03.639 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:35:03.769 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.582
+2024-04-29 20:35:03.802 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:03.808 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:35:03.889 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:35:03.902 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:03.936 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:03.977 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:35:04.007 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:04.034 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:35:04.086 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:35:04.117 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:35:04.180 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:04.210 +02:00 [INF] Request Ip=::1 Url=/ Time=278.951
+2024-04-29 20:35:04.250 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=853.256
+2024-04-29 20:35:04.269 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:04.263 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.227
+2024-04-29 20:35:04.444 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.214
+2024-04-29 20:35:04.577 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.319
+2024-04-29 20:35:04.611 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:04.686 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:35:04.769 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:35:04.914 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:35:04.998 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:35:05.093 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:37:51.195 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:37:51.323 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:37:51.406 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:37:51.510 +02:00 [INF] Request Ip=::1 Url=/ Time=331.901
+2024-04-29 20:37:51.644 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=167063.064
+2024-04-29 20:37:51.707 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.294
+2024-04-29 20:37:52.054 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.000
+2024-04-29 20:37:52.174 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.561
+2024-04-29 20:37:52.227 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:37:52.314 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:37:52.391 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:37:52.528 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:37:52.615 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:37:52.712 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:38:55.512 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:38:55.617 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:38:55.703 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:38:55.811 +02:00 [INF] Request Ip=::1 Url=/ Time=308.176
+2024-04-29 20:38:55.934 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=63720.273
+2024-04-29 20:38:56.024 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.326
+2024-04-29 20:38:56.461 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.448
+2024-04-29 20:38:56.742 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.081
+2024-04-29 20:38:56.778 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:38:56.866 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:38:56.951 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:38:57.109 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:38:57.196 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:38:57.290 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:45:44.461 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=407701.132
+2024-04-29 20:45:44.456 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=640663.092
+2024-04-29 20:47:55.409 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:47:55.500 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:47:55.597 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:47:55.708 +02:00 [INF] Request Ip=::1 Url=/ Time=308.403
+2024-04-29 20:47:55.881 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.655
+2024-04-29 20:47:56.323 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.459
+2024-04-29 20:47:56.466 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.293
+2024-04-29 20:47:56.487 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:47:56.592 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:47:56.677 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:47:56.830 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:47:56.917 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:47:57.012 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:37.559 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:37.658 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:48:37.748 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:48:37.846 +02:00 [INF] Request Ip=::1 Url=/ Time=297.176
+2024-04-29 20:48:37.978 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=41503.284
+2024-04-29 20:48:38.040 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.440
+2024-04-29 20:48:38.527 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.946
+2024-04-29 20:48:38.672 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.152
+2024-04-29 20:48:38.754 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:38.848 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:48:38.936 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:48:39.082 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:48:39.166 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:39.257 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:40.992 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:41.082 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:48:41.174 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:48:41.268 +02:00 [INF] Request Ip=::1 Url=/ Time=279.433
+2024-04-29 20:48:41.323 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=2643.041
+2024-04-29 20:48:41.375 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.240
+2024-04-29 20:48:41.817 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.399
+2024-04-29 20:48:41.947 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.345
+2024-04-29 20:48:41.981 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:42.063 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:48:42.140 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:48:42.288 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:48:42.375 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:42.473 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:51.246 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:51.332 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:48:51.418 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:48:51.514 +02:00 [INF] Request Ip=::1 Url=/ Time=272.410
+2024-04-29 20:48:51.567 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=9592.172
+2024-04-29 20:48:51.616 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.582
+2024-04-29 20:48:52.066 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.142
+2024-04-29 20:48:52.178 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.497
+2024-04-29 20:48:52.212 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:52.293 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:48:52.378 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:48:52.528 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:48:52.614 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:48:52.700 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:50:06.757 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:50:06.842 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:50:06.935 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:50:07.033 +02:00 [INF] Request Ip=::1 Url=/ Time=282.343
+2024-04-29 20:50:07.271 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=75071.772
+2024-04-29 20:50:07.341 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.227
+2024-04-29 20:50:07.960 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.379
+2024-04-29 20:50:08.083 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.871
+2024-04-29 20:50:08.113 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:50:08.202 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:50:08.284 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:50:08.431 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:50:08.515 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:50:08.609 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:50:33.496 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:50:34.270 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:50:35.049 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 20:50:37.366 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 20:50:39.105 +02:00 [INF] ReaderView: ToggleFocusMode
+2024-04-29 20:50:40.535 +02:00 [INF] ReaderView: ToggleFocusMode
+2024-04-29 20:50:46.635 +02:00 [INF] ReaderView: ToggleNewTextPanelOpen
+2024-04-29 20:50:50.860 +02:00 [INF] ReaderView: ToggleNewTextPanelOpen
+2024-04-29 20:51:02.630 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:51:05.194 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 20:51:23.266 +02:00 [INF] ReaderView: ToggleSharePopover
+2024-04-29 20:51:29.532 +02:00 [INF] ReaderView: ToggleSharePopover
+2024-04-29 20:51:29.993 +02:00 [INF] ReaderView: ToggleSharePopover
+2024-04-29 20:51:31.287 +02:00 [INF] ReaderView: ToggleSharePopover
+2024-04-29 20:52:30.732 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:52:30.826 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:52:30.904 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:52:30.990 +02:00 [INF] Request Ip=::1 Url=/ Time=266.254
+2024-04-29 20:52:31.235 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=143134.197
+2024-04-29 20:52:31.304 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.263
+2024-04-29 20:52:31.897 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.027
+2024-04-29 20:52:32.092 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=001.021
+2024-04-29 20:52:32.111 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:52:32.206 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:52:32.295 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:52:32.427 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 20:52:32.524 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:52:32.621 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:52:41.313 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:52:41.406 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:52:41.496 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:52:41.589 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=279.242
+2024-04-29 20:52:42.138 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.191
+2024-04-29 20:52:42.386 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.262
+2024-04-29 20:52:53.702 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:52:53.792 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:52:53.876 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:52:53.969 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=268.265
+2024-04-29 20:52:54.515 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.225
+2024-04-29 20:52:54.744 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.440
+2024-04-29 20:53:28.005 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:53:28.096 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:53:28.186 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:53:28.279 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=277.408
+2024-04-29 20:53:28.805 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.211
+2024-04-29 20:53:29.039 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.127
+2024-04-29 20:53:29.516 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:53:29.599 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:53:29.683 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:53:29.771 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=256.684
+2024-04-29 20:53:30.387 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:53:30.420 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.191
+2024-04-29 20:53:30.475 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:53:30.565 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:53:30.654 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=270.093
+2024-04-29 20:53:30.697 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.262
+2024-04-29 20:53:31.336 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.205
+2024-04-29 20:53:31.586 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.137
+2024-04-29 20:55:01.529 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:55:01.617 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:55:01.704 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:55:01.801 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=279.937
+2024-04-29 20:55:02.447 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.236
+2024-04-29 20:55:02.710 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.795
+2024-04-29 20:55:36.575 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:55:36.660 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:55:36.740 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:55:36.836 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=266.771
+2024-04-29 20:55:37.502 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.248
+2024-04-29 20:55:37.751 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.167
+2024-04-29 20:56:10.986 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:56:11.103 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:56:11.191 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:56:11.272 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=292.261
+2024-04-29 20:56:12.009 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.217
+2024-04-29 20:56:12.247 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.282
+2024-04-29 20:57:00.194 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:57:00.286 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:57:00.375 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:57:00.472 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=282.607
+2024-04-29 20:57:01.119 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.210
+2024-04-29 20:57:01.352 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.152
+2024-04-29 20:57:53.285 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:57:53.379 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:57:53.466 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:57:53.561 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=282.585
+2024-04-29 20:57:54.210 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.221
+2024-04-29 20:57:54.470 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.426
+2024-04-29 20:59:46.939 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:59:47.030 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:59:47.124 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:59:47.221 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=287.002
+2024-04-29 20:59:47.928 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.242
+2024-04-29 20:59:48.179 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.734
+2024-04-29 20:59:56.210 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 20:59:56.304 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 20:59:56.389 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 20:59:56.482 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=274.386
+2024-04-29 20:59:57.061 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.184
+2024-04-29 20:59:57.304 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.238
+2024-04-29 21:00:08.027 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:00:08.111 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:00:08.184 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:00:08.260 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=240.154
+2024-04-29 21:00:09.035 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.330
+2024-04-29 21:00:09.304 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.102
+2024-04-29 21:01:32.899 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:01:33.033 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:01:33.118 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:01:33.211 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=318.066
+2024-04-29 21:01:33.777 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.198
+2024-04-29 21:01:34.024 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.199
+2024-04-29 21:01:43.145 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:01:43.231 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:01:43.317 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:01:43.409 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=266.724
+2024-04-29 21:01:44.168 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.181
+2024-04-29 21:01:44.427 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.872
+2024-04-29 21:02:40.882 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:02:40.982 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:02:41.073 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:02:41.163 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=290.132
+2024-04-29 21:02:41.806 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.189
+2024-04-29 21:02:42.050 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.157
+2024-04-29 21:02:53.117 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:02:53.213 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:02:53.304 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:02:53.399 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=288.573
+2024-04-29 21:02:54.074 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.224
+2024-04-29 21:02:54.301 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.845
+2024-04-29 21:02:56.804 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:02:56.889 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:02:56.979 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:02:57.070 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=267.719
+2024-04-29 21:02:57.826 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.547
+2024-04-29 21:02:58.074 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.173
+2024-04-29 21:03:04.381 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:03:04.455 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:03:04.547 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:03:04.635 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=255.808
+2024-04-29 21:03:05.380 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.181
+2024-04-29 21:03:05.637 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.133
+2024-04-29 21:03:16.594 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:03:16.684 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:03:16.774 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:03:16.869 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=281.384
+2024-04-29 21:03:17.465 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.285
+2024-04-29 21:03:17.726 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.913
+2024-04-29 21:04:41.191 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:04:41.290 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:04:41.375 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:04:41.469 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=285.234
+2024-04-29 21:04:42.342 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.893
+2024-04-29 21:04:42.615 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.897
+2024-04-29 21:05:46.910 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:05:47.005 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:05:47.078 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:05:47.165 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=259.863
+2024-04-29 21:05:47.812 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.268
+2024-04-29 21:05:48.049 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.732
+2024-04-29 21:07:16.868 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:07:17.001 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:07:17.086 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:07:17.178 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=318.220
+2024-04-29 21:07:18.082 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.448
+2024-04-29 21:07:18.354 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.934
+2024-04-29 21:08:26.307 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:08:26.400 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:08:26.500 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:08:26.599 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=297.268
+2024-04-29 21:08:27.249 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.135
+2024-04-29 21:08:27.509 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.864
+2024-04-29 21:09:08.904 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:09:08.991 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:09:09.082 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:09:09.179 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=279.172
+2024-04-29 21:09:09.779 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.148
+2024-04-29 21:09:10.056 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=003.131
+2024-04-29 21:09:34.436 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:09:34.531 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:09:34.620 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:09:34.719 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=290.011
+2024-04-29 21:09:35.303 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.204
+2024-04-29 21:09:35.561 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.199
+2024-04-29 21:09:49.031 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:09:49.119 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:09:49.205 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:09:49.302 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=276.161
+2024-04-29 21:09:49.949 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.131
+2024-04-29 21:09:50.228 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.163
+2024-04-29 21:09:52.723 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:09:52.810 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:09:52.891 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:09:52.986 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=264.471
+2024-04-29 21:09:53.822 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.111
+2024-04-29 21:09:54.116 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.325
+2024-04-29 21:10:03.154 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:10:03.245 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:10:03.336 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:10:03.430 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=277.292
+2024-04-29 21:10:04.161 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.106
+2024-04-29 21:10:04.394 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.089
+2024-04-29 21:10:48.574 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:10:48.659 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:10:48.756 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:10:48.852 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=282.785
+2024-04-29 21:10:49.536 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.137
+2024-04-29 21:10:49.801 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.260
+2024-04-29 21:11:01.488 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:11:01.574 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:11:01.660 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:11:01.754 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=268.505
+2024-04-29 21:11:02.642 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.116
+2024-04-29 21:11:02.883 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.088
+2024-04-29 21:11:21.146 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:11:21.231 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:11:21.315 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:11:21.400 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=257.759
+2024-04-29 21:11:22.113 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.132
+2024-04-29 21:11:22.370 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.639
+2024-04-29 21:11:28.811 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:11:28.892 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:11:28.992 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:11:29.077 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=267.737
+2024-04-29 21:11:29.969 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.122
+2024-04-29 21:11:30.234 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.076
+2024-04-29 21:12:02.665 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:02.760 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:12:02.842 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:12:02.935 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=278.085
+2024-04-29 21:12:03.851 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.205
+2024-04-29 21:12:04.087 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.160
+2024-04-29 21:12:24.744 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:24.864 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:12:24.947 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:12:25.040 +02:00 [INF] Request Ip=::1 Url=/ Time=297.095
+2024-04-29 21:12:25.191 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=1193090.658
+2024-04-29 21:12:25.266 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.120
+2024-04-29 21:12:25.530 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.792
+2024-04-29 21:12:25.741 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.490
+2024-04-29 21:12:25.766 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:25.860 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:12:25.943 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:12:26.082 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:12:26.162 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:26.250 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:33.375 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:33.466 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:12:33.553 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:12:33.645 +02:00 [INF] Request Ip=::1 Url=/ Time=271.382
+2024-04-29 21:12:33.656 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=7902.164
+2024-04-29 21:12:33.731 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.113
+2024-04-29 21:12:33.940 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.085
+2024-04-29 21:12:34.086 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.254
+2024-04-29 21:12:34.100 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:34.185 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:12:34.275 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:12:34.427 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:12:34.512 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:34.606 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:12:47.461 +02:00 [INF] Request Ip=::1 Url=/static/assets/logo.png Time=000.130
+2024-04-29 21:12:47.560 +02:00 [INF] Request Ip=::1 Url=/static/assets/logo.png Time=006.272
+2024-04-29 21:13:04.717 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:13:04.809 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:13:04.902 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:13:04.994 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=278.694
+2024-04-29 21:13:05.995 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.162
+2024-04-29 21:13:06.211 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:13:06.241 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.176
+2024-04-29 21:13:06.303 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:13:06.394 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:13:06.485 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=276.166
+2024-04-29 21:13:07.362 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.109
+2024-04-29 21:13:07.619 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.082
+2024-04-29 21:14:06.089 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:14:06.184 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:14:06.274 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:14:06.366 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=283.333
+2024-04-29 21:14:07.309 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.177
+2024-04-29 21:14:07.554 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.785
+2024-04-29 21:15:46.158 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:15:46.246 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:15:46.339 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:15:46.437 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=283.217
+2024-04-29 21:15:47.265 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.131
+2024-04-29 21:15:47.550 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.069
+2024-04-29 21:16:27.692 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:16:27.784 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:16:27.875 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:16:27.966 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=279.700
+2024-04-29 21:16:28.584 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.133
+2024-04-29 21:16:28.853 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.865
+2024-04-29 21:16:32.058 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:16:32.137 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:16:32.227 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:16:32.318 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=261.655
+2024-04-29 21:16:33.264 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.110
+2024-04-29 21:16:33.542 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.562
+2024-04-29 21:16:52.165 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:16:52.263 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:16:52.349 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:16:52.444 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=284.008
+2024-04-29 21:16:53.252 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.139
+2024-04-29 21:16:53.533 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=001.514
+2024-04-29 21:17:07.884 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:17:07.986 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:17:08.067 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:17:08.164 +02:00 [INF] Request Ip=127.0.0.1 Url=/ Time=287.484
+2024-04-29 21:17:08.919 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.145
+2024-04-29 21:17:09.175 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.033
+2024-04-29 21:19:35.674 +02:00 [WRN] Test
+2024-04-29 21:19:36.319 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:19:36.396 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:19:36.493 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:19:36.754 +02:00 [INF] Request Ip=::1 Url=/ Time=588.060
+2024-04-29 21:19:36.830 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=007.164
+2024-04-29 21:19:37.021 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.580
+2024-04-29 21:19:37.214 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=009.477
+2024-04-29 21:19:37.297 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:19:37.390 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:19:37.485 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:19:37.687 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:19:37.787 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:19:37.893 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:23.484 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=226262.873
+2024-04-29 21:23:25.430 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:25.515 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:23:25.598 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:23:25.692 +02:00 [INF] Request Ip=::1 Url=/ Time=277.089
+2024-04-29 21:23:25.741 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=001.732
+2024-04-29 21:23:25.970 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.324
+2024-04-29 21:23:26.148 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.479
+2024-04-29 21:23:26.166 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:26.262 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:23:26.361 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:23:26.522 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:23:26.609 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:26.707 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:26.915 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:26.999 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:23:27.096 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:23:27.205 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=1051.954
+2024-04-29 21:23:27.199 +02:00 [INF] Request Ip=::1 Url=/ Time=288.437
+2024-04-29 21:23:27.239 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=000.362
+2024-04-29 21:23:27.371 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=000.209
+2024-04-29 21:23:27.478 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.310
+2024-04-29 21:23:27.495 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:27.594 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:23:27.680 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:23:27.812 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:23:27.896 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:27.989 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:23:29.250 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:23:30.411 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:23:31.844 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 21:23:35.964 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 21:23:36.884 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:23:43.437 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:23:44.587 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 21:24:07.894 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 21:24:08.990 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:09.595 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:09.995 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:10.415 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:10.870 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:11.853 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:15.405 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 21:24:20.583 +02:00 [INF] ReaderView: ToggleConfigOpen
+2024-04-29 21:24:21.379 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:24:29.476 +02:00 [INF] ReaderContext: StartReadingTask
+2024-04-29 21:26:56.299 +02:00 [WRN] Test
+2024-04-29 21:26:56.942 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:26:57.020 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:26:57.116 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:26:57.373 +02:00 [INF] Request Ip=::1 Url=/ Time=585.217
+2024-04-29 21:26:57.480 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=004.012
+2024-04-29 21:27:02.638 +02:00 [WRN] Test
+2024-04-29 21:27:03.221 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:27:03.315 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:27:03.410 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:27:03.683 +02:00 [INF] Request Ip=::1 Url=/ Time=596.807
+2024-04-29 21:27:03.726 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=003.142
+2024-04-29 21:27:03.861 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=002.667
+2024-04-29 21:27:03.970 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=007.955
+2024-04-29 21:27:04.071 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:27:04.159 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:27:04.248 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:27:04.417 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:27:04.519 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:27:04.623 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:37:08.575 +02:00 [WRN] Test
+2024-04-29 21:37:09.149 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:37:09.230 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:37:09.323 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:37:09.561 +02:00 [INF] Request Ip=::1 Url=/ Time=539.115
+2024-04-29 21:37:09.652 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=004.241
+2024-04-29 21:37:09.946 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=005.154
+2024-04-29 21:37:10.124 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=006.970
+2024-04-29 21:37:10.224 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:37:10.305 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:37:10.398 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:37:10.545 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:37:10.640 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:37:10.731 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:38:27.352 +02:00 [WRN] Test
+2024-04-29 21:38:27.800 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=021.551
+2024-04-29 21:38:27.915 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:38:27.997 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:38:28.089 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:38:28.311 +02:00 [INF] Request Ip=::1 Url=/ Time=533.840
+2024-04-29 21:38:28.330 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=523.160
+2024-04-29 21:38:28.386 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=004.102
+2024-04-29 21:38:28.661 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=004.494
+2024-04-29 21:38:28.777 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.376
+2024-04-29 21:38:28.832 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:38:28.921 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:38:29.012 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:38:29.151 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:38:29.244 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:38:29.344 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:42:36.684 +02:00 [WRN] Test
+2024-04-29 21:42:37.274 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:42:37.235 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=008.236
+2024-04-29 21:42:37.340 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:42:37.439 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:42:37.659 +02:00 [INF] Request Ip=::1 Url=/ Time=526.242
+2024-04-29 21:42:37.677 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=435.810
+2024-04-29 21:42:37.726 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=002.880
+2024-04-29 21:42:38.002 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=004.525
+2024-04-29 21:42:38.172 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.550
+2024-04-29 21:42:38.241 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:42:38.317 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:42:38.403 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:42:38.541 +02:00 [INF] ReaderPlatform: ReloadSavedStates
+2024-04-29 21:42:38.627 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:42:38.718 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:46:55.694 +02:00 [WRN] Test
+2024-04-29 21:46:56.263 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:46:56.252 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=006.440
+2024-04-29 21:46:56.353 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:46:56.440 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:46:56.672 +02:00 [INF] Request Ip=::1 Url=/ Time=535.706
+2024-04-29 21:46:56.688 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=428.714
+2024-04-29 21:46:56.737 +02:00 [INF] Request Ip=::1 Url=/_framework/blazor.server.js Time=003.722
+2024-04-29 21:46:57.014 +02:00 [INF] Request Ip=::1 Url=/_blazor/initializers Time=006.588
+2024-04-29 21:46:57.196 +02:00 [INF] Request Ip=::1 Url=/_blazor/negotiate Time=000.355
+2024-04-29 21:46:57.247 +02:00 [INF] ReaderContext: SetupTextPieces
+2024-04-29 21:46:57.337 +02:00 [INF] ReaderContext: InitializeReader
+2024-04-29 21:46:57.416 +02:00 [INF] ReaderPlatform: OnInitializedAsync
+2024-04-29 21:46:57.597 +02:00 [INF] Request Ip=::1 Url=/_blazor Time=395.532
