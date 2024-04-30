@@ -105,32 +105,33 @@
 
 <div>
     @foreach (var savedState in savedStates) {
-        <div class="my-5 p-4 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
-            <div class="flex justify-between">
-                <h3 class="text-b700 text-xl">
-                    @savedState.Title
-                </h3>
-                <p class="text-gray-400 min-w-20">
-                    <MudChip Color="Color.Default" Disabled="true">@savedState.LastRead</MudChip>
-                    <MudTooltip Text="@savedState.SourceDescription">
-                        <MudChip Color="Color.Default" Disabled="false">@savedState.Source.ToString()</MudChip>
+        <div class="my-5 py-5 md:py-3 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
+            <div class="md:flex justify-between items-center">
+                <div class="w-full inline-block grid md:grid-cols-2 overflow-hidden">
+                    <h3 class="text-b700">
+                        @savedState.Title
+                    </h3>
+                    <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
+                </div>
+                <div class="inline-block flex justify-end items-center">
+                    <MudTooltip Text="@savedState.SourceDescription" Color="Color.Primary" Class="rounded-xl shadlow-xl">
+                        <ChildContent>
+                            <MudFab Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
+                        </ChildContent>
+                        <TooltipContent>
+                            <div>
+                            <MudChip Color="Color.Default" Disabled="false">Last read: @savedState.LastRead</MudChip>
+                            <MudChip Color="Color.Default" Disabled="false">Source: @savedState.Source.ToString() (@savedState.SourceDescription)</MudChip>
+                            </div>
+                        </TooltipContent>
                     </MudTooltip>
 
-                </p>
-            </div>
-            <div class="my-4">
-                <p class="text-gray-500">
-                    @(savedState.Text[..Math.Min(120,savedState.Text.Length)])...
-                </p>
-            </div>
-            <div>
-                <MudProgressLinear Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
-            </div>
-            <div class="flex justify-between mt-3">
-                <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
-                <MudButton Variant="Variant.Filled" OnClick="@(async () => { await LoadTextState(savedState); })" Color="Color.Secondary" Class="m-3">
-                    Load
-                </MudButton>
+                    <MudButton Variant="Variant.Filled" OnClick="@(async () => { await LoadTextState(savedState); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
+                        Load
+                    </MudButton>
+
+                    <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
+                </div>
             </div>
         </div>
     }
@@ -269,6 +270,7 @@
     }
 
     private async Task LoadTextState(ReaderState newState) {
+        // fix this here
         await ReaderContext.SetState(newState);
 
         await InvokeAsync(() => { StateHasChanged(); });
