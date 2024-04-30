@@ -112,6 +112,10 @@
                 </h3>
                 <p class="text-gray-400 min-w-20">
                     <MudChip Color="Color.Default" Disabled="true">@savedState.LastRead</MudChip>
+                    <MudTooltip Text="@savedState.SourceDescription">
+                        <MudChip Color="Color.Default" Disabled="false">@savedState.Source.ToString()</MudChip>
+                    </MudTooltip>
+
                 </p>
             </div>
             <div class="my-4">

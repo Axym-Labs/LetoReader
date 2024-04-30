@@ -24,6 +24,10 @@ public class ReaderState
         Text = text;
         Source = source;
         SourceDescription = sourceDescription;
+        if (SourceDescription == null && source != ReaderStateSource.Unknown)
+        {
+            SourceDescription = "Most likely from a previous version that didn't support the source property.";
+        }
         LastRead = lastRead ?? DateTime.Now;
     }
 
@@ -96,5 +100,10 @@ public class ReaderState
     public static ReaderState GetNew(ReaderStateSource source, string? sourceDescription = null)
     {
         return new ReaderState(ProductConstants.DefaultNewTitle, ProductConstants.DefaultNewText, source, sourceDescription, DateTime.Now);
+    }
+
+    public static ReaderState Copy(ReaderState state)
+    {
+        return new ReaderState(state.Title, state.Text, state.Source, state.SourceDescription, state.LastRead);
     }
 }
