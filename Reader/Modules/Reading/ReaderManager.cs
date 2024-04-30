@@ -30,6 +30,7 @@ public class ReaderManager
 
     public void SetupTextPieces()
     {
+        Log.Information("ReaderContext: SetupTextPieces");
         var unvalidatedTextPieces = State.Text.Split(new string[] { " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
         List<string> newTextPieces = new();
@@ -47,7 +48,6 @@ public class ReaderManager
         TextPieces = newTextPieces;
         ClampPosition();
 
-        Log.Information("ReaderContext: SetupTextPieces");
     }
 
     public void HandleStartStop()
@@ -64,6 +64,7 @@ public class ReaderManager
 
     public void StartReadingTask()
     {
+        Log.Information("ReaderContext: StartReadingTask");
         if (ReadingStatus)
             return;
 
@@ -76,11 +77,11 @@ public class ReaderManager
         }, ReadingTaskTokenSource.Token);
         readerTask.Start();
 
-        Log.Information("ReaderContext: StartReadingTask");
     }
 
     public void StopReadingTask()
     {
+        Log.Information("ReaderContext: StartReadingTask");
         if (!ReadingStatus)
             return;
 
@@ -92,7 +93,6 @@ public class ReaderManager
             ReadingTaskTokenSource.Dispose();
         }
 
-        Log.Information("ReaderContext: StartReadingTask");
     }
 
     private async Task ReadingTask(double interval, CancellationToken ct)
