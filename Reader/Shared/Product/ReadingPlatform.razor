@@ -306,12 +306,12 @@
         Log.Information("ReaderView: ToggleNewTextPanelOpen");
     }
 
-    private void HandleFileUpload(IReadOnlyList<IBrowserFile> files)
+    private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
         try
         {
             Console.WriteLine("Handling file upload");
-            ReaderContext.HandleFileUpload(files).Wait();
+            await ReaderContext.HandleFileUpload(files);
         }
         catch (UnsupportedOperationException e)
         {
