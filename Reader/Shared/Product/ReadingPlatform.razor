@@ -167,7 +167,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
             // load state
-            SetUpSavedStates().Wait();
+            await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
 
@@ -283,7 +283,7 @@
 
     private async Task ReloadSavedStates() {
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
-        if (JsonConvert.DeserializeObject<List<string>>(savedStatesStr) == null)
+        if (JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr) == null)
             return;
         savedStates = 
             JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr)!

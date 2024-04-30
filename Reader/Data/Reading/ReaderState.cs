@@ -47,7 +47,7 @@ public class ReaderState
             throw new ArgumentException("Source is missing but required");
         }
 
-        ReaderStateSource source = stateObj["Source"]!.Value<ReaderStateSource>();
+        ReaderStateSource source = (ReaderStateSource)stateObj["Source"]!.Value<Int64>();
 
         string? sourceDescription = stateObj["SourceDescription"]?.Value<string>();
 

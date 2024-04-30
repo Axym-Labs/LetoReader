@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -38,6 +38,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="static\img\**" />
+    <Content Remove="Migrations\**" />
+    <Content Remove="static\img\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="static\img\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="static\img\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="static\js\announcementManagement.js" />
   </ItemGroup>
 
@@ -47,8 +58,6 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="static\img\" />
     <!-- <Content Include="static\**"> 
       <CopyToOutputDirectory>Always</CopyToOutputDirectory> 
     </Content> 
