@@ -41,19 +41,17 @@ public class ReaderState
 
         string text = stateObj["Text"]!.Value<string>()!;
         DateTime lastRead = stateObj["LastRead"]?.Value<DateTime>() ?? DateTime.Now;
-   
-        if (stateObj["Source"] == null || stateObj["Source"]!.Value<string>() == null)
-        {
-            throw new ArgumentException("Source is missing but required");
-        }
 
-        ReaderStateSource source = (ReaderStateSource)stateObj["Source"]!.Value<Int64>();
-
+        ReaderStateSource source =
+            stateObj["Source"] != null 
+            ? (ReaderStateSource)stateObj["Source"]!.Value<Int64>()
+            : ReaderStateSource.Unknown;
+        
         string? sourceDescription = stateObj["SourceDescription"]?.Value<string>();
 
         string title = stateObj["Title"]?.Value<string>() ?? GetNew(source, sourceDescription).Title;
 
-        var state = new ReaderState(text, title, source, sourceDescription, lastRead);
+        var state = new ReaderState(title, text, source, sourceDescription, lastRead);
 
         Log.Verbose("Imported ReaderState from Json", new { source, sourceDescription, version });
 

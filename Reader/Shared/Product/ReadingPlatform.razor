@@ -282,7 +282,10 @@
     }
 
     private async Task ReloadSavedStates() {
+        Log.Information("ReaderPlatform: ReloadSavedStates");
+
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
+
         if (JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr) == null)
             return;
         savedStates = 
@@ -292,23 +295,22 @@
             .OrderByDescending(x => x.LastRead)
             .ToList();
 
-        Log.Information("ReaderPlatform: ReloadSavedStates");
     }
-
-
 
     private void ToggleNewTextPanelOpen()
     {
+        Log.Information("ReaderView: ToggleNewTextPanelOpen");
+
         if (!NewTextPanelOpen && ReaderContext.Manager.ReadingStatus)
             ReaderContext.Manager.StopReadingTask();
 
         NewTextPanelOpen = !NewTextPanelOpen;
-
-        Log.Information("ReaderView: ToggleNewTextPanelOpen");
     }
 
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
+        Log.Information("ReaderView: HandleCopyText");
+
         try
         {
             Console.WriteLine("Handling file upload");
@@ -319,8 +321,6 @@
             Snackbar.Add(e.Message, Severity.Error);
             Log.Information("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
-
-        Log.Information("ReaderView: HandleCopyText");
     }
 
     private async Task SubmitScrapingForm()
