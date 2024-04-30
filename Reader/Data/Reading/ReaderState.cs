@@ -27,10 +27,9 @@ public class ReaderState
         LastRead = lastRead ?? DateTime.Now;
     }
 
-    public static ReaderState ImportFromJson(string json, string? version = null)
+    public static ReaderState ImportFromJson(JObject json, string? version = null)
     {
-        JObject? stateObj = JsonConvert.DeserializeObject<JObject>(json);
-
+        JObject? stateObj = json;
         if (stateObj == null)
         {
             throw new ArgumentException("Empty Json string");

@@ -167,7 +167,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
             // load state
-            await SetUpSavedStates();
+            SetUpSavedStates().Wait();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
 
@@ -202,7 +202,7 @@
         ReaderState? RequestReaderState = null;
         if (requestObj!["ReaderState"] != null && requestObj["ReaderState"]?.Value<string>() != null)
         {
-            RequestReaderState = ReaderState.ImportFromJson(requestObj!["ReaderState"]!.Value<string>()!);
+            RequestReaderState = ReaderState.ImportFromJson(JsonConvert.DeserializeObject<JObject>(requestObj!["ReaderState"]!.Value<string>()!)!);
         }
 
         var RequestFiles = requestObj!["Files"]?.Value<List<GenericFile>?>();
@@ -285,8 +285,9 @@
         var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
         if (JsonConvert.DeserializeObject<List<string>>(savedStatesStr) == null)
             return;
-
-        savedStates = JsonConvert.DeserializeObject<List<string>>(savedStatesStr)!.Select(x => ReaderState.ImportFromJson(x)).ToList() ?? new List<ReaderState>();
+        savedStates = 
+            JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr)!
+            .Select(x => ReaderState.ImportFromJson(x)).ToList() ?? new List<ReaderState>();
         savedStates = savedStates
             .OrderByDescending(x => x.LastRead)
             .ToList();
