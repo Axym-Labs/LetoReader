@@ -27,7 +27,7 @@ public class ReaderManager
 
     public void SetupTextPieces()
     {
-        var unvalidatedTextPieces = SeparateText(State.Text);
+        var unvalidatedTextPieces = TextHelper.SeparateText(State.Text);
 
         List<string> newTextPieces = new();
         foreach (var currentTextPiece in unvalidatedTextPieces)
@@ -43,11 +43,6 @@ public class ReaderManager
 
         TextPieces = newTextPieces;
         ClampPosition();
-    }
-
-    public static IEnumerable<string> SeparateText(string text)
-    {
-        return text.Split(new string[] { " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 
     public void HandleStartStop()
