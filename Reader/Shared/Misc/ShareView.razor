@@ -1,0 +1,51 @@
+﻿@namespace Reader.Shared.Misc
+
+@using MudBlazor
+@using Reader.Modules.Logging
+@using System.Web
+@using Reader.Data.Storage
+
+<div class="flex justify-center">
+    <MudButton Class="m-3 rounded-lg text-white !border !border-gray-500 p-2 px-4 bg-black shadow-lg" OnClick="ToggleSharePopover">
+        <MudIcon Icon="@Icons.Material.Filled.Share" Size="Size.Small" Class="mr-2"></MudIcon>
+        Share
+    </MudButton>
+    <MudButton Class="m-3 rounded-lg text-white !border !border-gray-500 p-2 px-4 bg-black shadow-lg">
+        <a href="https://github.com/DavideWiest/Reader" target="_blank" class="">
+            @* <svg viewBox="0 0 16 16" width="16" height="16" class="octicon octicon-star inline-block" aria-hidden="true">
+                <path style="fill: #ffffff" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z">
+                </path>
+            </svg> *@
+            <MudIcon Icon="@Icons.Material.Filled.Star" Size="Size.Small" Class="mr-1"></MudIcon>
+            Star
+        </a>
+    </MudButton>
+
+    <MudPopover Open="@SharePopoverOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
+        <div class="grid grid-cols-4">
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/x?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/reddit?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/reddit.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/facebook?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/linkedin?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/mastodon?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/mastodon.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/whatsapp?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/whatsapp.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/email?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" class="w-12 h-10"></a>
+            <a class="inline-block m-3" href="https://www.addtoany.com/add_to/copy_link?linkurl=@(HttpUtility.UrlEncode(Constants.ShareUrl))&amp;linkname=@(HttpUtility.UrlEncode(Constants.ShareTitle))" target="_blank"><img src="https://static.addtoany.com/buttons/link.svg" class="w-12 h-10"></a>
+        </div>
+        <!-- AddToAny END -->
+    </MudPopover>
+    
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+</div>
+
+@code {
+
+    bool SharePopoverOpen = false;
+
+    private void ToggleSharePopover()
+    {
+        Log.Information("ReaderView: ToggleSharePopover");
+        SharePopoverOpen = !SharePopoverOpen;
+
+    }
+}

@@ -69,3 +69,8 @@ a:hover {
 :focus {
     outline: none;
 }
+
+.centered-button-icon .mud-button-label .mud-button-icon-start {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}

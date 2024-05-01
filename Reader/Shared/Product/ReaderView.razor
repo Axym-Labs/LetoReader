@@ -1,82 +1,104 @@
 @namespace Reader.Shared.Product
 
 @using MudBlazor
+@using MudBlazorFix
 @using Reader.Shared
 @using Reader.Modules
+@using Reader.Modules.Product
+@using Reader.Modules.Reading
 @using Reader.Data.Storage
 @using Reader.Data.Product
 @using Newtonsoft.Json
 @using System.Text
+@using Reader.Data.ProductExceptions
+@using Reader.Modules.Logging
+@using Reader.Data.Reading
 @inject Constants constants
 @inject IJSRuntime JSRuntime
-@inject MainStorage mainstorage
+@inject ISnackbar Snackbar
+
 
 <div id="reader-frontpagesection" class="flex justify-center align-center flex-col transition-transform duratin-500 ease-in-out">
-    <div class="pt-20 pb-20 flex justify-center" style="font-size: @(reader.ConfigManager.Config.TextSize)px; overflow-y: hidden;">
+    <div class="pt-20 pb-20 flex justify-center" style="font-size: @(ReaderContext.ConfigManager.FrontTextSize)px; overflow-y: hidden;">
         <div>
-            <span style="font-family: '@(reader.ConfigManager.FrontFont)' !important; font-weight: @(reader.ConfigManager.Config.FontWeight) !important;">
-                <span class="text-neutral-@(1000-reader.ConfigManager.Config.PeripheralWordsBrightness)" style="position: absolute; transform:translateX(-100%); white-space: nowrap;">
-                    @(reader.GetTextPiecesLookBehind())
-                    <span class="width: @(reader.ConfigManager.Config.TextSize)px; display: inline-block"></span>
+            <span style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important; font-weight: @(ReaderContext.ConfigManager.FrontFontWeight) !important;">
+                <span class="text-neutral-@(1000-ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)" style="position: absolute; transform:translateX(-100%); white-space: nowrap;">
+                    @(ReaderContext.Manager.GetTextPiecesLookBehind())
+                    <span class="width: @(ReaderContext.ConfigManager.FrontTextSize)px; display: inline-block"></span>
                 </span>
                 <span class="text-white">
-                    @(reader.GetCurrentTextPiece().Item1)<span style="color: @(reader.ConfigManager.Config.MiddleCharHighlightingColor);">@(reader.GetCurrentTextPiece().Item2)</span>@(reader.GetCurrentTextPiece().Item3)
+                    @(ReaderContext.Manager.GetCurrentTextPiece().Item1)<span style="color: @(ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor);">@(ReaderContext.Manager.GetCurrentTextPiece().Item2)</span>@(ReaderContext.Manager.GetCurrentTextPiece().Item3)
                 </span>
-                <span class="text-neutral-@(1000-reader.ConfigManager.Config.PeripheralWordsBrightness)" style="position: absolute; white-space: nowrap;">
-                    <span class="width: @(reader.ConfigManager.Config.TextSize)px; display: inline-block"></span>
-                    @(reader.GetTextPiecesLookAhead())
+                <span class="text-neutral-@(1000-ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)" style="position: absolute; white-space: nowrap;">
+                    <span class="width: @(ReaderContext.ConfigManager.FrontTextSize)px; display: inline-block"></span>
+                    @(ReaderContext.Manager.GetTextPiecesLookAhead())
                 </span>
             </span>
         </div>
     </div>
 
-    <div class="flex justify-center mb-10">
-        <div class="m-3">
-            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateBefore" OnClick="reader.HandleNavBefore" />
+    <div class="mb-10 grid sm:grid-cols-7 grid-cols-3 w-full">
+        <div class="col-span-2 flex justify-start">
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
+            </div>
         </div>
-        <div class="m-3">
-            <MudFab Color="Color.Primary" StartIcon="@(reader.ReadingStatus ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" OnClick="reader.HandleStartStop" />
+        <div class="flex justify-center col-span-3">
+            <div class="m-3">
+                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateBefore" OnClick="ReaderContext.Manager.HandleNavBefore" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Primary" StartIcon="@(ReaderContext.Manager.ReadingStatus ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" OnClick="ReaderContext.Manager.HandleStartStop" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
+            </div>
         </div>
-        <div class="m-3">
-            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="reader.HandleNavNext" />
+        <div class="col-span-2">
+
         </div>
     </div>
 </div>
 
 <div class="mb-10">
-    <MudSlider @bind-Value="@reader.State.Position" Min="0" Max="@(reader.TextPieces.Count-1)" Step="1" Class="text-gray-700 text-sm">Position: @(reader.State.Position+1) @((int)(reader.State.Position+1)*100/reader.TextPieces.Count())%</MudSlider>
+    <MudSlider @bind-Value="@ReaderContext.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">Position: @(ReaderContext.State.Position+1) @((int)(ReaderContext.State.Position+1)*100/ReaderContext.Manager.TextPieces.Count())%</MudSlider>
 </div>
 <div class="mb-16">
     <div class="d-flex mb-4">
         <div>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleConfigOpen" Color="Color.Secondary" Class="m-3">
-                @(ConfigOpen? "Close" : "Open") Configuration
-            </MudButton>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleFocusMode" Color="Color.Secondary" Class="m-3">
-                @(FocusModeOn? "Deactivate" : "Activate") Focus mode
-            </MudButton>
-            <MudPopover Open="@ConfigOpen" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter" Class="!rounded-lg shadow-xl" Style="background-color: rgb(22, 22, 26);">
-                <div class="m-5" style="width: min(30rem, 90vw);">
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(reader.ConfigManager.Config.ReadingSpeed)</MudSlider>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(reader.ConfigManager.Config.PeripheralCharsCount)</MudSlider>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(reader.ConfigManager.Config.WordNavCount)</MudSlider>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(reader.ConfigManager.Config.TextSize)</MudSlider>
-                    <MudSelect Class="mud-select-table" Label="Font"
+
+            <MudPopover Open="@ConfigPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol">
+                <div class="m-8 md:m-12" style="width: min(30rem, 90vw);">
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-xl font-semibold">
+                            Configuration
+                        </p>
+                        <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleConfigPanelOpen" />
+                    </div>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(ReaderContext.ConfigManager.FrontTextSize)</MudSlider>
+                    <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
                             T="string"
-                            @bind-Value="reader.ConfigManager.FrontFont">
+                            @bind-Value="ReaderContext.ConfigManager.FrontFont">
 
                         @foreach (var type in Enum.GetValues(typeof(Font)))
                         {
                             <MudSelectItem Value="@type.ToString()" />
                         }
                     </MudSelect>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text size: @(reader.ConfigManager.Config.FontWeight)</MudSlider>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontWordCharLimit" Min="1" Max="40" Step="1">Character limit per word: @(reader.ConfigManager.Config.WordCharLimit)</MudSlider>
-                    <MudSlider Class="md:my-2" @bind-Value="@reader.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(reader.ConfigManager.Config.PeripheralWordsBrightness)</MudSlider>
-                    <MudColorPicker class="md:my-2" T="string" @bind-Text="@reader.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
-                    <p class="mt-3">
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordCharLimit" Min="1" Max="40" Step="1">Character limit per word: @(ReaderContext.ConfigManager.FrontWordCharLimit)</MudSlider>
+                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
+                    <MudColorPicker class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
+                    <p class="my-2 md:my-4">
                         'Character limit per word' may change the reading position. Do not update it while reading.
                     </p>
+                    
                 </div>
             </MudPopover>
         </div>
@@ -84,178 +106,62 @@
 </div>
 
 <div>
-    <div class="md:flex my-5">
-        <MudTextField @ref="stateTitle" T="string" Id="reader-fontpagesection-titlefield" Label="Title" Variant="Variant.Outlined" Text="@reader.State.Title" ValueChanged="reader.HandleTitleChanged" Lines="1" Style="width: 100%;"/>
-        <MudButton Variant="Variant.Filled" OnClick="@HandlePasteTitle" Color="Color.Tertiary" Class="w-full md:w-auto mt-2 md:ml-3 hover:!bg-neutral-900">
-            Paste
-        </MudButton>
+    <div class="flex my-5">
+        <MudTextField @ref="ReaderContext.stateTitle" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
+        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
     </div>
-    <MudTextField @ref="stateText" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" Text="@reader.State.Text" ValueChanged="reader.HandleTextChanged" Lines="10" Style="width: 100%;" />
+    <MudTextField @ref="ReaderContext.stateText" class="focus:!border-tertiary" Disabled="@(ReaderContext.State.Text.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
     <div class="my-3">
-        <MudButton Variant="Variant.Filled" OnClick="@HandlePasteText" Color="Color.Secondary" Class="m-2 py-3 hover:!bg-neutral-900" StartIcon="@Icons.Material.Filled.ContentPaste">
-            Paste
-        </MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
-            Copy
-        </MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleNewText" Color="Color.Tertiary" Class="m-2 py-3 hover:!bg-neutral-900">
-            New text
-        </MudButton>
-    </div>
-    <div class="my-3 flex gap-4">
-        <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="HandleFileUpload" MaximumFileCount="25" Class="m-2 py-3">
-            <ButtonTemplate>
-                <MudButton HtmlTag="label"
-                        Variant="Variant.Filled"
-                        Color="Color.Secondary"
-                        StartIcon="@Icons.Material.Filled.CloudUpload"
-                        for="@context">
-                    Load File
-                </MudButton>
-            </ButtonTemplate>
-        </MudFileUpload>
-        <div class="flex flex-col justify-center">
-            <p>
-                Supported: @ProductStorage.SupportedFileImports
-            </p>
-        </div>
+        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
     </div>
     
     <p class="text-gray-400 text-sm">
         Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
         Titles must be unique.
-        Clicking 'New Text' will save the existing text and free up the fields.
     </p>
 </div>
 
 @code {
-    private MudTextField<string> stateTitle = new();
-    private MudTextField<string> stateText = new();
 
-    private ReaderState _state = default!;
     [Parameter]
-    public ReaderState state
-    {
-        get { return _state; }
-        set => setStateValue(value).Wait();
-    }
+    public ReaderContext ReaderContext { get; set; } = default!;
 
-    private async Task setStateValue(ReaderState newState) {
-        if (reader == null)
-            reader = new(ref newState, InvokeAsync, StateHasChanged, JSRuntime);
-
-        await HandleStateUpdated(newState);
-
-        await InvokeAsync(() => { StateHasChanged(); }); 
-    }
-
-    public ReaderManager reader { get; set; } = default!;
-
-    bool ConfigOpen = false;
+    bool ConfigPanelOpen = false;
     bool FocusModeOn = false;
 
-    private void ToggleConfigOpen()
-    {
-        if (!ConfigOpen && reader.ReadingStatus)
-            reader.StopReadingTask();
 
-        ConfigOpen = !ConfigOpen;
+    private void ToggleConfigPanelOpen()
+    {
+        Log.Information("ReaderView: ToggleConfigOpen");
+
+        if (!ConfigPanelOpen && ReaderContext.Manager.ReadingStatus)
+            ReaderContext.Manager.StopReadingTask();
+
+        ConfigPanelOpen = !ConfigPanelOpen;
+
     }
 
     private async Task ToggleFocusMode()
     {
-        if (FocusModeOn) {
-            await JSRuntime.InvokeVoidAsync("deactivateFocusMode");
-        } else {
-            await JSRuntime.InvokeVoidAsync("activateFocusMode");
-        }
+        Log.Information("ReaderView: ToggleFocusMode");
 
+        if (ConfigPanelOpen)
+            ToggleConfigPanelOpen();
+
+        await JSRuntime.InvokeVoidAsync(FocusModeOn ? "deactivateFocusMode" : "activateFocusMode");
         FocusModeOn = !FocusModeOn;
-    }
 
-    private async Task HandleNewText() {
-        Console.WriteLine("handle new text");
-
-        ReaderState newState = new(ProductStorage.DefaultNewTitle, ProductStorage.DefaultNewText);
-
-        await HandleStateUpdated(newState);
-
-        await reader.UpdateSavedState();
-    }
-
-    private async Task HandleStateUpdated(ReaderState newState) {
-        reader.StopReadingTask();
-        reader.State = newState;
-        reader.ClampPosition();
-        _state = newState;
-
-        await stateTitle.SetText(_state.Title);
-        await stateText.SetText(_state.Text);
-    }
-
-    private async Task HandlePasteTitle() {
-        string title = await JSRuntime.InvokeAsync<string>("getClipboardContent");
-        await stateTitle.SetText(title);
-    }
-
-    private async Task HandlePasteText() {
-        string text = await JSRuntime.InvokeAsync<string>("getClipboardContent");
-        await stateText.SetText(text);
     }
 
     private async Task HandleCopyText() {
         await JSRuntime.InvokeVoidAsync("copyText");
     }
 
-    private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files) {
-        StringBuilder sb = new();
-
-        foreach (var file in files) {
-            using (var ms = new MemoryStream())
-            {
-                await file.OpenReadStream(file.Size).CopyToAsync(ms);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                var fileBytes = ms.ToArray();
-
-
-
-                if (file.ContentType == "text/plain") {
-                    sb.Append(Encoding.UTF8.GetString(fileBytes));
-                } else if(file.Name.EndsWith(".epub")) {
-                    sb.Append(FileHelper.ExtractFromEPub(fileBytes));
-                } else if (file.Name.EndsWith(".md")) {
-                    sb.Append(FileHelper.ExtractStringFromMdStr(Encoding.UTF8.GetString(fileBytes)));
-                } else if (file.ContentType == "application/pdf") {
-                    sb.Append(FileHelper.ExtractStringFromPDF(fileBytes));
-                } else if (file.ContentType == "text/html") {
-                    sb.Append(FileHelper.ExtractStringFromHTMLStr(Encoding.UTF8.GetString(fileBytes)));
-                }
-            }
-        }
-
-        await stateText.SetText(sb.ToString());
+    private async Task HandleCopyTitle() {
+        await JSRuntime.InvokeVoidAsync("copyTitle");
     }
 
-    protected override void OnInitialized() {
-        reader = new(ref _state, InvokeAsync, StateHasChanged, JSRuntime);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender) {
-            reader.jsInteropAllowed = true;
-            await LoadConfig();
-            // start reader
-            reader.HandleStartStop();
-        }
-    }
-
-    private async Task LoadConfig() {
-        string? loadedConfigStr = await JSRuntime.InvokeAsync<string?>("loadConfigurationStrIfExists");
-        if (!string.IsNullOrEmpty(loadedConfigStr)) {
-            reader.ConfigManager.Config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
-        }
-    }
 }

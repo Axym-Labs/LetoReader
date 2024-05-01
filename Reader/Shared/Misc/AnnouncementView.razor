@@ -1,0 +1,49 @@
+﻿@namespace Reader.Shared.Misc
+
+
+@using MudBlazor
+@using Reader.Data.Misc
+@using Microsoft.JSInterop
+@using Reader.Modules
+@inject IJSRuntime JSRuntime
+
+<div class="border border-neutral-500 rounded-md">
+    <div class="border-b border-neutral-500 mb-6">
+        <h1 class="text-xl px-8 text-uppercase font-semibold text-b700 text-neutral-500 py-4 rounded-tl-xl rounded-tr-xl">
+            News
+        </h1>
+    </div>
+    <div class="overflow-scroll" style="max-height: 32rem;">
+        @foreach (var announcement in Announcements)
+        {
+            <AnnouncementComponent Announcement="announcement" Read="ReadAnnouncements.Contains(announcement.Id)" CloseAnnouncement="(() => CloseAnnouncement(announcement.Id))" />
+        }
+    </div>
+</div>
+
+
+@code {
+    public List<Announcement> Announcements { get; set; } = new();
+    public List<int> ReadAnnouncements { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Announcements = await AnnouncementsRetriever.GetAnnouncements();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            ReadAnnouncements = await JSRuntime.InvokeAsync<List<int>>("getAnnouncementStates");
+
+            StateHasChanged();
+        }
+    }
+
+    private void CloseAnnouncement(int id)
+    {
+        Announcements.RemoveAll(x => x.Id == id);
+        StateHasChanged();
+    }
+}
