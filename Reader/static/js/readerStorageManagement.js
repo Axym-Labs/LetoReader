@@ -15,7 +15,7 @@ function loadConfigurationStrIfExists() {
     }
 }
 
-function updateState(title, stateStr) {
+function setState(title, stateStr) {
     localStorage.setItem(TEXTSTATEIDENT + title, stateStr);
 }
 

@@ -39,4 +39,19 @@ public class ScrapeInputs
     {
 
     }
+
+    public static ScrapeInputs Copy(ScrapeInputs inputs)
+    {
+        return new ScrapeInputs
+        {
+            NewTextInputMethodString = inputs.NewTextInputMethodString,
+            Url = inputs.Url,
+            Html = inputs.Html,
+            XPathInputs = new XPathInputs
+            {
+                XPath = inputs.XPathInputs.XPath,
+                SelectAll = inputs.XPathInputs.SelectAll
+            }
+        };
+    }
 }

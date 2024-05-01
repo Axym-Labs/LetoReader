@@ -11,19 +11,31 @@ public class LoggingMiddleware : IMiddleware
     {
         var stopwatch = Stopwatch.StartNew();
 
-        await next(context);
+        try
+        {
+            await next(context);
+        } catch (System.Exception e)
+        {
+            Log.Error("Error in request", e);
+            throw;
+        }
 
         stopwatch.Stop();
 
         var requestUrl = context.Request.Path;
         var requesterIp = context.Connection.RemoteIpAddress;
         var timeTaken = stopwatch.Elapsed.TotalMilliseconds;
+
+        string addressBackup = "::::";
+
+        if (context.Request.Headers.ContainsKey("X-Forwarded-For"))
+        {
+            addressBackup = context.Request.Headers["X-Forwarded-For"]!;
+        }
+
         if (requesterIp != null)
         {
-            Log.Data("Request Ip={Ip} Url={Url} Time={Time:000.000}", requesterIp, requestUrl, timeTaken);
-        } else
-        {
-            Log.Data("Request Ip=:::: Url={Url} Time={Time:000.000}", requestUrl, timeTaken);
+            Log.Data("Request Ip={Ip} Url={Url} Time={Time:000.000}", requesterIp.ToString() ?? addressBackup, requestUrl, timeTaken);
         }
     }
 }
