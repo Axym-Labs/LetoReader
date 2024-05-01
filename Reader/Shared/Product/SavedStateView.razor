@@ -1,0 +1,44 @@
+﻿@namespace Reader.Shared.Product
+
+@using MudBlazor
+@using Reader.Data.Reading
+@using Reader.Modules.Reading
+
+<div class="my-5 py-5 md:py-3 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
+    <div class="md:flex justify-between items-center">
+        <div class="w-full inline-block grid md:grid-cols-2 overflow-hidden">
+            <h3 class="text-b700">
+                @State.Title
+            </h3>
+            <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.Position / (ReaderManager.SeparateText(State.Text).Count()-1) * 100)" />
+        </div>
+        <div class="inline-block flex justify-end items-center">
+            <MudTooltip Text="@State.SourceDescription" Color="Color.Primary" Class="rounded-xl shadlow-xl">
+                <ChildContent>
+                    <MudFab Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
+                </ChildContent>
+                <TooltipContent>
+                    <div>
+                        <MudChip Color="Color.Default" Disabled="false">Last read: @State.LastRead</MudChip>
+                        <MudChip Color="Color.Default" Disabled="false">Length in words: @State.Text.Split(" ").Length</MudChip>
+                        <MudChip Color="Color.Default" Disabled="false">Source: @State.Source.ToString() (@State.SourceDescription)</MudChip>
+                    </div>
+                </TooltipContent>
+            </MudTooltip>
+
+            <MudButton Disabled="@(ReaderContext.State.Title == State.Title)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.SwitchState(State.Title); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
+                Load
+            </MudButton>
+
+            <MudFab Disabled="@(ReaderContext.State.Title == State.Title)" OnClick="@(async () => { await ReaderContext.DeleteState(State.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ReaderState State { get; set; }
+
+    [Parameter]
+    public ReaderContext ReaderContext { get; set; }
+}

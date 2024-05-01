@@ -104,55 +104,22 @@
 </div>
 
 <div>
-    @foreach (var savedState in savedStates) {
-        <div class="my-5 py-5 md:py-3 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
-            <div class="md:flex justify-between items-center">
-                <div class="w-full inline-block grid md:grid-cols-2 overflow-hidden">
-                    <h3 class="text-b700">
-                        @savedState.Title
-                    </h3>
-                    <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
-                </div>
-                <div class="inline-block flex justify-end items-center">
-                    <MudTooltip Text="@savedState.SourceDescription" Color="Color.Primary" Class="rounded-xl shadlow-xl">
-                        <ChildContent>
-                            <MudFab Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
-                        </ChildContent>
-                        <TooltipContent>
-                            <div>
-                            <MudChip Color="Color.Default" Disabled="false">Last read: @savedState.LastRead</MudChip>
-                                <MudChip Color="Color.Default" Disabled="false">Length in words: @savedState.Text.Split(" ").Length</MudChip>
-                                <MudChip Color="Color.Default" Disabled="false">Source: @savedState.Source.ToString() (@savedState.SourceDescription)</MudChip>
-                            </div>
-                        </TooltipContent>
-                    </MudTooltip>
-
-                    <MudButton Variant="Variant.Filled" OnClick="@(async () => { await LoadTextState(savedState); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
-                        Load
-                    </MudButton>
-
-                    <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
-                </div>
-            </div>
-        </div>
+    @foreach (var savedState in ReaderContext.SavedStates) {
+        <SavedStateView State="savedState.Value" ReaderContext="ReaderContext" />
     }
 </div>
 
 @code {
     public ReaderContext ReaderContext = default!;
 
-    private string textSep = " ";
-
-    List<ReaderState> savedStates = new();
-
     bool NewTextPanelOpen = false;
     public ScrapeInputs ScrapeInputs = new();
 
-    [FromBody]
-    public string Request { get; set; } = default!;
-
     [Parameter]
     public bool AllowRequestAccess { get; set; } = false;
+
+    [FromBody]
+    public string Request { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -172,8 +139,6 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
-            // load state
-            await SetUpSavedStates();
             // load config
             await ReaderContext.TriggerAfterFirstRenderEvents();
 
@@ -191,7 +156,6 @@
     {
 
         string requestString = await GetRequestBody();
-
 
         if (String.IsNullOrEmpty(requestString))
         {
@@ -216,7 +180,7 @@
 
         if (RequestReaderState != null)
         {
-            await LoadTextState(RequestReaderState);
+            await ReaderContext.AddAndSelectState(RequestReaderState);
         }
         else if (RequestFiles != null)
         {
@@ -224,7 +188,7 @@
         }
         else if (RequestScrapeInputs != null)
         {
-            var si2 = ScrapeInputs;
+            var si2 = ScrapeInputs.Copy(ScrapeInputs);
             ScrapeInputs = RequestScrapeInputs;
             await SubmitScrapingForm();
             ScrapeInputs = si2;
@@ -262,49 +226,6 @@
         }
     }
 
-    private async Task SetUpSavedStates() {
-        await ReloadSavedStates();
-        if (savedStates.Count>0) {
-            await ReaderContext.SetState(savedStates[0]);
-        }
-        await InvokeAsync(() => { StateHasChanged(); });
-    }
-
-    private async Task LoadTextState(ReaderState newState) {
-        // fix this here
-        Log.Information("ReaderPlatform: LoadTextState");
-        await ReaderContext.SetState(newState);
-
-        await InvokeAsync(() => { StateHasChanged(); });
-
-    }
-
-    private async Task DeleteTextState(string title) {
-        Log.Information("ReaderPlatform: DeleteTextState");
-
-
-        await JSRuntime.InvokeVoidAsync("deleteTextState", title);
-        await ReloadSavedStates();
-        await InvokeAsync(() => { StateHasChanged(); });
-
-    }
-
-    private async Task ReloadSavedStates() {
-        Log.Information("ReaderPlatform: ReloadSavedStates");
-
-        var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
-
-        if (JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr) == null)
-            return;
-        savedStates = 
-            JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr)!
-            .Select(x => ReaderState.ImportFromJson(x)).ToList() ?? new List<ReaderState>();
-        savedStates = savedStates
-            .OrderByDescending(x => x.LastRead)
-            .ToList();
-
-    }
-
     private void ToggleNewTextPanelOpen()
     {
         Log.Information("ReaderView: ToggleNewTextPanelOpen");
@@ -322,7 +243,7 @@
         try
         {
             Console.WriteLine("Handling file upload");
-            await ReaderContext.HandleFileUpload(files);
+            await ReaderContext.AddAndSelectState(await FileImporter.ExtractFromBrowserFiles(files));
         }
         catch (UnsupportedOperationException e)
         {
@@ -337,21 +258,12 @@
         
         try
         {
-            await ReaderContext.SetState(await ReaderState.Scrape(ScrapeInputs));
+            await ReaderContext.AddAndSelectState(await ReaderState.Scrape(ScrapeInputs));
         }
         catch (ScrapingException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
             Log.Information("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
-
-        await InvokeAsync(() => { StateHasChanged(); });
-
-    }
-
-    private async Task SetNewTextInputMethodString(string text)
-    {
-        ScrapeInputs.NewTextInputMethodString = text;
-        await InvokeAsync(() => { StateHasChanged(); });
     }
 }

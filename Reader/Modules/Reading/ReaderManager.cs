@@ -13,14 +13,11 @@ public class ReaderManager
     public bool ReadingStatus { get; private set; }
     public ReaderState State;
     public ReaderConfig Config;
-
-    public bool jsInteropAllowed = false;
-
-    private CancellationTokenSource ReadingTaskTokenSource = new();
-   
     private SiteInteraction SiteInteraction;
 
-    public ReaderManager(ref ReaderState state, ref ReaderConfig config, SiteInteraction siteInteraction)
+    private CancellationTokenSource ReadingTaskTokenSource = new();
+
+    public ReaderManager(ReaderState state, ref ReaderConfig config, SiteInteraction siteInteraction)
     {
         State = state;
         Config = config;
@@ -30,7 +27,7 @@ public class ReaderManager
 
     public void SetupTextPieces()
     {
-        var unvalidatedTextPieces = State.Text.Split(new string[] { " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        var unvalidatedTextPieces = SeparateText(State.Text);
 
         List<string> newTextPieces = new();
         foreach (var currentTextPiece in unvalidatedTextPieces)
@@ -46,7 +43,11 @@ public class ReaderManager
 
         TextPieces = newTextPieces;
         ClampPosition();
+    }
 
+    public static IEnumerable<string> SeparateText(string text)
+    {
+        return text.Split(new string[] { " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 
     public void HandleStartStop()
@@ -181,14 +182,14 @@ public class ReaderManager
 
     public async Task UpdateSavedState()
     {
-        await SiteInteraction.JSRuntime.InvokeVoidAsync("updateState", State.Title, JsonConvert.SerializeObject(State));
+        await SiteInteraction.JSRuntime.InvokeVoidAsync("setState", State.Title, JsonConvert.SerializeObject(State));
     }
 
     public async Task RenameSavedState(string oldTitle, string newTitle)
     {
-        if (oldTitle == newTitle)
-            return;
         await SiteInteraction.JSRuntime.InvokeVoidAsync("renameState", oldTitle, newTitle);
+        
+        await UpdateSavedState();
+        await SiteInteraction.HandleSiteStateChanged();
     }
-
 }
