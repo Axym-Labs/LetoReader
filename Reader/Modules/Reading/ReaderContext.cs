@@ -279,6 +279,9 @@ public class ReaderContext
         // fix this here
         Log.Information("ReaderPlatform: LoadTextState");
 
+        if (Manager != null)
+            Manager.StopReadingTask();
+
         CurrentStateTitle = title;
 
         await HandleSelectedReaderStateChanged();
@@ -292,7 +295,6 @@ public class ReaderContext
 
         Console.WriteLine(String.Join(", ", SavedStates.Keys));
         SavedStates.Remove(title);
-
 
         await SiteInteraction.JSRuntime.InvokeVoidAsync("deleteTextState", title);
         await LoadSavedStates();
@@ -319,6 +321,7 @@ public class ReaderContext
 
         SavedStates[currentState.Title] = currentState;
 
+        // not required as currentstate set, but if that were to be removed
         await HandlePossiblyNoState();
     }
 

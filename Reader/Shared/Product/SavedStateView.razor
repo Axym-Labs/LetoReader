@@ -13,18 +13,15 @@
             <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.Position / (ReaderManager.SeparateText(State.Text).Count()-1) * 100)" />
         </div>
         <div class="inline-block flex justify-end items-center">
-            <MudTooltip Text="@State.SourceDescription" Color="Color.Primary" Class="rounded-xl shadlow-xl">
-                <ChildContent>
-                    <MudFab Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
-                </ChildContent>
-                <TooltipContent>
-                    <div>
-                        <MudChip Color="Color.Default" Disabled="false">Last read: @State.LastRead</MudChip>
-                        <MudChip Color="Color.Default" Disabled="false">Length in words: @State.Text.Split(" ").Length</MudChip>
-                        <MudChip Color="Color.Default" Disabled="false">Source: @State.Source.ToString() (@State.SourceDescription)</MudChip>
-                    </div>
-                </TooltipContent>
-            </MudTooltip>
+            <MudFab OnClick="ToggleInfoPanelOpen" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
+
+            <MudPopover Open="@InfoPanelOpen" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
+                <div>
+                    <MudChip Class="block" Color="Color.Default" Disabled="false">Last read: @State.LastRead</MudChip>
+                    <MudChip Class="block" Color="Color.Default" Disabled="false">Length in words: @State.Text.Split(" ").Length</MudChip>
+                    <MudChip Class="block" Color="Color.Default" Disabled="false">Source: @State.Source.ToString() (@State.SourceDescription)</MudChip>
+                </div>
+            </MudPopover>
 
             <MudButton Disabled="@(ReaderContext.State.Title == State.Title)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.SwitchState(State.Title); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
                 Load
@@ -41,4 +38,11 @@
 
     [Parameter]
     public ReaderContext ReaderContext { get; set; }
+
+    private bool InfoPanelOpen { get; set; }
+
+    private void ToggleInfoPanelOpen()
+    {
+        InfoPanelOpen = !InfoPanelOpen;
+    }
 }
