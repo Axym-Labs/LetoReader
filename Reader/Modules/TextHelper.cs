@@ -1,4 +1,6 @@
-﻿namespace Reader.Modules;
+﻿using System.Web;
+
+namespace Reader.Modules;
 
 public static class TextHelper
 {
@@ -8,6 +10,8 @@ public static class TextHelper
         text = text.Replace("\r", "\n");
         text = text.Replace("\n", Environment.NewLine);
         text = RemoveEmptySpaces(text);
+        text = text.Trim();
+        text = HttpUtility.HtmlDecode(text);
 
         return text;
     }
@@ -26,6 +30,7 @@ public static class TextHelper
         var textPieces = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         textPieces = textPieces.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
         textPieces = textPieces = textPieces.Select(x => x.Trim()).ToArray();
+        textPieces = string.Join(Environment.NewLine, textPieces).Split("" , StringSplitOptions.RemoveEmptyEntries);
         return string.Join(Environment.NewLine, textPieces);
     }
 }
