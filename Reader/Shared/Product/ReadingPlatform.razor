@@ -155,6 +155,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Log.Information("ReaderPlatform: OnInitializedAsync");
 
         ReaderContext = new(
             new SiteInteraction(
@@ -166,7 +167,6 @@
 
         await ReaderContext.TriggerOnInitializedEvents();
 
-        Log.Information("ReaderPlatform: OnInitializedAsync");
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
@@ -271,20 +271,21 @@
 
     private async Task LoadTextState(ReaderState newState) {
         // fix this here
+        Log.Information("ReaderPlatform: LoadTextState");
         await ReaderContext.SetState(newState);
 
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Information("ReaderPlatform: LoadTextState");
     }
 
     private async Task DeleteTextState(string title) {
-        await JSRuntime.InvokeVoidAsync("deleteTextState", title);
+        Log.Information("ReaderPlatform: DeleteTextState");
 
+
+        await JSRuntime.InvokeVoidAsync("deleteTextState", title);
         await ReloadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Information("ReaderPlatform: DeleteTextState");
     }
 
     private async Task ReloadSavedStates() {
@@ -331,6 +332,8 @@
 
     private async Task SubmitScrapingForm()
     {
+        Log.Information("ReaderView: SubmitScrapingForm");
+        
         try
         {
             await ReaderContext.SetState(await ReaderState.Scrape(ScrapeInputs));
@@ -343,7 +346,6 @@
 
         await InvokeAsync(() => { StateHasChanged(); });
 
-        Log.Information("ReaderView: SubmitScrapingForm");
     }
 
     private async Task SetNewTextInputMethodString(string text)
