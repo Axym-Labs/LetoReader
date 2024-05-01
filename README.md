@@ -1,15 +1,21 @@
 # Axym-Reader
-- **[Demo Version](https://reader.davidewiest.com/)**
+- **[Demo Version](https://axym.davidewiest.com/)**
 - **[Docker Image](https://hub.docker.com/r/davidewiest/reader)**
 
 ### A highly customizable reader built as a direct alternative to paid speed-readers.
 - Speed-reading concepts such as chunking, pacing and highlighting are built into this reader.
 - Start by reading the example text to get used to this kind of reading.
 - Over time, increase reading speed.
+
 ### Functionality
 - Use the focus mode to read.
-- Import your texts either from your clipboard or by uploading a file (.pdf, .md, .txt, .html).
 - Customize the reader in 9 different ways to fit your needs.
+
+##### Import options
+- From a URL
+- uploading a file (.pdf, .md, .txt, .html, .epub)
+- Clipboard
+- Request body of GET request
 
 ### Hosting
 ##### With docker
@@ -26,3 +32,8 @@
 - Modern, minimalistic UI
 - Privacy first: All data is stored on your device only.
 - Super simple to use - 14 first-level interaction fields (buttons + text fields) in total
+
+
+### Changelogs
+- [Version 2](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2)
+
