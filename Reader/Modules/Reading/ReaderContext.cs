@@ -221,6 +221,9 @@ public class ReaderContext
     {
         Log.Information("ReaderContext: SwitchState");
 
+        if (Manager != null)
+            Manager.StopReadingTask();
+
         CurrentStateTitle = title;
         await HandleSelectedReaderStateChanged();
     }
@@ -236,7 +239,7 @@ public class ReaderContext
     public async Task AddState(ReaderState newState)
     {
         int i = 0;
-        while (SavedStates.ContainsKey(newState.Title + $" ({i})"))
+        while (SavedStates.ContainsKey(i == 0 ? newState.Title : newState.Title + $" ({i})"))
         {
             i++;
         }
