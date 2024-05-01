@@ -154,8 +154,14 @@
 
     public async Task TryImportStateRequestBody()
     {
-
-        string requestString = await GetRequestBody();
+        string requestString;
+        try
+        {
+            requestString = await GetRequestBody();
+        } catch (InvalidOperationException)
+        {
+            return;
+        }
 
         if (String.IsNullOrEmpty(requestString))
         {
@@ -207,6 +213,12 @@
         if (httpContextAccessor.HttpContext == null)
         {
             Log.Warning("Unable to access HttpContext");
+            throw new InvalidOperationException("Unable to access HttpContext");
+        }
+
+        if (httpContextAccessor.HttpContext!.Request == null || httpContextAccessor.HttpContext!.Request.Body == null)
+        {
+            throw new InvalidOperationException("Request body is null");
         }
 
         using (StreamReader reader = new StreamReader(httpContextAccessor.HttpContext!.Request.Body, Encoding.UTF8))
