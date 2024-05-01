@@ -7,7 +7,9 @@ tailwind.config = {
                 focusColor: '#ffffff',
                 btnPrimary: '#3e09b8',
                 btnPrimaryDarker: '#23046b',
-                btnSecondary: '#7a6007'
+                btnSecondary: '#7a6007',
+
+                tertiary: "#5E35B1"
             }
         }
     }

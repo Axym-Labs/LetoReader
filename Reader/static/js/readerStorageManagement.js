@@ -85,3 +85,11 @@ function copyText() {
     textfield.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(textfield.value);
 }
+
+function copyTitle(text) {
+    textfield = document.querySelector("#reader-fontpagesection-titlefield")
+
+    textfield.select();
+    textfield.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(textfield.value);
+}

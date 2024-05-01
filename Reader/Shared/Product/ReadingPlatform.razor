@@ -3,98 +3,355 @@
 @using MudBlazor
 @using Reader.Shared
 @using Reader.Modules
+@using Reader.Modules.Logging
+@using Reader.Modules.Product
+@using Reader.Modules.Reading
 @using Newtonsoft.Json
 @using Reader.Data.Storage
 @using Reader.Data.Product
+@using Reader.Data.Reading
+@using Reader.Data
+@using Reader.Data.ProductExceptions
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json.Linq
+@using System.Text
+
 @inject IJSRuntime JSRuntime
 @inject Constants constants
-@inject MainStorage mainstorage
+@inject AppConfig config
+@inject ISnackbar Snackbar
+@inject IHttpContextAccessor httpContextAccessor
 
 <div class="mb-24">
-    <ReaderView state="@(state)" />
+    <ReaderView ReaderContext="ReaderContext" />
 </div>
 
-<h1 class="text-3xl text-center text-b700 text-gray-300 mb-15">
-    Saved Texts
-</h1>
+<div class="flex justify-between items-center mb-15">
+    <h1 class="text-3xl text-center text-b700 text-gray-300">
+        Saved Texts
+    </h1>
+    <div>
+        <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-5 !px-5 hover:!bg-neutral-900 centered-button-icon">
+            <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
+        </MudButton>
+        <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
+            <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
+                <div class="flex justify-between items-center mb-4">
+                    <p class="text-xl font-semibold">
+                        Create new text
+                    </p>
+                    <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleNewTextPanelOpen" />
+                </div>
+                <div>
+                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                        1) Extract from website
+                    </h5>
+                    <MudTextField T="string" Label="Url" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.Url" />
+                    <MudSelect Color="Color.Tertiary" Class="mud-select-table mt-4" Label="Method"
+                               T="string"
+                               @bind-Value="ScrapeInputs.NewTextInputMethodString">
+                        <MudSelectItem T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Largest article subsection</MudSelectItem>
+                        <MudSelectItem T="string" Value="@("XPath")" Color="Color.Tertiary">XPath</MudSelectItem>
+                    </MudSelect>
+                    @if (ScrapeInputs.NewTextInputMethodString == "XPath")
+                    {
+                        <div class="my-4">
+                            <MudTextField T="string" Label="XPath" Class="my-2" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.XPathInputs.XPath" />
+                            <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Checked="@ScrapeInputs.XPathInputs.SelectAll" />
+                        </div>
+                    }
+                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class="mt-8 hover:!bg-neutral-900">
+                        Load
+                    </MudButton>
+                </div>
+                <div class="my-8 md:my-16">
+                    <MudDivider />
+                </div>
+                <div class="">
+                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                        2) File upload
+                    </h5>
+                    <p class="my-2">
+                        Supported file formats: @ProductConstants.SupportedFileImports
+                    </p>
+                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="files => HandleFileUpload(files)" MaximumFileCount="25" Class="my-8">
+                        <ButtonTemplate>
+                            <MudButton Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       StartIcon="@Icons.Material.Filled.FileUpload"
+                                       for="@context">
+                                Select Files
+                            </MudButton>
+                        </ButtonTemplate>
+                    </MudFileUpload>
+                </div>
+                <div class="my-8 md:my-16">
+                    <MudDivider />
+                </div>
+                <div>
+                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                        3) Empty fields
+                    </h5>
+                    <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Secondary" Class="hover:!bg-neutral-900">
+                        Create
+                    </MudButton>
+                </div>
+            </div>
+        </MudPopover>
+    </div>
+</div>
 
 <div>
     @foreach (var savedState in savedStates) {
-        <div class="my-5 p-4 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
-            <div class="flex justify-between">
-                <h3 class="text-b700 text-xl">
-                    @savedState.Title
-                </h3>
-                <p class="text-gray-400 min-w-20">
-                    @savedState.LastRead
-                </p>
-            </div>
-            <div class="my-4">
-                <p class="text-gray-500">
-                    @(savedState.Text[..Math.Min(120,savedState.Text.Length)])...
-                </p>
-            </div>
-            <div>
-                <MudProgressLinear Color="Color.Primary" Rounded="true" Size="Size.Small" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
-            </div>
-            <div class="flex justify-between mt-3">
-                <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
-                <MudButton Variant="Variant.Filled" OnClick="@(async () => { await UpdateCurrentTextState(savedState); })" Color="Color.Secondary" Class="m-3">
-                    Load
-                </MudButton>
+        <div class="my-5 py-5 md:py-3 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
+            <div class="md:flex justify-between items-center">
+                <div class="w-full inline-block grid md:grid-cols-2 overflow-hidden">
+                    <h3 class="text-b700">
+                        @savedState.Title
+                    </h3>
+                    <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)savedState.Position / savedState.Text.Split(textSep).Length * 100)" />
+                </div>
+                <div class="inline-block flex justify-end items-center">
+                    <MudTooltip Text="@savedState.SourceDescription" Color="Color.Primary" Class="rounded-xl shadlow-xl">
+                        <ChildContent>
+                            <MudFab Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
+                        </ChildContent>
+                        <TooltipContent>
+                            <div>
+                            <MudChip Color="Color.Default" Disabled="false">Last read: @savedState.LastRead</MudChip>
+                                <MudChip Color="Color.Default" Disabled="false">Length in words: @savedState.Text.Split(" ").Length</MudChip>
+                                <MudChip Color="Color.Default" Disabled="false">Source: @savedState.Source.ToString() (@savedState.SourceDescription)</MudChip>
+                            </div>
+                        </TooltipContent>
+                    </MudTooltip>
+
+                    <MudButton Variant="Variant.Filled" OnClick="@(async () => { await LoadTextState(savedState); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
+                        Load
+                    </MudButton>
+
+                    <MudFab Variant="Variant.Filled" OnClick="@(async () => { await DeleteTextState(savedState.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
+                </div>
             </div>
         </div>
     }
 </div>
 
-
 @code {
-
-    public ReaderState state = new ReaderState(ProductStorage.DemoTitle, ProductStorage.DemoText);
+    public ReaderContext ReaderContext = default!;
 
     private string textSep = " ";
 
     List<ReaderState> savedStates = new();
 
-    protected override void OnInitialized()
+    bool NewTextPanelOpen = false;
+    public ScrapeInputs ScrapeInputs = new();
+
+    [FromBody]
+    public string Request { get; set; } = default!;
+
+    [Parameter]
+    public bool AllowRequestAccess { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
     {
+        Log.Information("ReaderPlatform: OnInitializedAsync");
+
+        ReaderContext = new(
+            new SiteInteraction(
+                InvokeAsync,
+                StateHasChanged,
+                JSRuntime
+            )
+        );
+
+        await ReaderContext.TriggerOnInitializedEvents();
 
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
+            // load state
             await SetUpSavedStates();
+            // load config
+            await ReaderContext.TriggerAfterFirstRenderEvents();
+
+            // must be afterfirstrenderevents
+            // handle usage of data from the request body
+            if (AllowRequestAccess)
+            {
+                await TryImportStateRequestBody();
+            }
+
+        }
+    }
+
+    public async Task TryImportStateRequestBody()
+    {
+
+        string requestString = await GetRequestBody();
+
+
+        if (String.IsNullOrEmpty(requestString))
+        {
+            return;
+        }
+
+        var requestObj = JsonConvert.DeserializeObject<JObject>(requestString);
+
+        if (requestObj == null)
+        {
+            Snackbar.Add("Request body was set, but not in JSON-format. This is an error of the application you are using, that directed you to the reader.", Severity.Warning);
+        }
+
+        ReaderState? RequestReaderState = null;
+        if (requestObj!["ReaderState"] != null && requestObj["ReaderState"]?.Value<string>() != null)
+        {
+            RequestReaderState = ReaderState.ImportFromJson(JsonConvert.DeserializeObject<JObject>(requestObj!["ReaderState"]!.Value<string>()!)!);
+        }
+
+        var RequestFiles = requestObj!["Files"]?.Value<List<GenericFile>?>();
+        var RequestScrapeInputs = requestObj!["ScrapeInputs"]?.Value<ScrapeInputs?>();
+
+        if (RequestReaderState != null)
+        {
+            await LoadTextState(RequestReaderState);
+        }
+        else if (RequestFiles != null)
+        {
+            await HandleFileUpload(RequestFiles);
+        }
+        else if (RequestScrapeInputs != null)
+        {
+            var si2 = ScrapeInputs;
+            ScrapeInputs = RequestScrapeInputs;
+            await SubmitScrapingForm();
+            ScrapeInputs = si2;
+        } else
+        {
+            Snackbar.Add("Importing not successful: Did not find any resource to import", Severity.Error);
+            return;
+        }
+
+        Snackbar.Add("Importing successful", Severity.Success);
+
+    }
+
+    private async Task<string> GetRequestBody()
+    {
+        if (httpContextAccessor.HttpContext == null)
+        {
+            Log.Warning("Unable to access HttpContext");
+        }
+
+        using (StreamReader reader = new StreamReader(httpContextAccessor.HttpContext!.Request.Body, Encoding.UTF8))
+        {
+            string requestContent = "";
+            char[] buffer = new char[100];
+            int charReadCount = await reader.ReadAsync(buffer, 0, buffer.Length);
+            while (charReadCount > 0)
+            {
+                char[] buf2 = new char[charReadCount];
+                buf2 = buffer.Take(charReadCount).ToArray();
+                requestContent += String.Join("", buf2);
+                charReadCount = await reader.ReadAsync(buffer, 0, buffer.Length);
+            }
+
+            return requestContent;
         }
     }
 
     private async Task SetUpSavedStates() {
-        await LoadSavedStates();
+        await ReloadSavedStates();
         if (savedStates.Count>0) {
-            state = savedStates[0];
+            await ReaderContext.SetState(savedStates[0]);
         }
         await InvokeAsync(() => { StateHasChanged(); });
     }
 
-    private async Task LoadSavedStates() {
-        var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
-        savedStates = JsonConvert.DeserializeObject<List<ReaderState>>(savedStatesStr) ?? new List<ReaderState>();
-        savedStates = savedStates
-            .OrderByDescending(x => x.LastRead)
-            .Where(x => x.Title != ProductStorage.DemoTitle || x.Text != ProductStorage.DemoText)
-            .ToList();
-    }
+    private async Task LoadTextState(ReaderState newState) {
+        // fix this here
+        Log.Information("ReaderPlatform: LoadTextState");
+        await ReaderContext.SetState(newState);
 
-    private async Task UpdateCurrentTextState(ReaderState newState) {
-        state = newState;
-        await LoadSavedStates();
         await InvokeAsync(() => { StateHasChanged(); });
+
     }
 
     private async Task DeleteTextState(string title) {
+        Log.Information("ReaderPlatform: DeleteTextState");
+
+
         await JSRuntime.InvokeVoidAsync("deleteTextState", title);
-        await LoadSavedStates();
-        await InvokeAsync(() => {
-            StateHasChanged();
-        });
+        await ReloadSavedStates();
+        await InvokeAsync(() => { StateHasChanged(); });
+
+    }
+
+    private async Task ReloadSavedStates() {
+        Log.Information("ReaderPlatform: ReloadSavedStates");
+
+        var savedStatesStr = await JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
+
+        if (JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr) == null)
+            return;
+        savedStates = 
+            JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr)!
+            .Select(x => ReaderState.ImportFromJson(x)).ToList() ?? new List<ReaderState>();
+        savedStates = savedStates
+            .OrderByDescending(x => x.LastRead)
+            .ToList();
+
+    }
+
+    private void ToggleNewTextPanelOpen()
+    {
+        Log.Information("ReaderView: ToggleNewTextPanelOpen");
+
+        if (!NewTextPanelOpen && ReaderContext.Manager.ReadingStatus)
+            ReaderContext.Manager.StopReadingTask();
+
+        NewTextPanelOpen = !NewTextPanelOpen;
+    }
+
+    private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
+    {
+        Log.Information("ReaderView: HandleCopyText");
+
+        try
+        {
+            Console.WriteLine("Handling file upload");
+            await ReaderContext.HandleFileUpload(files);
+        }
+        catch (UnsupportedOperationException e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+            Log.Information("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+        }
+    }
+
+    private async Task SubmitScrapingForm()
+    {
+        Log.Information("ReaderView: SubmitScrapingForm");
+        
+        try
+        {
+            await ReaderContext.SetState(await ReaderState.Scrape(ScrapeInputs));
+        }
+        catch (ScrapingException e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+            Log.Information("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+        }
+
+        await InvokeAsync(() => { StateHasChanged(); });
+
+    }
+
+    private async Task SetNewTextInputMethodString(string text)
+    {
+        ScrapeInputs.NewTextInputMethodString = text;
+        await InvokeAsync(() => { StateHasChanged(); });
     }
 }
