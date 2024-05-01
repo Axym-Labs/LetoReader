@@ -121,7 +121,8 @@
                         <TooltipContent>
                             <div>
                             <MudChip Color="Color.Default" Disabled="false">Last read: @savedState.LastRead</MudChip>
-                            <MudChip Color="Color.Default" Disabled="false">Source: @savedState.Source.ToString() (@savedState.SourceDescription)</MudChip>
+                                <MudChip Color="Color.Default" Disabled="false">Length in words: @savedState.Text.Split(" ").Length</MudChip>
+                                <MudChip Color="Color.Default" Disabled="false">Source: @savedState.Source.ToString() (@savedState.SourceDescription)</MudChip>
                             </div>
                         </TooltipContent>
                     </MudTooltip>

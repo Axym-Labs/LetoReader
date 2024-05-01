@@ -30,7 +30,6 @@ public class ReaderManager
 
     public void SetupTextPieces()
     {
-        Log.Information("ReaderContext: SetupTextPieces");
         var unvalidatedTextPieces = State.Text.Split(new string[] { " ", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
         List<string> newTextPieces = new();

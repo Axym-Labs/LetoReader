@@ -76,7 +76,8 @@ public class ReaderContext
 
     public async Task SetState(ReaderState newState)
     {
-        await HandleStateUpdated(newState);
+        // use a copy of the state to prevent changes to the state object
+        await HandleStateUpdated(ReaderState.Copy(newState));
         await SiteInteraction.HandleSiteStateChanged();
     }
 
