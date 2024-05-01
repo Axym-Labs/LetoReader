@@ -230,6 +230,7 @@ public class ReaderContext
 
     public async Task AddAndSelectState(ReaderState newState)
     {
+        newState.Text = TextHelper.Sanitize(newState.Text);
         PrepareSelectedStateChanging();
         await AddState(newState);
         CurrentStateTitle = newState.Title;
