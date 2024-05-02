@@ -187,7 +187,20 @@ public class ReaderContext
         }
         else
         {
-            await Manager.RenameSavedState(State.Title, title);
+            try
+            {
+                await Manager.RenameSavedState(State.Title, title);
+            } catch
+            {
+                await Manager.UpdateSavedState();
+                try
+                {
+                    await Manager.RenameSavedState(State.Title, title);
+                } catch
+                {
+                    Log.Error("ReaderContext: HandleTitleChanged: Could not rename state");
+                }
+            }
         }
 
         State.Title = title.Trim();
