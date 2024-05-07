@@ -13,7 +13,7 @@
             News
         </h1>
     </div>
-    <div class="overflow-scroll" style="max-height: 32rem;">
+    <div class="overflow-scroll" style="max-height: 24rem;">
         @foreach (var announcement in Announcements)
         {
             <AnnouncementComponent Announcement="announcement" Read="ReadAnnouncements.Contains(announcement.Id)" CloseAnnouncement="(() => CloseAnnouncement(announcement.Id))" />
