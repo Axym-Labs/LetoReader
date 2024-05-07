@@ -64,7 +64,19 @@
 </div>
 
 <div class="mb-10">
-    <MudSlider @bind-Value="@ReaderContext.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">Position: @(ReaderContext.State.Position+1) @((int)(ReaderContext.State.Position+1)*100/ReaderContext.Manager.TextPieces.Count())%</MudSlider>
+    <MudSlider @bind-Value="@ReaderContext.State.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">
+        @((int)(ReaderContext.State.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
+        <span class="inline-block mx-2">
+            @(TextHelper.GetDisplayableReadingTime(ReaderContext.State.Position, ReaderContext.Config.ReadingSpeed))
+            /
+            @(TextHelper.GetDisplayableReadingTime(ReaderContext.Manager.TextPieces.Count-1, ReaderContext.Config.ReadingSpeed))
+        </span>
+        <span class="inline-block mx-2">
+            @(ReaderContext.State.Position + 1) 
+            / 
+            @(ReaderContext.Manager.TextPieces.Count) 
+        </span>
+    </MudSlider>
 </div>
 <div class="mb-16">
     <div class="d-flex mb-4">

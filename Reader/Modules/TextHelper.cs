@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Reader.Modules.Reading;
+using System.Web;
 
 namespace Reader.Modules;
 
@@ -32,5 +33,14 @@ public static class TextHelper
         textPieces = textPieces = textPieces.Select(x => x.Trim()).ToArray();
         textPieces = string.Join(Environment.NewLine, textPieces).Split("" , StringSplitOptions.RemoveEmptyEntries);
         return string.Join(Environment.NewLine, textPieces);
+    }
+
+    public static string GetDisplayableReadingTime(int PieceCount, int ReadingSpeed)
+    {
+        float hours = (float)PieceCount / ReadingSpeed / 60;
+        Console.WriteLine(hours);
+        int minutes = (int)((hours - (int)hours) * 60);
+
+        return $"{(int)hours}h {minutes}m";
     }
 }

@@ -22,16 +22,17 @@
         <div>
             <MudChip Color="Color.Default" Disabled="true">@Announcement.Date.ToShortDateString()</MudChip>
         </div>
-        @* <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="(() => { CloseAnnouncement(); MarkAsRead(); })" /> *@
     </div>
     <div>
         <p class="text-neutral-300">
             @((MarkupString)Markdown.ToHtml(Announcement.Description))
         </p>
     </div>
-    <div class="my-6 flex justify-end">
-        <MudButton Class="m-2" Href="@Announcement.Action.Url" StartIcon="@Icons.Material.Filled.ArrowRight" Target="_blank" Variant="Variant.Filled" Color="Color.Primary">@Announcement.Action.Title</MudButton>
-    </div>
+    @if (Announcement.Action.Url != null) {
+        <div class="my-6 flex justify-end">
+            <MudButton Class="m-2" Href="@Announcement.Action.Url" StartIcon="@Icons.Material.Filled.ArrowRight" Target="_blank" Variant="Variant.Filled" Color="Color.Primary">@Announcement.Action.Title</MudButton>
+        </div>
+    }
 </div>
 
 

@@ -78,7 +78,8 @@
                     </p>
                     <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="files => HandleFileUpload(files)" MaximumFileCount="25" Class="my-8">
                         <ButtonTemplate>
-                            <MudButton Variant="Variant.Filled"
+                            <MudButton HtmlTag="label"
+                                       Variant="Variant.Filled"
                                        Color="Color.Primary"
                                        StartIcon="@Icons.Material.Filled.FileUpload"
                                        for="@context">
@@ -251,6 +252,7 @@
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
         Log.Information("ReaderView: HandleCopyText");
+        Console.WriteLine("Handling file upload first");
 
         try
         {
