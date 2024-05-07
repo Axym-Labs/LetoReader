@@ -21,9 +21,9 @@ public class Announcement
         _ => Color.Primary
     };
     public bool Priority { get; set; }
-    public AnnouncementAction Action { get; set; }
+    public AnnouncementAction? Action { get; set; }
 
-    public Announcement(int id, DateTime date, int showForDays, string title, string description, string type, bool priority, AnnouncementAction action)
+    public Announcement(int id, DateTime date, int showForDays, string title, string description, string type, bool priority, AnnouncementAction? action)
     {
         Id = id;
         Date = date;

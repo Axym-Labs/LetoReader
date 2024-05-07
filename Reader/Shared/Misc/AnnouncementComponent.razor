@@ -28,7 +28,7 @@
             @((MarkupString)Markdown.ToHtml(Announcement.Description))
         </p>
     </div>
-    @if (Announcement.Action.Url != null) {
+    @if (Announcement.Action != null) {
         <div class="my-6 flex justify-end">
             <MudButton Class="m-2" Href="@Announcement.Action.Url" StartIcon="@Icons.Material.Filled.ArrowRight" Target="_blank" Variant="Variant.Filled" Color="Color.Primary">@Announcement.Action.Title</MudButton>
         </div>
