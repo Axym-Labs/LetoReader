@@ -23,8 +23,7 @@ public class BaseUIStorage
         {
             new Link("Read", "/read"),
             new Link("Roadmap", "https://reader.canny.io/", "_blank"),
-            new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
-            new Link("Feedback", ""),
+            new Link("On GitHub", "https://github.com/Axym-Labs/Axym-Reader", "_blank"),
         };
 
         public string SpecialAnnouncement { get; } = "";
@@ -39,12 +38,12 @@ public class BaseUIStorage
             ["Category One"] = new List<Link>
             {
                 new Link("Home", "/"),
-                new Link("Axym", "https://github.com/Axym-Dev"),
                 new Link("Roadmap", "https://reader.canny.io/", "_blank"),
                 new Link("Feature requests", "https://reader.canny.io/feature-requests", "_blank"),
-                new Link("Repository", "https://github.com/DavideWiest/Reader", "_blank"),
-                new Link("Report Issue", "https://github.com/DavideWiest/Reader/issues/new", "_blank"),
-                new Link("Contact", "mailto:hi@davidewiest.com"),
+                new Link("Repository", "https://github.com/Axym-Labs/Axym-Reader", "_blank"),
+                new Link("Report Issue", "https://github.com/Axym-Labs/Axym-Reader/issues/new", "_blank"),
+                new Link("Contact", "mailto:axym@davidewiest.com"),
+                new Link("Axym", "https://github.com/Axym-Labs", "_blank"),
             }
         };
     }
