@@ -1,6 +1,15 @@
 # Axym-Reader
+<div style="display: flex">
+<a href="https://hub.docker.com/r/davidewiest/reader">
+  <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />
+</a>
+  
+[![.NET build](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml/badge.svg?branch=main)](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml)
+  
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+</div>
+
 - **[Demo Version](https://axym.davidewiest.com/)**
-- **[Docker Image](https://hub.docker.com/r/davidewiest/reader)**
 
 ### A highly customizable reader built as a direct alternative to paid speed-readers.
 - Speed-reading concepts such as chunking, pacing and highlighting are built into this reader.
@@ -37,3 +46,5 @@
 ### Changelogs
 - [Version 2](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2)
 
+
+Made with <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" />
