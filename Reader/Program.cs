@@ -21,13 +21,7 @@ var clArgs = Environment.GetCommandLineArgs();
 
 AppConfig config;
 
-if (clArgs.Length >= 2)
-{
-    config = AppConfig.GetFromJsonFile(clArgs[1]);
-} else
-{
-    config = AppConfig.GetFromJsonFile("Config/AppConfig_Default.json");
-}
+config = AppConfig.GetFromJsonFile("Config/AppConfig_Default.json");
 
 // SERVICES SETUP
 
