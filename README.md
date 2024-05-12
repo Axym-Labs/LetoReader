@@ -12,13 +12,14 @@
 </a>
 
 ### A highly customizable reader built as a direct alternative to paid speed-readers.
-- Speed-reading concepts such as chunking, pacing and highlighting are built into this reader.
-- Start by reading the example text to get used to this kind of reading.
-- Over time, increase reading speed.
-
-### Functionality
-- Use the focus mode to read.
-- Customize the reader in 9 different ways to fit your needs.
+- Chunking, pacing and highlighting built in
+  - great UX and responsive design
+  - Easy importing
+  - Very customizable (9 options and more to come)
+  - Focus mode (big plus for dyslexia/add/adhd)
+  - No external API dependencies
+  - Local storage
+  - Self-hostable
 
 ##### Import options
 - From a URL
