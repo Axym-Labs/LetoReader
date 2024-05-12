@@ -3,6 +3,7 @@
 
 # User-specific files
 Logs/
+/Reader/Logs
 
 ###################
 # compiled source #
