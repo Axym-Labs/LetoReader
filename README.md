@@ -1,6 +1,8 @@
 # Axym-Reader
 <div style="display: flex;">
-![Website](https://img.shields.io/website?url=https%3A%2F%2Faxym.davidewiest.com)
+<a href="https://axym.davidewiest.com">
+  <img src="https://img.shields.io/website?url=https%3A%2F%2Faxym.davidewiest.com" />
+</a>
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/davidewiest/reader)
 
