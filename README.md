@@ -1,9 +1,14 @@
 # Axym-Reader
-<div style="display: flex">
+<div style="display: flex;">
+
+![Website](https://img.shields.io/website?url=https%3A%2F%2Faxym.davidewiest.com)
+
 <a href="https://hub.docker.com/r/davidewiest/reader">
   <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />
 </a>
-  
+
+![Docker Pulls](https://img.shields.io/docker/pulls/davidewiest/reader)
+
 [![.NET build](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml/badge.svg?branch=main)](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml)
   
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
