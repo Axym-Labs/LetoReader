@@ -18,10 +18,8 @@ public class ReaderContext
     public ReaderManager Manager { get; private set; } = default!;
     public ReaderConfigManager ConfigManager { get; private set; } = default!;
     public StateManager StateManager { get; private set; } = default!;
-    public Dictionary<string, ReaderState> SavedStates { get; private set; } = new();
     private string CurrentStateTitle = default!;
-
-    public ReaderState State { get => SavedStates[CurrentStateTitle]; set => SavedStates[CurrentStateTitle] = value; }
+    public ReaderState State => StateManager.ReaderStates[0];
 
     private ReaderConfig _config = default!;
     public ReaderConfig Config { get => _config; set => _config = value; }
@@ -68,25 +66,19 @@ public class ReaderContext
 
         await StateManager.LoadSavedStates();
 
-        if (StateManager.ReaderStates.Count > 0)
-        {
-            // overwrite the default state with the first saved state
-            await OverwriteState(SavedStates.First().Value);
-        }
-
         await LoadConfig();
 
         // start reader if demo
-        if (State.Title == ReaderState.GetDemo(ReaderStateSource.Program).Title)
+        if (State.Title == ReaderState.GetDemo(ReaderStateSource.Program).Item1.Title)
             Manager.StartReadingTask();
     }
 
     private async Task LoadConfig()
     {
-        string? loadedConfigStr = await SiteInteraction.JSRuntime.InvokeAsync<string?>("loadConfigurationStrIfExists");
-        if (!string.IsNullOrEmpty(loadedConfigStr))
+        ReaderConfig? loadedConfig = await localStorage.GetItemAsync<ReaderConfig>("readerState");
+        if (loadedConfig != null)
         {
-            _config = JsonConvert.DeserializeObject<ReaderConfig>(loadedConfigStr!)!;
+            _config = loadedConfig;
             InitializeConfigManager();
 
             // should work without this line
@@ -127,7 +119,7 @@ public class ReaderContext
         if (Config == null)
             throw new("Config must be initialized");
 
-        ConfigManager = new(ref _config, SiteInteraction, Manager.SetupTextPieces);
+        ConfigManager = new(ref _config, SiteInteraction, Manager.SetupTextPieces, localStorage);
     }
 
     public async Task HandleNewText()
@@ -156,7 +148,7 @@ public class ReaderContext
 
     public async Task HandlePasteText()
     {
-        State.Text  = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
+        StateManager.CurrentText = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
 
         await OverwriteState(State);
         await StateTextField.SetText(State.Text);
@@ -197,7 +189,7 @@ public class ReaderContext
         {
             try
             {
-                await Manager.RenameSavedState(State.Title, title);
+                await StateManager.RenameState(State, title);
             } catch
             {
                 await Manager.UpdateSavedState();
@@ -234,7 +226,7 @@ public class ReaderContext
         // must be at the start to prevent blocking of this update by the changes below, disabling the input field
         await SetStateFields(newState);
         PrepareSelectedStateChanging();
-        State = newState;
+        StateManager.CurrentState = newState;
         await HandleSelectedReaderStateChanged();
     }
 
@@ -261,7 +253,7 @@ public class ReaderContext
     public async Task AddState(ReaderState newState)
     {
         int i = 0;
-        while (SavedStates.ContainsKey(i == 0 ? newState.Title : newState.Title + $" ({i})"))
+        while (StateManager.ReaderStates(i == 0 ? newState.Title : newState.Title + $" ({i})"))
         {
             i++;
         }

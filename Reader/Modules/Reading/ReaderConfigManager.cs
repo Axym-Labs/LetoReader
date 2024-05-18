@@ -7,6 +7,7 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Reader.Data.Reading;
+using Blazored.LocalStorage;
 
 namespace Reader.Modules.Reading;
 
@@ -15,12 +16,13 @@ public class ReaderConfigManager
     public ReaderConfig Config;
     private SiteInteraction SiteInteraction;
     private Action SetupTextPieces;
-
-    public ReaderConfigManager(ref ReaderConfig config, SiteInteraction siteInteraction, Action setupTextPieces)
+    private ILocalStorageService localStorage;
+    public ReaderConfigManager(ref ReaderConfig config, SiteInteraction siteInteraction, Action setupTextPieces, ILocalStorageService localStorage)
     {
         Config = config;
         SiteInteraction = siteInteraction;
         SetupTextPieces = setupTextPieces;
+        this.localStorage = localStorage;
     }
 
     public int FrontReadingSpeed
@@ -122,7 +124,7 @@ public class ReaderConfigManager
 
     private void SaveConfig()
     {
-        _ = Task.Run(() => SiteInteraction.JSRuntime.InvokeVoidAsync("saveConfiguration", JsonConvert.SerializeObject(Config)));
+        _ = Task.Run(() => localStorage.SetItemAsync<ReaderConfig>("readerConfig", Config));
     }
 
 }

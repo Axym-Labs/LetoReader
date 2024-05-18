@@ -61,7 +61,7 @@
                     {
                         <div class="my-4">
                             <MudTextField T="string" Label="XPath" Class="my-2" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.XPathInputs.XPath" />
-                            <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Checked="@ScrapeInputs.XPathInputs.SelectAll" />
+                            <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Value="@ScrapeInputs.XPathInputs.SelectAll" />
                         </div>
                     }
                     <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class="mt-8 hover:!bg-neutral-900">
@@ -107,8 +107,8 @@
 </div>
 
 <div>
-    @foreach (var savedState in ReaderContext.SavedStates) {
-        <SavedStateView State="savedState.Value" ReaderContext="ReaderContext" />
+    @foreach (var savedState in ReaderContext.StateManager.ReaderStates) {
+        <SavedStateView State="savedState" ReaderContext="ReaderContext" />
     }
 </div>
 

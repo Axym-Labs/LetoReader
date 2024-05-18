@@ -14,14 +14,12 @@ public class ReaderState
     public string Title;
     public int Position = 0;
     public DateTime LastRead;
-    public string Text;
     public ReaderStateSource Source;
     public string? SourceDescription;
 
-    public ReaderState(string title, string text, ReaderStateSource source, string? sourceDescription = null, DateTime? lastRead = null)
+    public ReaderState(string title, ReaderStateSource source, string? sourceDescription = null, DateTime? lastRead = null)
     {
         Title = title;
-        Text = text;
         Source = source;
         SourceDescription = sourceDescription;
         if (SourceDescription == null && source != ReaderStateSource.Unknown)
@@ -43,7 +41,6 @@ public class ReaderState
             throw new ArgumentException("Text is missing but required");
         }
 
-        string text = stateObj["Text"]!.Value<string>()!;
         DateTime lastRead = stateObj["LastRead"]?.Value<DateTime>() ?? DateTime.Now;
 
         ReaderStateSource source =
@@ -53,16 +50,16 @@ public class ReaderState
         
         string? sourceDescription = stateObj["SourceDescription"]?.Value<string>();
 
-        string title = stateObj["Title"]?.Value<string>() ?? GetNew(source, sourceDescription).Title;
+        string title = stateObj["Title"]?.Value<string>() ?? GetNew(source, sourceDescription).Item1.Title;
 
-        var state = new ReaderState(title, text, source, sourceDescription, lastRead);
+        var state = new ReaderState(title, source, sourceDescription, lastRead);
 
         Log.Verbose("Imported ReaderState from Json", new { source, sourceDescription, version });
 
         return state;
     }
 
-    public static async Task<ReaderState> Scrape(ScrapeInputs inputs)
+    public static async Task<Tuple<ReaderState,string>> Scrape(ScrapeInputs inputs)
     {
         var websiteInfo = new WebExtractor();
         if (!String.IsNullOrEmpty(inputs.Html))
@@ -84,26 +81,21 @@ public class ReaderState
             _ => throw new ScrapingException("Invalid new text input method")
         };
 
-        var state = GetNew(ReaderStateSource.WebsiteExtract, $"Extracted from {inputs.Url}");
+        var (state,_) = GetNew(ReaderStateSource.WebsiteExtract, $"Extracted from {inputs.Url}");
         state.Title = title;
-        state.Text = text;
 
-        return state;
+        return new Tuple<ReaderState,string>(state,text);
     }
 
 
-    public static ReaderState GetDemo(ReaderStateSource source, string? sourceDescription = null)
+    public static Tuple<ReaderState,string> GetDemo(ReaderStateSource source, string? sourceDescription = null)
     {
-        return new ReaderState(ProductConstants.DemoTitle, ProductConstants.DemoText, source, sourceDescription, DateTime.Now);
+        return new Tuple<ReaderState, string>(new ReaderState(ProductConstants.DemoTitle, source, sourceDescription, DateTime.Now), ProductConstants.DemoText);
     }
 
-    public static ReaderState GetNew(ReaderStateSource source, string? sourceDescription = null)
+    public static Tuple<ReaderState, string> GetNew(ReaderStateSource source, string? sourceDescription = null)
     {
-        return new ReaderState(ProductConstants.DefaultNewTitle, ProductConstants.DefaultNewText, source, sourceDescription, DateTime.Now);
+        return new Tuple<ReaderState, string> (new ReaderState(ProductConstants.DefaultNewTitle, source, sourceDescription, DateTime.Now), ProductConstants.DefaultNewText);
     }
 
-    public static ReaderState Copy(ReaderState state)
-    {
-        return new ReaderState(state.Title, state.Text, state.Source, state.SourceDescription, state.LastRead);
-    }
 }
