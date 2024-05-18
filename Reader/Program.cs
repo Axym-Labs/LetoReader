@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
+using Blazored.LocalStorage;
 
 using MudBlazor;
 using MudBlazor.Services;
@@ -54,7 +55,7 @@ builder.Services.AddSignalR(e => {
 });
 
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddBlazoredLocalStorage();
 // CONSTR
 
 //#if DEBUG

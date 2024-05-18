@@ -1,5 +1,6 @@
 @namespace Reader.Shared.Product
 
+@using Blazored.LocalStorage
 @using MudBlazor
 @using Reader.Shared
 @using Reader.Modules
@@ -23,6 +24,7 @@
 @inject AppConfig config
 @inject ISnackbar Snackbar
 @inject IHttpContextAccessor httpContextAccessor
+@inject ILocalStorageService LocalStorage
 
 <div class="mb-24">
     <ReaderView ReaderContext="ReaderContext" />
@@ -131,7 +133,8 @@
                 InvokeAsync,
                 StateHasChanged,
                 JSRuntime
-            )
+            ),
+            LocalStorage
         );
 
         await ReaderContext.TriggerOnInitializedEvents();

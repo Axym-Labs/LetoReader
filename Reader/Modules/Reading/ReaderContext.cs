@@ -1,5 +1,6 @@
 ﻿namespace Reader.Modules.Reading;
 
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using MudBlazor;
@@ -10,12 +11,13 @@ using Reader.Data.Reading;
 using Reader.Data.Storage;
 using Reader.Modules.Logging;
 using Reader.Modules.Product;
+using System.Collections.Generic;
 
 public class ReaderContext
 {
     public ReaderManager Manager { get; private set; } = default!;
     public ReaderConfigManager ConfigManager { get; private set; } = default!;
-
+    public StateManager StateManager { get; private set; } = default!;
     public Dictionary<string, ReaderState> SavedStates { get; private set; } = new();
     private string CurrentStateTitle = default!;
 
@@ -31,9 +33,13 @@ public class ReaderContext
 
     private bool skipNextStateUpdate = false;
 
-    public ReaderContext(SiteInteraction siteInteraction)
+    private ILocalStorageService localStorage = default!;
+
+    public ReaderContext(SiteInteraction siteInteraction, ILocalStorageService localStorage)
     {
         SiteInteraction = siteInteraction;
+        this.localStorage = localStorage;
+        StateManager = new StateManager(localStorage);
     }
 
     public async Task TriggerOnInitializedEvents()
@@ -55,12 +61,14 @@ public class ReaderContext
             throw new("State must be initialized");
         if (Manager == null)
             throw new("Manager must be initialized");
+        
 
         SiteInteraction.TriggerAfterRenderEvents();
 
-        await LoadSavedStates();
 
-        if (SavedStates.Count > 0)
+        await StateManager.LoadSavedStates();
+
+        if (StateManager.ReaderStates.Count > 0)
         {
             // overwrite the default state with the first saved state
             await OverwriteState(SavedStates.First().Value);
@@ -322,19 +330,31 @@ public class ReaderContext
     {
         Log.Information("ReaderPlatform: ReloadSavedStates");
 
-        var savedStatesStr = await SiteInteraction.JSRuntime.InvokeAsync<string>("loadStateArraysStr", null);
 
-        if (JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr) == null)
+
+        var loadedStates =
+            (await Task.WhenAll(
+                (await localStorage.KeysAsync())
+                .Where(key => key.StartsWith("TEXTSTATE:"))
+                .Select(async key =>
+                    ReaderState.ImportFromJson(
+                        JsonConvert.DeserializeObject<JObject>(
+                            (await localStorage.GetItemAsStringAsync(key))!
+                        )!
+                    )
+                )
+            ))
+            .OrderByDescending(x => x.LastRead)
+            .ToDictionary(x => x.Title, x => x);
+
+
+        if (loadedStates == null)
             return;
+
+        SavedStates = loadedStates;
 
         var currentState = ReaderState.Copy(State);
 
-        SavedStates =
-            JsonConvert.DeserializeObject<List<JObject>>(savedStatesStr)!
-            .Select(x => ReaderState.ImportFromJson(x))
-            .OrderByDescending(x => x.LastRead)
-            .ToList()
-            .ToDictionary(x => x.Title, x => x);
 
         SavedStates[currentState.Title] = currentState;
 
