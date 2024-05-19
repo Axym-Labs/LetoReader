@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ public class ReaderConfig
     public static ReaderConfig GetDefault()
     {
         return new ReaderConfig();
+    }
+
+    public static async Task<ReaderConfig> LoadConfig(ILocalStorageService localStorage)
+    {
+        return (await localStorage.GetItemAsync<ReaderConfig>("readerConfig"))!;
     }
 }
 

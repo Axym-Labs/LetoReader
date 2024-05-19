@@ -2,49 +2,7 @@
 const TEXTSTATEIDENT = "TEXTSTATE:";
 const READERELEMIDENT = "#reader-frontpagesection";
 
-function saveConfiguration(configStr) {
-    localStorage.setItem('readerConfig', configStr);
-}
 
-function loadConfigurationStrIfExists() {
-    let configString = localStorage.getItem('readerConfig');
-    if (configString && configString != "{}") {
-        return configString;
-    } else {
-        return null;
-    }
-}
-
-function setState(title, stateStr) {
-    localStorage.setItem(TEXTSTATEIDENT + title, stateStr);
-}
-
-function loadStateArraysStr(_) {
-    let arrStr = "[";
-    for (var key in localStorage) {
-        if (key.startsWith(TEXTSTATEIDENT)) {
-            let val = localStorage.getItem(key);
-            if (val != null && val != "" && val != "{}")
-            arrStr += val + ", ";
-        }
-    }
-    if (arrStr[arrStr.length-1] == ",")
-        arrStr = arrStr.substring(0, arrStr.length-1)
-    arrStr += "]"
-    return arrStr;
-}
-
-function deleteTextState(title) {
-    localStorage.removeItem(TEXTSTATEIDENT + title)
-}
-
-function renameState(title, newTitle) {
-    let state = localStorage.getItem(TEXTSTATEIDENT + title);
-    localStorage.removeItem(TEXTSTATEIDENT + title);
-    let stateObj = JSON.parse(state);
-    stateObj["Title"] = newTitle;
-    localStorage.setItem(TEXTSTATEIDENT + newTitle, JSON.stringify(stateObj));
-}
 
 function getUniqueTitle(title) {
     let i = 0;
@@ -52,10 +10,6 @@ function getUniqueTitle(title) {
         i++;
     }
     return i>0 ? title + i.toString() : title;
-}
-
-function checkIfStateExists(title) {
-    return localStorage.getItem(TEXTSTATEIDENT + title) !== null;
 }
 
 function activateFocusMode() {

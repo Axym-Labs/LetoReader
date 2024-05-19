@@ -11,7 +11,6 @@
             <h3 class="text-b700">
                 @State.Title
             </h3>
-            <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.Position / (PieceCount-1) * 100)" />
         </div>
         <div class="inline-block flex justify-end items-center">
             <MudFab OnClick="ToggleInfoPanelOpen" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
@@ -20,19 +19,15 @@
                 <div>
                     <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Last read: @State.LastRead</MudChip>
                     <br />
-                    <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Length in words: @PieceCount</MudChip>
-                    <br />
-                    <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Reading time: @ReadingTime</MudChip>
-                    <br />
                     <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Source: @State.Source.ToString() (@State.SourceDescription)</MudChip>
                 </div>
             </MudPopover>
 
-            <MudButton Disabled="@(ReaderContext.State.Title == State.Title)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.SwitchState(State.Title); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
+            <MudButton Disabled="@(ReaderContext.StateManager.CurrentState == State)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.StateManager.SwitchToState(State); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
                 Load
             </MudButton>
 
-            <MudFab Disabled="@(ReaderContext.State.Title == State.Title)" OnClick="@(async () => { await ReaderContext.DeleteState(State.Title); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
+            <MudFab Disabled="@(ReaderContext.StateManager.CurrentState == State)" OnClick="@(async () => { await ReaderContext.StateManager.DeleteState(State); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
         </div>
     </div>
 </div>
@@ -44,16 +39,11 @@
     [Parameter]
     public ReaderContext ReaderContext { get; set; } = default!;
 
-    public int PieceCount { get; set; }
-
-    public string ReadingTime;
-
     private bool InfoPanelOpen { get; set; }
 
     protected override void OnInitialized()
     {
-        PieceCount = CountPieces(State.Text);
-        ReadingTime = TextHelper.GetDisplayableReadingTime(PieceCount, ReaderContext.Config.ReadingSpeed);
+        
     }
 
     private void ToggleInfoPanelOpen()
@@ -61,8 +51,4 @@
         InfoPanelOpen = !InfoPanelOpen;
     }
 
-    private int CountPieces(string text)
-    {
-        return TextHelper.SeparateText(TextHelper.Sanitize(State.Text)).Count();
-    }
 }

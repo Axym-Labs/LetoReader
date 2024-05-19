@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Reader.Modules.Logging;
 using Reader.Data.Reading;
+using HtmlAgilityPack;
 
 namespace Reader.Modules.Reading;
 
@@ -11,15 +12,18 @@ public class ReaderManager
 {
     public List<string> TextPieces { get; private set; } = new();
     public bool ReadingStatus { get; private set; }
-    public ReaderState State;
+    public StateManager StateManager { get; set; }
     public ReaderConfig Config;
     private SiteInteraction SiteInteraction;
 
+    // This is a binding to avoid unnecessarily long names
+    private ReaderState State { get => StateManager.CurrentState; set => StateManager.CurrentState = value; }
+
     private CancellationTokenSource ReadingTaskTokenSource = new();
 
-    public ReaderManager(ReaderState state, ref ReaderConfig config, SiteInteraction siteInteraction)
+    public ReaderManager(StateManager stateManager, ReaderConfig config, SiteInteraction siteInteraction)
     {
-        State = state;
+        StateManager = stateManager;
         Config = config;
         SiteInteraction = siteInteraction;
         SetupTextPieces();
@@ -27,7 +31,7 @@ public class ReaderManager
 
     public void SetupTextPieces()
     {
-        var unvalidatedTextPieces = TextHelper.SeparateText(State.Text);
+        var unvalidatedTextPieces = TextHelper.SeparateText(StateManager.CurrentText);
 
         List<string> newTextPieces = new();
         foreach (var currentTextPiece in unvalidatedTextPieces)
@@ -104,7 +108,7 @@ public class ReaderManager
             State.Position++;
             State.LastRead = DateTime.Now;
 
-            _ = Task.Run(() => UpdateSavedState());
+            _ = Task.Run(() => StateManager.SaveStates());
             _ = Task.Run(() => SiteInteraction.HandleSiteStateChanged());
             await Task.Delay(TimeSpan.FromSeconds(interval));
         }
@@ -173,18 +177,5 @@ public class ReaderManager
         result.Reverse();
 
         return String.Join(" ", result).Trim();
-    }
-
-    public async Task UpdateSavedState()
-    {
-        await SiteInteraction.JSRuntime.InvokeVoidAsync("setState", State.Title, JsonConvert.SerializeObject(State));
-    }
-
-    public async Task RenameSavedState(string oldTitle, string newTitle)
-    {
-        await SiteInteraction.JSRuntime.InvokeVoidAsync("renameState", oldTitle, newTitle);
-        
-        await UpdateSavedState();
-        await SiteInteraction.HandleSiteStateChanged();
     }
 }

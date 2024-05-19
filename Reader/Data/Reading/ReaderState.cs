@@ -11,7 +11,11 @@ namespace Reader.Data.Reading;
 
 public class ReaderState
 {
-    public string Title;
+    public string Title
+    {
+        get => Title;
+        set => Title = value.Trim();
+    }
     public int Position = 0;
     public DateTime LastRead;
     public ReaderStateSource Source;

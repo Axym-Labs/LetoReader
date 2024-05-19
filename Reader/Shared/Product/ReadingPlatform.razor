@@ -134,7 +134,7 @@
                 StateHasChanged,
                 JSRuntime
             ),
-            LocalStorage
+        LocalStorage
         );
 
         await ReaderContext.TriggerOnInitializedEvents();
@@ -190,7 +190,7 @@
 
         if (RequestReaderState != null)
         {
-            await ReaderContext.AddAndSelectState(RequestReaderState);
+            await ReaderContext.StateManager.AddState(RequestReaderState);
         }
         else if (RequestFiles != null)
         {

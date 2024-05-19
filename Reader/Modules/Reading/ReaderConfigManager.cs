@@ -17,7 +17,7 @@ public class ReaderConfigManager
     private SiteInteraction SiteInteraction;
     private Action SetupTextPieces;
     private ILocalStorageService localStorage;
-    public ReaderConfigManager(ref ReaderConfig config, SiteInteraction siteInteraction, Action setupTextPieces, ILocalStorageService localStorage)
+    public ReaderConfigManager(ReaderConfig config, SiteInteraction siteInteraction, Action setupTextPieces, ILocalStorageService localStorage)
     {
         Config = config;
         SiteInteraction = siteInteraction;

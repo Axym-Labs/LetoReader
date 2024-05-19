@@ -1,7 +1,10 @@
 ﻿using Blazored.LocalStorage;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Microsoft.Identity.Client;
 using Reader.Data.Reading;
+using Reader.Data.Storage;
+using Reader.Modules.Logging;
 
 namespace Reader.Modules.Reading;
 
@@ -11,7 +14,7 @@ public class StateManager
     private ILocalStorageService localStorage = default!;
 
     public ReaderState CurrentState { get; set; } = default!;
-    public string CurrentText = "This is the default text and shouldn't show up";
+    public string CurrentText { get => CurrentText; set => CurrentText = value.Trim(); }
 
     public StateManager(ILocalStorageService localStorage)
     {
@@ -23,12 +26,26 @@ public class StateManager
         await localStorage.SetItemAsync<List<ReaderState>>("STATES", ReaderStates);
     }
 
+
+    public async Task SwitchToState(ReaderState state)
+    {
+        Log.Information("ReaderContext: SwitchState");
+
+        await SaveStates();
+        await SaveState(CurrentState, CurrentText);
+
+        CurrentState = state;
+        CurrentText = await LoadReaderText(state);
+    }
+
     public async Task AddState(ReaderState state, string content)
     {
+        Log.Information("ReaderContext: Adding State");
+
         ReaderStates.Add(state);
         ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
         await SaveStates();
-        await SaveTextContent(state, content);
+        await SaveState(state, content);
     }
 
     public async Task LoadSavedStates()
@@ -46,9 +63,11 @@ public class StateManager
         return (await localStorage.GetItemAsync<string>($"TEXTCONTENT:{state.Title}"))!;
     }
 
-    public async Task SaveTextContent(ReaderState state, string content)
+    public async Task SaveState(ReaderState state, string content)
     {
-        await localStorage.SetItemAsStringAsync($"TEXTCONTENT:{state.Title}", content);
+
+        await SaveStates();
+        await localStorage.SetItemAsStringAsync($"TEXTCONTENT:{state.Title}", TextHelper.Sanitize(content));
     }
 
     public async Task DeleteState(ReaderState state)
@@ -63,11 +82,13 @@ public class StateManager
         var text = await LoadReaderText(state);
         await localStorage.RemoveItemAsync($"TEXTCONTENT:{state.Title}");
         
-        state.Title = newName;
+        state.Title = newName.Trim();
 
-        await SaveTextContent(state, text);
+        if (newName == string.Empty)
+            state.Title = ProductConstants.DefaultNewTitle;
+
+        await SaveState(state, text);
         await SaveStates();
     }
-
 
 }
