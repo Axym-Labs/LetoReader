@@ -11,10 +11,11 @@ namespace Reader.Data.Reading;
 
 public class ReaderState
 {
+    private string _title;
     public string Title
     {
-        get => Title;
-        set => Title = value.Trim();
+        get => _title;
+        set => _title = value.Trim();
     }
     public int Position = 0;
     public DateTime LastRead;

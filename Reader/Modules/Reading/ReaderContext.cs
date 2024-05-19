@@ -49,6 +49,9 @@ public class ReaderContext
 
     public async Task TriggerAfterFirstRenderEvents()
     {
+
+        await StateManager.LoadSavedStates();
+
         if (StateManager.CurrentState == null)
             throw new("State must be initialized");
         if (Manager == null)
@@ -56,9 +59,6 @@ public class ReaderContext
         
 
         SiteInteraction.TriggerAfterRenderEvents();
-
-
-        await StateManager.LoadSavedStates();
 
         await LoadConfig();
 
@@ -96,7 +96,6 @@ public class ReaderContext
     private void InitializeReader()
     {
         Log.Information("ReaderContext: InitializeReader");
-
 
         if (StateManager.CurrentState == null)
             throw new("State must be initialized");

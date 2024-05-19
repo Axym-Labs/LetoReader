@@ -10,11 +10,14 @@ namespace Reader.Modules.Reading;
 
 public class StateManager
 {
-    public List<ReaderState> ReaderStates { get; private set; } = default!;
+    public List<ReaderState> ReaderStates { get; private set; } = new List<ReaderState>();
     private ILocalStorageService localStorage = default!;
 
-    public ReaderState CurrentState { get; set; } = default!;
-    public string CurrentText { get => CurrentText; set => CurrentText = value.Trim(); }
+    public ReaderState CurrentState { get; set; } = new("Default State", ReaderStateSource.Program, "Nah", DateTime.Now);
+
+    public string _currentText = "This is a default state and shouldn't show up";
+
+    public string CurrentText { get => _currentText; set => _currentText = value.Trim(); }
 
     public StateManager(ILocalStorageService localStorage)
     {
@@ -54,12 +57,16 @@ public class StateManager
 
     public async Task LoadSavedStates()
     {
-        ReaderStates = (await localStorage.GetItemAsync<List<ReaderState>>("STATES"))!;
+        var states = (await localStorage.GetItemAsync<List<ReaderState>>("STATES"))!;
+
+        if (states != null)
+            ReaderStates = states;
         // If no states present, create one
         if (ReaderStates.Count <= 0)
         {
-            ReaderStates.Add(ReaderState.GetNew(ReaderStateSource.Internal, "Manual creation").Item1);
+            await AddState(ReaderState.GetNew(ReaderStateSource.Internal, "Manual creation"));
         }
+
     }
 
     public async Task<string> LoadReaderText(ReaderState state)
