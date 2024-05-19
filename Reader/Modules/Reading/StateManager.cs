@@ -47,6 +47,10 @@ public class StateManager
         await SaveStates();
         await SaveState(state, content);
     }
+    public async Task AddState(Tuple<ReaderState, string> state)
+    {
+        await AddState(state.Item1, state.Item2);
+    }
 
     public async Task LoadSavedStates()
     {

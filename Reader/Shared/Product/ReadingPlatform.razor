@@ -180,17 +180,21 @@
         }
 
         ReaderState? RequestReaderState = null;
+        string requestText = string.Empty;
+
         if (requestObj!["ReaderState"] != null && requestObj["ReaderState"]?.Value<string>() != null)
         {
-            RequestReaderState = ReaderState.ImportFromJson(JsonConvert.DeserializeObject<JObject>(requestObj!["ReaderState"]!.Value<string>()!)!);
+            (ReaderState loadedState, string s)= ReaderState.ImportFromJson(JsonConvert.DeserializeObject<JObject>(requestObj!["ReaderState"]!.Value<string>()!)!);
+            RequestReaderState = loadedState;
+            requestText = s;
         }
 
         var RequestFiles = requestObj!["Files"]?.Value<List<GenericFile>?>();
         var RequestScrapeInputs = requestObj!["ScrapeInputs"]?.Value<ScrapeInputs?>();
 
-        if (RequestReaderState != null)
+        if (RequestReaderState != null && requestText != string.Empty)
         {
-            await ReaderContext.StateManager.AddState(RequestReaderState);
+            await ReaderContext.StateManager.AddState(RequestReaderState, requestText);
         }
         else if (RequestFiles != null)
         {
@@ -260,7 +264,8 @@
         try
         {
             Console.WriteLine("Handling file upload");
-            await ReaderContext.AddAndSelectState(await FileImporter.ExtractFromBrowserFiles(files));
+            (ReaderState state, string content) = await FileImporter.ExtractFromBrowserFiles(files);
+            await ReaderContext.StateManager.AddState(state, content);
         }
         catch (UnsupportedOperationException e)
         {
@@ -275,7 +280,7 @@
         
         try
         {
-            await ReaderContext.AddAndSelectState(await ReaderState.Scrape(ScrapeInputs));
+            await ReaderContext.StateManager.AddState(await ReaderState.Scrape(ScrapeInputs));
         }
         catch (ScrapingException e)
         {

@@ -26,8 +26,6 @@ public class ReaderContext
 
     private SiteInteraction SiteInteraction { get; set; }
 
-    private bool skipNextStateUpdate = false;
-
     private ILocalStorageService localStorage = default!;
 
     public ReaderContext(SiteInteraction siteInteraction, ILocalStorageService localStorage)
@@ -127,7 +125,6 @@ public class ReaderContext
     {
         Log.Information("ReaderContext: HandleNewText");
 
-        skipNextStateUpdate = true;
         await StateManager.AddState(stateAndText.Item1, stateAndText.Item2);
         await StateManager.SaveStates();
     }
@@ -180,12 +177,11 @@ public class ReaderContext
     // STATE MANAGER
     // this should be in its own class
 
-    public async Task OverwriteState(ReaderState newState)
+    public async Task OverwriteState()
     {
         // must be at the start to prevent blocking of this update by the changes below, disabling the input field
-        await SetStateFields(newState);
+        await SetStateFields();
         PrepareSelectedStateChanging();
-        StateManager.CurrentState = newState;
         await HandleSelectedReaderStateChanged();
     }
 
@@ -200,7 +196,7 @@ public class ReaderContext
 
     public async Task HandleSelectedReaderStateChanged()
     {
-        await SetStateFields(StateManager.CurrentState);
+        await SetStateFields();
 
         if (Manager != null)
             Manager.SetupTextPieces();
@@ -212,9 +208,9 @@ public class ReaderContext
     }
 
 
-    public async Task SetStateFields(ReaderState newState)
+    public async Task SetStateFields()
     {
-        await StateTitleField.SetText(newState.Title);
-        await StateTextField.SetText(newState.Text);
+        await StateTitleField.SetText(StateManager.CurrentState.Title);
+        await StateTextField.SetText(StateManager.CurrentText);
     }
 }

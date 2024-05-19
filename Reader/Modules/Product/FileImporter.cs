@@ -20,7 +20,7 @@ public class FileImporter
 {
     private static Regex trimWhitespace = new(@"\s\s+", RegexOptions.Compiled);
 
-    public static async Task<ReaderState> ExtractFromBrowserFiles(IReadOnlyList<IBrowserFile> files)
+    public static async Task<Tuple<ReaderState,string>> ExtractFromBrowserFiles(IReadOnlyList<IBrowserFile> files)
     {
         StringBuilder sb = new();
 
@@ -82,7 +82,7 @@ public class FileImporter
            file => file.Name)
         );
 
-        return new ReaderState(title, ReaderStateSource.FileUpload, sourceDescription);
+        return new Tuple<ReaderState,string>(new ReaderState(title, ReaderStateSource.FileUpload, sourceDescription), sb.ToString());
     }
 
     public static string ExtractStringFromPDF(byte[] byteArr)

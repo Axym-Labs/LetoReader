@@ -33,7 +33,7 @@ public class ReaderState
         LastRead = lastRead ?? DateTime.Now;
     }
 
-    public static ReaderState ImportFromJson(JObject json, string? version = null)
+    public static Tuple<ReaderState,string> ImportFromJson(JObject json, string? version = null)
     {
         JObject? stateObj = json;
         if (stateObj == null)
@@ -45,6 +45,8 @@ public class ReaderState
             throw new ArgumentException("Text is missing but required");
         }
 
+        var text = stateObj["Text"]!.Value<string>()!;
+        
         DateTime lastRead = stateObj["LastRead"]?.Value<DateTime>() ?? DateTime.Now;
 
         ReaderStateSource source =
@@ -60,7 +62,7 @@ public class ReaderState
 
         Log.Verbose("Imported ReaderState from Json", new { source, sourceDescription, version });
 
-        return state;
+        return new Tuple<ReaderState,string>(state, text);
     }
 
     public static async Task<Tuple<ReaderState,string>> Scrape(ScrapeInputs inputs)
