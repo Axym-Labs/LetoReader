@@ -82,7 +82,7 @@ public class FileImporter
            file => file.Name)
         );
 
-        return new Tuple<ReaderState,string>(new ReaderState(title, ReaderStateSource.FileUpload, sourceDescription), sb.ToString());
+        return new Tuple<ReaderState,string>(new ReaderState(title, sb.ToString(), ReaderStateSource.FileUpload, sourceDescription), sb.ToString());
     }
 
     public static string ExtractStringFromPDF(byte[] byteArr)

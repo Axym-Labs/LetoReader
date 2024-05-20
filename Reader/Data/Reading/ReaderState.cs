@@ -22,14 +22,14 @@ public class ReaderState
     public ReaderStateSource Source;
     public string? SourceDescription;
 
-    public ReaderState(string title, ReaderStateSource source, string? sourceDescription = null, DateTime? lastRead = null)
+    public ReaderState(string title, string text,ReaderStateSource source, string? sourceDescription = null, DateTime? lastRead = null, PositionalMethod positionalMethod = PositionalMethod.Word)
     {
         Title = title;
         Source = source;
         SourceDescription = sourceDescription;
         LastRead = lastRead ?? DateTime.Now;
 
-        PositionInfo = new PositionInfo();
+        PositionInfo = new PositionInfo(positionalMethod, text);
     }
 
     public static Tuple<ReaderState,string> ImportFromJson(JObject json, string? version = null)
@@ -57,7 +57,7 @@ public class ReaderState
 
         string title = stateObj["Title"]?.Value<string>() ?? GetNew(source, sourceDescription).Item1.Title;
 
-        var state = new ReaderState(title, source, sourceDescription, lastRead);
+        var state = new ReaderState(title, text, source, sourceDescription, lastRead);
 
         Log.Verbose("Imported ReaderState from Json", new { source, sourceDescription, version });
 
@@ -95,12 +95,12 @@ public class ReaderState
 
     public static Tuple<ReaderState,string> GetDemo(ReaderStateSource source, string? sourceDescription = null)
     {
-        return new Tuple<ReaderState, string>(new ReaderState(ProductConstants.DemoTitle, source, sourceDescription, DateTime.Now), ProductConstants.DemoText);
+        return new Tuple<ReaderState, string>(new ReaderState(ProductConstants.DemoTitle, ProductConstants.DemoText, source, sourceDescription, DateTime.Now), ProductConstants.DemoText);
     }
 
     public static Tuple<ReaderState, string> GetNew(ReaderStateSource source, string? sourceDescription = null)
     {
-        return new Tuple<ReaderState, string> (new ReaderState(ProductConstants.DefaultNewTitle, source, sourceDescription, DateTime.Now), ProductConstants.DefaultNewText);
+        return new Tuple<ReaderState, string> (new ReaderState(ProductConstants.DefaultNewTitle, ProductConstants.DefaultNewText, source, sourceDescription, DateTime.Now), ProductConstants.DefaultNewText);
     }
 
 }

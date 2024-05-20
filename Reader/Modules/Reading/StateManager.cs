@@ -17,7 +17,7 @@ public class StateManager
     public List<ReaderState> ReaderStates { get; private set; } = new List<ReaderState>();
     private ILocalStorageService localStorage = default!;
 
-    public ReaderState CurrentState { get; set; } = new(ProductConstants.DemoTitle, ReaderStateSource.Program, "Automatic initialization of demo text", DateTime.Now);
+    public ReaderState CurrentState { get; set; } = new(ProductConstants.DemoTitle, ProductConstants.DemoText, ReaderStateSource.Program, "Automatic initialization of demo text", DateTime.Now);
 
     public string _currentText = ProductConstants.DemoText;
 
@@ -97,7 +97,7 @@ public class StateManager
 
         if (ReaderStates.Count == 0)
         {
-            await AddState(new ReaderState(ProductConstants.DemoTitle, ReaderStateSource.Program), ProductConstants.DemoText, false);
+            await AddState(new ReaderState(ProductConstants.DemoTitle, ProductConstants.DemoText, ReaderStateSource.Program), ProductConstants.DemoText, false);
         }
 
         await SwitchToState(ReaderStates[0]);

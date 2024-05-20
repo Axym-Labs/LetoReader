@@ -7,6 +7,10 @@ public static class TextHelper
 {
     public static string Sanitize(string text)
     {
+
+        if (text == null)
+            return "";
+
         text = text.Replace("\r\n", "\n");
         text = text.Replace("\r", "\n");
         text = text.Replace("\n", Environment.NewLine);

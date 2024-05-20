@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Reader.Modules.Logging;
 using Reader.Data.Reading;
 using HtmlAgilityPack;
+using System.Linq;
 
 namespace Reader.Modules.Reading;
 
@@ -98,14 +99,14 @@ public class ReaderManager
     {
         while (true)
         {
-            if (State.Position >= TextPieces.Count - 1 || ct.IsCancellationRequested)
+            if (State.PositionInfo.Position >= TextPieces.Count - 1 || ct.IsCancellationRequested)
             {
                 ReadingStatus = false;
                 await SiteInteraction.HandleSiteStateChanged();
                 break;
             }
 
-            State.Position++;
+            State.PositionInfo.Position++;
             State.LastRead = DateTime.Now;
 
             _ = Task.Run(() => StateManager.SaveStates());
@@ -116,24 +117,24 @@ public class ReaderManager
 
     public void HandleNavBefore()
     {
-        State.Position -= Config.WordNavCount;
-        State.Position = Math.Max(0, State.Position);
+        State.PositionInfo.Position -= Config.WordNavCount;
+        State.PositionInfo.Position = Math.Max(0, State.PositionInfo.Position);
     }
 
     public void HandleNavNext()
     {
-        State.Position += Config.WordNavCount;
-        State.Position = Math.Min(TextPieces.Count - 1, State.Position);
+        State.PositionInfo.Position += Config.WordNavCount;
+        State.PositionInfo.Position = Math.Min(TextPieces.Count - 1, State.PositionInfo.Position);
     }
 
     public void ClampPosition()
     {
-        State.Position = Math.Min(TextPieces.Count - 1, Math.Max(0, State.Position));
+        State.PositionInfo.Position = Math.Min(TextPieces.Count - 1, Math.Max(0, State.PositionInfo.Position));
     }
 
     public Tuple<string, string, string> GetCurrentTextPiece()
     {
-        string word = TextPieces[State.Position];
+        string word = TextPieces[State.PositionInfo.Position];
 
         string front = word.Substring(0, (word.Length + 1) / 2 - 1);
         string middle = word.Substring((word.Length + 1) / 2 - 1, 1);
@@ -146,7 +147,7 @@ public class ReaderManager
     {
         StringBuilder result = new StringBuilder();
         int totalChars = 0;
-        foreach (string word in TextPieces.Skip(State.Position + 1))
+        foreach (string word in TextPieces.Skip((int)State.PositionInfo.Position + 1))
         {
             if (totalChars + word.Length <= Config.PeripheralCharsCount)
             {
@@ -163,13 +164,13 @@ public class ReaderManager
 
     public string GetTextPiecesLookBehind()
     {
-        if (State.Position == 0)
+        if (State.PositionInfo.Position == 0)
             return "";
 
         List<string> result = new();
         int charCount = 0;
 
-        int i = State.Position - 1;
+        int i = (int)State.PositionInfo.Position - 1;
         //Console.WriteLine("TextPieces");
         //Console.WriteLine(String.Join(" ", TextPieces));
         //Console.WriteLine(TextPieces.Count);
