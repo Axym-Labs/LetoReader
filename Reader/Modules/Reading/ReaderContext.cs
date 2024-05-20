@@ -59,6 +59,7 @@ public class ReaderContext
         
 
         SiteInteraction.TriggerAfterRenderEvents();
+        await SiteInteraction.HandleSiteStateChanged();
 
         await LoadConfig();
 
