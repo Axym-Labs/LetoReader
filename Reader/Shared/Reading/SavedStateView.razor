@@ -14,23 +14,23 @@
             <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.Position / (State.Position.MaxPosition-1) * 100)" />
         </div>
         <div class="inline-block flex justify-end items-center">
-            <MudFab OnClick="ToggleInfoPanelOpen" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2" />
+            <MudFab OnClick="ToggleInfoPanelOpen" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2 !bg-transparent !shadow-none" />
 
             <MudPopover Open="@InfoPanelOpen" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
                 <div>
-                    <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Position: @State.Position</MudChip>
+                    <p>Position: @State.Position</p>
                     <br />
-                    <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Last read: @State.LastRead</MudChip>
+                    <p>Last read: @State.LastRead</p>
                     <br />
-                    <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Source: @State.Source.ToString() (@State.SourceDescription)</MudChip>
+                    <p>Source: @State.Source.ToString() @(State.SourceDescription != null && State.SourceDescription != string.Empty ? $"({State.SourceDescription})" : "")</p>
                 </div>
             </MudPopover>
 
-            <MudButton Disabled="@(ReaderContext.StateManager.CurrentState == State)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.StateManager.SwitchToState(State); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap">
+            <MudButton Disabled="@(ReaderContext.StateManager.CurrentState == State)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.StateManager.SwitchToState(State); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap !bg-transparent !shadow-none">
                 Load
             </MudButton>
 
-            <MudFab Disabled="@(ReaderContext.StateManager.CurrentState == State)" OnClick="@(async () => { await ReaderContext.StateManager.DeleteState(State); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3" />
+            <MudFab Disabled="@(ReaderContext.StateManager.CurrentState == State)" OnClick="@(async () => { await ReaderContext.StateManager.DeleteState(State); })" Color="Color.Secondary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Class="m-3 !bg-transparent !shadow-none" />
         </div>
     </div>
 </div>
