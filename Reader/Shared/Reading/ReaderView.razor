@@ -18,6 +18,7 @@
 @inject Constants constants
 @inject IJSRuntime JSRuntime
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 @inject HotKeys HotKeys 
 
 <div>
@@ -199,6 +200,11 @@
             _hotKeysContext.Add(ModCode.Ctrl, Code.S, ToggleConfigPanelOpen);
             _hotKeysContext.Add(ModCode.Ctrl|ModCode.Shift, Code.E, ToggleTextPanelOpen);
         }
+
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await ReaderContext.SetStateFields();
     }
 
     private void ToggleConfigPanelOpen()
