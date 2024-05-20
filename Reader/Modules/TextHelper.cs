@@ -38,7 +38,6 @@ public static class TextHelper
     public static string GetDisplayableReadingTime(int PieceCount, int ReadingSpeed)
     {
         float hours = (float)PieceCount / ReadingSpeed / 60;
-        Console.WriteLine(hours);
         int minutes = (int)((hours - (int)hours) * 60);
 
         return $"{(int)hours}h {minutes}m";

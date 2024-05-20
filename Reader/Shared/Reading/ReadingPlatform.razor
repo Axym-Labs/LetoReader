@@ -259,19 +259,17 @@
 
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
-        Log.Information("ReaderView: HandleCopyText");
-        Console.WriteLine("Handling file upload first");
+        Log.Information("ReaderView: HandleFileUpload");
 
         try
         {
-            Console.WriteLine("Handling file upload");
             (ReaderState state, string content) = await FileImporter.ExtractFromBrowserFiles(files);
             await ReaderContext.StateManager.AddState(state, content);
         }
         catch (UnsupportedOperationException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderView: HandleCopyText - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            Log.Information("ReaderView: HandleFileUpload - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
     }
 
