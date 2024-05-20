@@ -7,6 +7,7 @@ using Reader.Data.Product;
 using Reader.Data.Reading;
 using Reader.Data.Storage;
 using Reader.Modules.Logging;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Reader.Modules.Reading;
 
@@ -21,10 +22,12 @@ public class StateManager
 
     public string CurrentText { get => _currentText; set => _currentText = value.Trim(); }
     private SiteInteraction siteInteraction;
-    public StateManager(ILocalStorageService localStorage, SiteInteraction site)
+    private Func<Task> TextHasChanged;
+    public StateManager(ILocalStorageService localStorage, SiteInteraction site, Func<Task> updateFieldsFunc)
     {
         this.localStorage = localStorage;
         siteInteraction = site;
+        TextHasChanged = updateFieldsFunc;
     }
 
     public async Task SaveStates()
@@ -42,10 +45,11 @@ public class StateManager
 
         CurrentState = state;
         CurrentText = await LoadReaderText(state);
+        await TextHasChanged();
         await siteInteraction.HandleSiteStateChanged();
     }
 
-    public async Task AddState(ReaderState state, string content)
+    public async Task AddState(ReaderState state, string content, bool setAsSelected = true)
     {
         Log.Information("ReaderContext: Adding State");
 
@@ -53,11 +57,17 @@ public class StateManager
         ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
         await SaveStates();
         await SaveState(state, content);
+        if (setAsSelected)
+        {
+            await SwitchToState(state);
+            await TextHasChanged();
+        }
+
         await siteInteraction.HandleSiteStateChanged();
     }
-    public async Task AddState(Tuple<ReaderState, string> state)
+    public async Task AddState(Tuple<ReaderState, string> state, bool setAsSelected = true)
     {
-        await AddState(state.Item1, state.Item2);
+        await AddState(state.Item1, state.Item2, setAsSelected);
     }
 
     public async Task LoadSavedStates()
@@ -103,6 +113,7 @@ public class StateManager
 
         await SaveState(state, text);
         await SaveStates();
+        await TextHasChanged();
         await siteInteraction.HandleSiteStateChanged();
     }
 

@@ -32,7 +32,7 @@ public class ReaderContext
     {
         SiteInteraction = siteInteraction;
         this.localStorage = localStorage;
-        StateManager = new StateManager(localStorage, siteInteraction);
+        StateManager = new StateManager(localStorage, siteInteraction, HandleSelectedReaderStateChanged);
     }
 
     public async Task TriggerOnInitializedEvents()
@@ -178,8 +178,6 @@ public class ReaderContext
         PrepareSelectedStateChanging();
         await HandleSelectedReaderStateChanged();
     }
-
-
 
 
     public void PrepareSelectedStateChanging()
