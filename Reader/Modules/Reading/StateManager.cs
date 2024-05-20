@@ -16,7 +16,7 @@ public class StateManager
     public List<ReaderState> ReaderStates { get; private set; } = new List<ReaderState>();
     private ILocalStorageService localStorage = default!;
 
-    public ReaderState CurrentState { get; set; } = new("Default State", ReaderStateSource.Program, "Nah", DateTime.Now);
+    public ReaderState CurrentState { get; set; } = new(ProductConstants.DemoTitle, ReaderStateSource.Program, "Automatic initialization of demo text", DateTime.Now);
 
     public string _currentText = ProductConstants.DemoText;
 
@@ -35,7 +35,6 @@ public class StateManager
         await localStorage.SetItemAsStringAsync("STATES", JsonConvert.SerializeObject(ReaderStates));
     }
 
-
     public async Task SwitchToState(ReaderState state)
     {
         Log.Information("ReaderContext: SwitchState");
@@ -53,9 +52,12 @@ public class StateManager
     {
         Log.Information("ReaderContext: AddState");
 
+        // TODO
+        //state.Title = GetUniqueTitle(state.Title);
+
         ReaderStates.Add(state);
         ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
-        await SaveStates();
+
         await SaveState(state, content);
         if (setAsSelected)
         {
@@ -65,6 +67,7 @@ public class StateManager
 
         await siteInteraction.HandleSiteStateChanged();
     }
+
     public async Task AddState(Tuple<ReaderState, string> state, bool setAsSelected = true)
     {
         await AddState(state.Item1, state.Item2, setAsSelected);
@@ -79,6 +82,16 @@ public class StateManager
 
         if (states != null)
             ReaderStates = states;
+
+        if (ReaderStates.Count == 0)
+        {
+            await AddState(new ReaderState(ProductConstants.DemoTitle, ReaderStateSource.Program), ProductConstants.DemoText, false);
+        }
+
+        Console.WriteLine(ReaderStates.Count);
+        Console.WriteLine(ReaderStates[0].Title);
+
+        await SwitchToState(ReaderStates[0]);
     }
 
     public async Task<string> LoadReaderText(ReaderState state)
@@ -113,9 +126,21 @@ public class StateManager
             state.Title = ProductConstants.DefaultNewTitle;
 
         await SaveState(state, text);
-        await SaveStates();
         await TextHasChanged();
         await siteInteraction.HandleSiteStateChanged();
+    }
+
+    private string GetUniqueTitle(string title)
+    {
+        var newTitle = title;
+        var i = 1;
+        while (ReaderStates.Any(x => x.Title == newTitle))
+        {
+            newTitle = $"{title} ({i})";
+            i++;
+        }
+
+        return newTitle;
     }
 
 }
