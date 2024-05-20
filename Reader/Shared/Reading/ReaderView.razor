@@ -1,5 +1,6 @@
 @namespace Reader.Shared.Product
 
+@implements IDisposable
 @using MudBlazor
 @using MudBlazorFix
 @using Reader.Shared
@@ -13,10 +14,11 @@
 @using Reader.Data.ProductExceptions
 @using Reader.Modules.Logging
 @using Reader.Data.Reading
+@using Toolbelt.Blazor.HotKeys2
 @inject Constants constants
 @inject IJSRuntime JSRuntime
 @inject ISnackbar Snackbar
-
+@inject HotKeys HotKeys 
 
 <div>
     @if (ShowEditFields)
@@ -176,10 +178,26 @@
     [Parameter]
     public bool ShowEditFields { get; set; } = true;
 
+    [Parameter]
+    public bool AllowHostKeys { get; set; } = true;
+
     bool EditTextPanelOpen = false;
     bool ConfigPanelOpen = false;
     bool FocusModeOn = false;
 
+    private HotKeysContext? _hotKeysContext;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _hotKeysContext = this.HotKeys.CreateContext();
+            _hotKeysContext.Add(ModCode.None, Code.Space, ReaderContext.Manager.HandleStartStop);
+            _hotKeysContext.Add(ModCode.None, Code.ArrowLeft, ReaderContext.Manager.HandleNavBefore);
+            _hotKeysContext.Add(ModCode.None, Code.ArrowRight, ReaderContext.Manager.HandleNavNext);
+            _hotKeysContext.Add(ModCode.Ctrl, Code.F, (Action)(async () => await ToggleFocusMode()));
+        }
+    }
 
     private void ToggleConfigPanelOpen()
     {
@@ -220,6 +238,11 @@
 
     private async Task HandleCopyTitle() {
         await JSRuntime.InvokeVoidAsync("copyTitle");
+    }
+
+    public void Dispose()
+    {
+        _hotKeysContext?.Dispose();
     }
 
 }

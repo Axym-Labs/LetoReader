@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Blazored.LocalStorage;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 using MudBlazor;
 using MudBlazor.Services;
@@ -44,6 +45,8 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.ShowTransitionDuration = 200;
     config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 });
+
+builder.Services.AddHotKeys2();
 
 // API
 
