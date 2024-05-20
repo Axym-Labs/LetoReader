@@ -1,5 +1,6 @@
 @namespace Reader.Shared.Product
 
+@implements IDisposable
 @using Blazored.LocalStorage
 @using MudBlazor
 @using Reader.Shared
@@ -18,6 +19,7 @@
 @using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json.Linq
 @using System.Text
+@using Toolbelt.Blazor.HotKeys2
 
 @inject IJSRuntime JSRuntime
 @inject Constants constants
@@ -25,6 +27,7 @@
 @inject ISnackbar Snackbar
 @inject IHttpContextAccessor httpContextAccessor
 @inject ILocalStorageService LocalStorage
+@inject HotKeys HotKeys
 
 <div class="@(ShowSavedStates ? "mb-24" : "mb-6")">
     <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" />
@@ -146,6 +149,11 @@
     [Parameter]
     public bool ShowEditFields { get; set; } = true;
 
+    [Parameter]
+    public bool AllowHostKeys { get; set; } = true;
+
+    private HotKeysContext? _hotKeysContext;
+
     protected override async Task OnInitializedAsync()
     {
         Log.Information("ReaderPlatform: OnInitializedAsync");
@@ -175,6 +183,11 @@
             {
                 await TryImportStateRequestBody();
             }
+
+
+            _hotKeysContext = this.HotKeys.CreateContext();
+            // experimental, may override other features
+            _hotKeysContext.Add(ModCode.Ctrl, Code.V, (Action)(async () => await HandleFromClipboard()));
 
         }
     }
@@ -330,5 +343,10 @@
             Log.Information("ReaderView: HandleFromClipboard - ClipboardException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
 
+    }
+
+    public void Dispose()
+    {
+        _hotKeysContext?.Dispose();
     }
 }

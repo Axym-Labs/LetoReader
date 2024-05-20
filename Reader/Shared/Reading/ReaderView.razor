@@ -196,6 +196,8 @@
             _hotKeysContext.Add(ModCode.None, Code.ArrowLeft, ReaderContext.Manager.HandleNavBefore);
             _hotKeysContext.Add(ModCode.None, Code.ArrowRight, ReaderContext.Manager.HandleNavNext);
             _hotKeysContext.Add(ModCode.Ctrl, Code.F, (Action)(async () => await ToggleFocusMode()));
+            _hotKeysContext.Add(ModCode.Ctrl, Code.S, ToggleConfigPanelOpen);
+            _hotKeysContext.Add(ModCode.Ctrl|ModCode.Shift, Code.E, ToggleTextPanelOpen);
         }
     }
 
