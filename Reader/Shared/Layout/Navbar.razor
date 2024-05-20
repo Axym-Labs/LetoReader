@@ -5,8 +5,13 @@
 @using Reader.Shared.Misc
 @inject BaseUIStorage c
 @inject Constants constants
-
-
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+<style>
+    .blurry {
+        backdrop-filter: blur(10px);
+    }
+</style>
 <nav id="nav" class="sticky top-0 z-10 z-50">
     @if (c.NavbarData.SpecialAnnouncement != "" || c.NavbarData.SpecialAnnouncementBypass) {
         <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1" onload="sizeNav();" style="height: 3rem; background: @(DesignStorage.SpecialAnnouncementBg);">
@@ -41,6 +46,40 @@
                 @foreach (var linkPair in c.NavbarData.Links) {
                     <a href="@linkPair.Url" target="@linkPair.Target" class="mx-4 md:mx-8 my-2 md:my-0 hover:underline text-gray-300 hover:text-focusColor text-b500">@linkPair.Name</a>
                 }
+                <MudFab IconSize="Size.Medium" Size="Size.Small" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Info" DisableElevation="true" OnClick="SwitchShortCutReference" />
+                <MudDialog Options="dialogOptions" @bind-IsVisible="ShowShortCutReference" Class="rounded-lg shadow-xl !bg-bgcol blurry">
+                    <TitleContent>
+                        <MudText Style="text-align: center" Typo="Typo.h3">Shortcut reference</MudText>
+                    </TitleContent>
+                    <DialogContent>
+                        <MudContainer Style="max-height: 500px; overflow-y:scroll" >
+                            <MudStack Row="true">
+                                <MudContainer Style="max-width: 30%">
+                                    <MudList>
+                                        @foreach (var (title, icon, desc) in titleIconDescription)
+                                        {
+                                            <MudListItem>
+                                                <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@icon" Label="@title" />
+                                            </MudListItem>
+                                        }
+                                    </MudList>
+                                </MudContainer>
+                                <MudPaper>
+                                    <MudStack Class="justify-center">
+                                        <MudText Typo="Typo.h4">@CurrentShortCut.Item1</MudText>
+                                        <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@CurrentShortCut.Item2"></MudFab>
+                                        <MudText>@CurrentShortCut.Item3</MudText>
+                                    </MudStack>
+
+                                </MudPaper>
+                            </MudStack>
+
+                        </MudContainer>
+
+
+
+                    </DialogContent>
+                </MudDialog>
                 <ShareView />
 
             </div>
@@ -53,8 +92,23 @@
 
 @code {
 
+    List<ValueTuple<string, string, string>> titleIconDescription = new() { 
+        ("Space", Icons.Material.Filled.SpaceBar, "Spacebar can be used to both start and stop the reader")
+    };
+
+    ValueTuple<string, string, string> CurrentShortCut = default!;
+
+    bool ShowShortCutReference = false;
+    DialogOptions dialogOptions = new() { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth=true, ClassBackground = "blurry" };
+
+    private void SwitchShortCutReference()
+    {
+        ShowShortCutReference = !ShowShortCutReference;
+    }
+
     protected override void OnInitialized()
     {
+        CurrentShortCut = titleIconDescription[0];
     }
 }
 
