@@ -100,7 +100,7 @@
                             3) Clipboard
                         </h5>
                         <MudButton Variant="Variant.Filled" OnClick="HandleFromClipboard" Color="Color.Primary" Class="hover:!bg-neutral-900">
-                            Create
+                            Paste
                         </MudButton>
                     </div>
                     <div class="my-8 md:my-16">
@@ -317,7 +317,11 @@
         try
         {
             var clipboardText = await JSRuntime.InvokeAsync<string>("getClipboardContent");
-            var state = new ReaderState(clipboardText.Substring(0,20), ReaderStateSource.Clipboard, "Created from clipboard's contents");
+            var title = clipboardText.Substring(0, Math.Min(20, clipboardText.Length));
+            if (clipboardText.Length > 20)
+                title += "...";
+
+            var state = new ReaderState(title, ReaderStateSource.Clipboard, "Created from clipboard's contents");
             await ReaderContext.StateManager.AddState(state, clipboardText);
         }
         catch (Exception e)

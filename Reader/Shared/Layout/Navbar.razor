@@ -2,7 +2,7 @@
 
 @using MudBlazor
 @using Reader.Data.Storage
-@using Shared.Misc
+@using Reader.Shared.Misc
 @inject BaseUIStorage c
 @inject Constants constants
 
@@ -13,8 +13,8 @@
             @c.NavbarData.SpecialAnnouncement
         </div>
     }
-    <div id="navbar-contents" class="backdrop-filter backdrop-blur-md flex z-10 z-50" style="height: 62px;">
-        <div id="navbar-logo" class="w-full md:w-1/5 lg:w-1/6 2xl:w-1/12 bg-primary flex justify-between md:justify-center items-center">
+    <div id="navbar-contents" class="backdrop-filter backdrop-blur-md flex z-10 z-50 pt-1" style="height: 62px;">
+        <div id="navbar-logo" class="w-full md:w-1/5 lg:w-1/6 2xl:w-1/12 bg-primary flex justify-between md:justify-center items-center mx-2">
             <a href="/" class="whitespace-nowrap">
                 <img src="/static/assets/logo.png" alt="@Constants.ProjectName" class="w-12 mr-4 inline-block">
                 @Constants.ProjectName
@@ -41,9 +41,9 @@
                 @foreach (var linkPair in c.NavbarData.Links) {
                     <a href="@linkPair.Url" target="@linkPair.Target" class="mx-4 md:mx-8 my-2 md:my-0 hover:underline text-gray-300 hover:text-focusColor text-b500">@linkPair.Name</a>
                 }
-            </div>
+                <ShareView />
 
-            <ShareView />
+            </div>
 
         </div>
     </div>
