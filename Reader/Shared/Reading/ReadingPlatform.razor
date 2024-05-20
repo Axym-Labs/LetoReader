@@ -321,7 +321,7 @@
             if (clipboardText.Length > 20)
                 title += "...";
 
-            var state = new ReaderState(title, ReaderStateSource.Clipboard, "Created from clipboard's contents");
+            var state = new ReaderState(title, clipboardText, ReaderStateSource.Clipboard, "Created from clipboard's contents");
             await ReaderContext.StateManager.AddState(state, clipboardText);
         }
         catch (Exception e)

@@ -11,14 +11,14 @@
             <h3 class="text-b700">
                 @State.Title
             </h3>
-            <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.Position / (State.Position.MaxPosition-1) * 100)" />
+            <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.PositionInfo.Position / (State.PositionInfo.MaxPosition-1) * 100)" />
         </div>
         <div class="inline-block flex justify-end items-center">
             <MudFab OnClick="ToggleInfoPanelOpen" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2 !bg-transparent !shadow-none" />
 
             <MudPopover Open="@InfoPanelOpen" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
                 <div>
-                    <p>Position: @State.Position</p>
+                    <p>Position: @State.PositionInfo.Position</p>
                     <br />
                     <p>Last read: @State.LastRead</p>
                     <br />
@@ -39,6 +39,7 @@
     [Parameter]
     public ReaderState State { get; set; } = default!;
 
+    private string ReadingTime = default!;
     [Parameter]
     public ReaderContext ReaderContext { get; set; } = default!;
 
@@ -46,7 +47,7 @@
 
     protected override void OnInitialized()
     {
-        
+        ReadingTime = TextHelper.GetDisplayableReadingTime((int)State.PositionInfo.MaxPosition, ReaderContext.Config.ReadingSpeed);
     }
 
     private void ToggleInfoPanelOpen()

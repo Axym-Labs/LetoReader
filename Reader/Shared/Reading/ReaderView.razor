@@ -64,19 +64,19 @@
 </div>
 
 <div class="mb-10">
-    <MudSlider @bind-Value="@ReaderContext.StateManager.CurrentState.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">
+    <MudSlider @bind-Value="@ReaderContext.StateManager.CurrentState.PositionInfo.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">
         <div class="flex justify-between">
             <div>
-                @((int)(ReaderContext.StateManager.CurrentState.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
+                @((int)(ReaderContext.StateManager.CurrentState.PositionInfo.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
                 <span class="inline-block mx-2">
-                    @(ReaderContext.StateManager.CurrentState.Position + 1)
+                    @(ReaderContext.StateManager.CurrentState.PositionInfo.Position + 1)
                     / 
                     @(ReaderContext.Manager.TextPieces.Count) 
                 </span>
             </div>
             <div>
                 <span class="inline-block mx-2">
-                    @(TextHelper.GetDisplayableReadingTime(ReaderContext.StateManager.CurrentState.Position, ReaderContext.Config.ReadingSpeed))
+                    @(TextHelper.GetDisplayableReadingTime(ReaderContext.StateManager.CurrentState.PositionInfo.Position, ReaderContext.Config.ReadingSpeed))
                     /
                     @(TextHelper.GetDisplayableReadingTime(ReaderContext.Manager.TextPieces.Count-1, ReaderContext.Config.ReadingSpeed))
                 </span>
