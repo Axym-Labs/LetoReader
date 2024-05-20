@@ -39,6 +39,8 @@
     <Content Include="static\*">
         <CopyToPublishDirectory>always</CopyToPublishDirectory>
     </Content>
+
+    <PackageReference Include="Toolbelt.Blazor.HotKeys2" Version="4.1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
