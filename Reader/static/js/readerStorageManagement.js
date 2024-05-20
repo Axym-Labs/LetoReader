@@ -1,8 +1,4 @@
-
-const TEXTSTATEIDENT = "TEXTSTATE:";
 const READERELEMIDENT = "#reader-frontpagesection";
-
-
 
 function getUniqueTitle(title) {
     let i = 0;
