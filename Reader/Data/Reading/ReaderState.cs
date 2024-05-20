@@ -17,7 +17,7 @@ public class ReaderState
         get => _title;
         set => _title = value.Trim();
     }
-    public int Position = 0;
+    public PositionInfo PositionInfo;
     public DateTime LastRead;
     public ReaderStateSource Source;
     public string? SourceDescription;
@@ -28,6 +28,8 @@ public class ReaderState
         Source = source;
         SourceDescription = sourceDescription;
         LastRead = lastRead ?? DateTime.Now;
+
+        PositionInfo = new PositionInfo();
     }
 
     public static Tuple<ReaderState,string> ImportFromJson(JObject json, string? version = null)
