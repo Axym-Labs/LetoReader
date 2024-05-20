@@ -3,6 +3,7 @@ using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Reader.Data.Product;
 using Reader.Data.Reading;
 using Reader.Data.Storage;
@@ -83,6 +84,7 @@ public class StateManager
 
     public async Task LoadSavedStates()
     {
+
         var stateStrings = (await localStorage.GetItemAsStringAsync("STATES"));
         List<ReaderState>? states = null;
         if (stateStrings != string.Empty && stateStrings != null)
@@ -98,10 +100,9 @@ public class StateManager
             await AddState(new ReaderState(ProductConstants.DemoTitle, ReaderStateSource.Program), ProductConstants.DemoText, false);
         }
 
-        Console.WriteLine(ReaderStates.Count);
-        Console.WriteLine(ReaderStates[0].Title);
-
         await SwitchToState(ReaderStates[0]);
+
+        await MigrateOldStates();
     }
 
     public async Task<string?> LoadReaderText(ReaderState state)
@@ -154,4 +155,30 @@ public class StateManager
         return newTitle;
     }
 
+    private async Task MigrateOldStates()
+    {
+        var keys = await localStorage.KeysAsync();
+        
+        foreach (var key in keys)
+        {
+            if (key.StartsWith("TEXTSTATE:"))
+            {
+                var obj = JsonConvert.DeserializeObject<JObject>((await localStorage.GetItemAsStringAsync(key))!);
+
+                try
+                {
+                    await AddState(ReaderState.ImportFromJson(obj!), false);
+                } catch (Exception e)
+                {
+                    siteInteraction.Snackbar.Add("The data of an old reading state is corrupted. It will be ignored, but is recoverable by accessing your browser storage.", MudBlazor.Severity.Error);
+                    Log.Error("ReaderContext: MigrateOldStates: Could not import state", e.Message, e.StackTrace ?? string.Empty);
+
+                    await localStorage.SetItemAsStringAsync($"CORRUPTED-{key}", (await localStorage.GetItemAsStringAsync(key))!);
+                }
+                await localStorage.RemoveItemAsync(key);
+
+
+            }
+        }
+    }
 }
