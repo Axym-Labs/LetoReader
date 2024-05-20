@@ -2,6 +2,7 @@
 
 @using MudBlazor
 @using Reader.Data.Storage
+@using Shared.Misc
 @inject BaseUIStorage c
 @inject Constants constants
 
@@ -41,6 +42,8 @@
                     <a href="@linkPair.Url" target="@linkPair.Target" class="mx-4 md:mx-8 my-2 md:my-0 hover:underline text-gray-300 hover:text-focusColor text-b500">@linkPair.Name</a>
                 }
             </div>
+
+            <ShareView />
 
         </div>
     </div>
