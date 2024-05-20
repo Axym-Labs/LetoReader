@@ -21,6 +21,12 @@
 @inject IDialogService DialogService
 @inject HotKeys HotKeys 
 
+
+<style>
+    .blurry {
+        backdrop-filter: blur(10px);
+    }
+</style>
 <div>
     @if (ShowEditFields)
     {
@@ -204,7 +210,7 @@
     }
 
 
-    private DialogOptions dialogOptions = new() { CloseButton = true };
+    private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
 
 
     private void ToggleConfigPanelOpen()

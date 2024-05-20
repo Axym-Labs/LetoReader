@@ -32,6 +32,11 @@
 <div class="@(ShowSavedStates ? "mb-24" : "mb-6")">
     <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" />
 </div>
+<style>
+    .blurry {
+        backdrop-filter: blur(10px);
+    }
+</style>
 
 @if (ShowSavedStates)
 {
@@ -43,7 +48,7 @@
             <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
                 <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
             </MudButton>
-            <MudDialog @bind-IsVisible="NewTextPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol" Options="new DialogOptions() {CloseButton=true}">
+            <MudDialog @bind-IsVisible="NewTextPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol" Options="dialogOptions">
                 <DialogContent>
                     <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
                         <div class="flex justify-between items-center mb-4">
@@ -154,6 +159,8 @@
     public bool AllowHostKeys { get; set; } = true;
 
     private HotKeysContext? _hotKeysContext;
+
+    private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
 
     protected override async Task OnInitializedAsync()
     {
