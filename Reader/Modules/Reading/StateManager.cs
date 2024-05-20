@@ -138,7 +138,6 @@ public class StateManager
             state.Title = ProductConstants.DefaultNewTitle;
 
         await SaveState(state, text);
-        await TextHasChanged();
         await siteInteraction.HandleSiteStateChanged();
     }
 

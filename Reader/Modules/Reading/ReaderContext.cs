@@ -21,8 +21,8 @@ public class ReaderContext
 
     public ReaderConfig Config { get; set; } = default!;
 
-    public MudTextField<string> StateTitleField { get; set; } = new();
-    public MudTextField<string> StateTextField { get; set; } = new();
+    public string StateTitleField { get; set; } 
+    public string StateTextField { get; set; }
 
     private SiteInteraction SiteInteraction { get; set; }
 
@@ -133,7 +133,7 @@ public class ReaderContext
     {
         StateManager.CurrentState.Title = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
 
-        await StateTitleField.SetText(StateManager.CurrentState.Title);
+        StateTitleField = StateManager.CurrentState.Title;
         await SiteInteraction.HandleSiteStateChanged();
     }
 
@@ -141,7 +141,7 @@ public class ReaderContext
     {
         StateManager.CurrentText = await SiteInteraction.JSRuntime.InvokeAsync<string>("getClipboardContent");
 
-        await StateTextField.SetText(StateManager.CurrentText);
+        StateTextField = StateManager.CurrentText;
         await SiteInteraction.HandleSiteStateChanged();
     }
 
@@ -161,14 +161,18 @@ public class ReaderContext
 
     public async Task HandleTitleChanged(string newTitle)
     {
+        if (newTitle == StateTitleField)
+            return;
+        StateTitleField = newTitle;
         try
         {
             await StateManager.RenameState(StateManager.CurrentState, newTitle);
-        } catch
+        } catch (Exception e)
         {
+            Console.WriteLine($"Error: {e.Message}");
             Log.Error("ReaderContext: HandleTitleChanged: Could not rename state");   
         }
-
+        SetStateFields();
         await SiteInteraction.HandleSiteStateChanged();
     }
 
@@ -189,7 +193,7 @@ public class ReaderContext
 
     public async Task HandleSelectedReaderStateChanged()
     {
-        await SetStateFields();
+        SetStateFields();
 
         if (Manager != null)
             Manager.SetupTextPieces();
@@ -201,9 +205,9 @@ public class ReaderContext
     }
 
 
-    public async Task SetStateFields()
+    public void SetStateFields()
     {
-        await StateTitleField.SetText(StateManager.CurrentState.Title);
-        await StateTextField.SetText(StateManager.CurrentText);
+        StateTitleField = StateManager.CurrentState.Title;
+        StateTextField = StateManager.CurrentText;
     }
 }
