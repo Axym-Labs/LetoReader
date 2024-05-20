@@ -4,9 +4,10 @@ public enum ReaderStateSource
 {
     Unknown,
     Program,
-    Internal,
+    Manual,
     FileUpload,
     WebsiteExtract,
+    Clipboard,
     BrowserPlugin,
     RSSFeed,
     Email,
