@@ -11,6 +11,7 @@
             <h3 class="text-b700">
                 @State.Title
             </h3>
+            <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.Position / (State.Position.MaxPosition-1) * 100)" />
         </div>
         <div class="inline-block flex justify-end items-center">
             <MudFab OnClick="ToggleInfoPanelOpen" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2 !bg-transparent !shadow-none" />
