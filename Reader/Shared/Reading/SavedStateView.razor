@@ -24,9 +24,9 @@
             <MudFab OnClick="ToggleInfoPanelOpen" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2 !bg-transparent !shadow-none " />
             <MudDialog @bind-IsVisible="InfoPanelOpen" Options="dialogOptions" Class="rounded-lg shadow-xl !bg-bgcol">
                 <DialogContent>
-                    <MudText Typo="Typo.h3">@State.Title</MudText>
-                    <br />
-                    <div>
+                    <div class="mb-5 p-4">
+                        <h5 class="text-lg text-b700">@State.Title</h5>
+                        <br />
                         <p>Position: @State.PositionInfo.Position</p>
                         <br />
                         <p>Last read: @State.LastRead</p>
