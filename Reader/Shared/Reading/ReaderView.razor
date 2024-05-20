@@ -1,5 +1,6 @@
 @namespace Reader.Shared.Product
 
+@implements IDisposable
 @using MudBlazor
 @using MudBlazorFix
 @using Reader.Shared
@@ -13,13 +14,58 @@
 @using Reader.Data.ProductExceptions
 @using Reader.Modules.Logging
 @using Reader.Data.Reading
+@using Toolbelt.Blazor.HotKeys2
 @inject Constants constants
 @inject IJSRuntime JSRuntime
 @inject ISnackbar Snackbar
+@inject HotKeys HotKeys 
 
+<div>
+    @if (ShowEditFields)
+    {
+    <div class="w-full flex justify-between">
+        <h1 class="text-lg text-neutral-400 mb-4" style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important;">
+            Now Reading: @ReaderContext.StateManager.CurrentState.Title
+        </h1>
+        <div>
+            <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="ToggleTextPanelOpen">
+                Edit
+            </MudButton>
+            <MudPopover Open="@EditTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
+                <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-xl font-semibold">
+                            Edit this text
+                        </p>
+                        <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleTextPanelOpen" />
+                    </div>
+                    <div class="flex my-5">
+                        <MudTextField @ref="ReaderContext.StateTitleField" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
 
+                        @* <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+                        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton> *@
+
+                    </div>
+                    <MudTextField @ref="ReaderContext.StateTextField" Disabled="@(ReaderContext.StateManager.CurrentText.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
+
+                    @* <div class="my-3">
+                    <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+                    <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
+                    </div> *@
+
+                    <p class="text-gray-400 text-sm mt-4">
+                        Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
+                        Titles must be unique.
+                    </p>
+                </div
+            </MudPopover>
+        </div>
+    </div>
+    }
+</div>
 <div id="reader-frontpagesection" class="flex justify-center align-center flex-col transition-transform duratin-500 ease-in-out">
-    <div class="pt-20 pb-20 flex justify-center" style="font-size: @(ReaderContext.ConfigManager.FrontTextSize)px; overflow-y: hidden;">
+
+    <div class="pt-32 pb-32 my-6 md:my-12 flex justify-center" style="font-size: @(ReaderContext.ConfigManager.FrontTextSize)px; overflow-y: hidden;">
         <div>
             <span style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important; font-weight: @(ReaderContext.ConfigManager.FrontFontWeight) !important;">
                 <span class="text-neutral-@(1000-ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)" style="position: absolute; transform:translateX(-100%); white-space: nowrap;">
@@ -40,21 +86,21 @@
     <div class="mb-10 grid sm:grid-cols-7 grid-cols-3 w-full">
         <div class="col-span-2 flex justify-start">
             <div class="m-3">
-                <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
+                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
             </div>
             <div class="m-3">
-                <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
+                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
             </div>
         </div>
         <div class="flex justify-center col-span-3">
             <div class="m-3">
-                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateBefore" OnClick="ReaderContext.Manager.HandleNavBefore" />
+                <MudFab Color="@(FocusModeOn ? Color.Secondary : Color.Primary)" Class="@(FocusModeOn ? "!shadow-none" : "")" StartIcon="@Icons.Material.Filled.NavigateBefore" OnClick="ReaderContext.Manager.HandleNavBefore" />
             </div>
             <div class="m-3">
-                <MudFab Color="Color.Primary" StartIcon="@(ReaderContext.Manager.ReadingStatus ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" OnClick="ReaderContext.Manager.HandleStartStop" />
+                <MudFab Color="@(FocusModeOn ? Color.Secondary : Color.Primary)" Class="@(FocusModeOn ? "!shadow-none" : "")" StartIcon="@(ReaderContext.Manager.ReadingStatus ? Icons.Material.Filled.Pause : Icons.Material.Filled.PlayArrow)" OnClick="ReaderContext.Manager.HandleStartStop" />
             </div>
             <div class="m-3">
-                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
+                <MudFab Color="@(FocusModeOn ? Color.Secondary : Color.Primary)" Class="@(FocusModeOn ? "!shadow-none" : "")" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
             </div>
         </div>
         <div class="col-span-2">
@@ -122,27 +168,7 @@
     </div>
 </div>
 
-@if (ShowEditFields)
-{
-    <div>
-        <div class="flex my-5">
-            <MudTextField @ref="ReaderContext.StateTitleField" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
-            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
-            <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
-        </div>
-        <MudTextField @ref="ReaderContext.StateTextField" class="focus:!border-tertiary" Disabled="@(ReaderContext.StateManager.CurrentText.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
-    
-        <div class="my-3">
-            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
-            <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
-        </div>
-    
-        <p class="text-gray-400 text-sm">
-            Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
-            Titles must be unique.
-        </p>
-    </div>    
-}
+
 
 @code {
 
@@ -152,9 +178,28 @@
     [Parameter]
     public bool ShowEditFields { get; set; } = true;
 
+    [Parameter]
+    public bool AllowHostKeys { get; set; } = true;
+
+    bool EditTextPanelOpen = false;
     bool ConfigPanelOpen = false;
     bool FocusModeOn = false;
 
+    private HotKeysContext? _hotKeysContext;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _hotKeysContext = this.HotKeys.CreateContext();
+            _hotKeysContext.Add(ModCode.None, Code.Space, ReaderContext.Manager.HandleStartStop);
+            _hotKeysContext.Add(ModCode.None, Code.ArrowLeft, ReaderContext.Manager.HandleNavBefore);
+            _hotKeysContext.Add(ModCode.None, Code.ArrowRight, ReaderContext.Manager.HandleNavNext);
+            _hotKeysContext.Add(ModCode.Ctrl, Code.F, (Action)(async () => await ToggleFocusMode()));
+            _hotKeysContext.Add(ModCode.Ctrl, Code.S, ToggleConfigPanelOpen);
+            _hotKeysContext.Add(ModCode.Ctrl|ModCode.Shift, Code.E, ToggleTextPanelOpen);
+        }
+    }
 
     private void ToggleConfigPanelOpen()
     {
@@ -165,6 +210,16 @@
 
         ConfigPanelOpen = !ConfigPanelOpen;
 
+    }
+
+    private void ToggleTextPanelOpen()
+    {
+        Log.Information("ReaderView: ToggleTextPanelOpen");
+
+        if (!EditTextPanelOpen && ReaderContext.Manager.ReadingStatus)
+            ReaderContext.Manager.StopReadingTask();
+
+        EditTextPanelOpen = !EditTextPanelOpen;
     }
 
     private async Task ToggleFocusMode()
@@ -185,6 +240,11 @@
 
     private async Task HandleCopyTitle() {
         await JSRuntime.InvokeVoidAsync("copyTitle");
+    }
+
+    public void Dispose()
+    {
+        _hotKeysContext?.Dispose();
     }
 
 }
