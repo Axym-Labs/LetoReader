@@ -51,7 +51,7 @@ public class StateManager
 
     public async Task AddState(ReaderState state, string content, bool setAsSelected = true)
     {
-        Log.Information("ReaderContext: Adding State");
+        Log.Information("ReaderContext: AddState");
 
         ReaderStates.Add(state);
         ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
@@ -88,13 +88,14 @@ public class StateManager
 
     public async Task SaveState(ReaderState state, string content)
     {
-
         await SaveStates();
         await localStorage.SetItemAsStringAsync($"TEXTCONTENT:{state.Title}", TextHelper.Sanitize(content));
     }
 
     public async Task DeleteState(ReaderState state)
     {
+        Log.Information("ReaderContext: DeleteState");
+
         ReaderStates.Remove(state);
         await localStorage.RemoveItemAsync($"TEXTCONTENT:{state.Title}");
         await SaveStates();
