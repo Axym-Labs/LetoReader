@@ -65,17 +65,23 @@
 
 <div class="mb-10">
     <MudSlider @bind-Value="@ReaderContext.StateManager.CurrentState.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">
-        @((int)(ReaderContext.StateManager.CurrentState.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
-        <span class="inline-block mx-2">
-            @(TextHelper.GetDisplayableReadingTime(ReaderContext.StateManager.CurrentState.Position, ReaderContext.Config.ReadingSpeed))
-            /
-            @(TextHelper.GetDisplayableReadingTime(ReaderContext.Manager.TextPieces.Count-1, ReaderContext.Config.ReadingSpeed))
-        </span>
-        <span class="inline-block mx-2">
-            @(ReaderContext.StateManager.CurrentState.Position + 1)
-            / 
-            @(ReaderContext.Manager.TextPieces.Count) 
-        </span>
+        <div class="flex justify-between">
+            <div>
+                @((int)(ReaderContext.StateManager.CurrentState.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
+                <span class="inline-block mx-2">
+                    @(ReaderContext.StateManager.CurrentState.Position + 1)
+                    / 
+                    @(ReaderContext.Manager.TextPieces.Count) 
+                </span>
+            </div>
+            <div>
+                <span class="inline-block mx-2">
+                    @(TextHelper.GetDisplayableReadingTime(ReaderContext.StateManager.CurrentState.Position, ReaderContext.Config.ReadingSpeed))
+                    /
+                    @(TextHelper.GetDisplayableReadingTime(ReaderContext.Manager.TextPieces.Count-1, ReaderContext.Config.ReadingSpeed))
+                </span>
+            </div>
+        </div>
     </MudSlider>
 </div>
 <div class="mb-16">
@@ -104,7 +110,6 @@
                         }
                     </MudSelect>
                     <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
-                    <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordCharLimit" Min="1" Max="40" Step="1">Character limit per word: @(ReaderContext.ConfigManager.FrontWordCharLimit)</MudSlider>
                     <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
                     <MudColorPicker class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
                     <p class="my-2 md:my-4">
@@ -117,29 +122,35 @@
     </div>
 </div>
 
-<div>
-    <div class="flex my-5">
-        <MudTextField @ref="ReaderContext.StateTitleField" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
-        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
-    </div>
-    <MudTextField @ref="ReaderContext.StateTextField" class="focus:!border-tertiary" Disabled="@(ReaderContext.StateManager.CurrentText.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
+@if (ShowEditFields)
+{
+    <div>
+        <div class="flex my-5">
+            <MudTextField @ref="ReaderContext.StateTitleField" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
+            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+            <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
+        </div>
+        <MudTextField @ref="ReaderContext.StateTextField" class="focus:!border-tertiary" Disabled="@(ReaderContext.StateManager.CurrentText.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
     
-    <div class="my-3">
-        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
-    </div>
+        <div class="my-3">
+            <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+            <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
+        </div>
     
-    <p class="text-gray-400 text-sm">
-        Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
-        Titles must be unique.
-    </p>
-</div>
+        <p class="text-gray-400 text-sm">
+            Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
+            Titles must be unique.
+        </p>
+    </div>    
+}
 
 @code {
 
     [Parameter]
     public ReaderContext ReaderContext { get; set; } = default!;
+
+    [Parameter]
+    public bool ShowEditFields { get; set; } = true;
 
     bool ConfigPanelOpen = false;
     bool FocusModeOn = false;

@@ -26,92 +26,96 @@
 @inject IHttpContextAccessor httpContextAccessor
 @inject ILocalStorageService LocalStorage
 
-<div class="mb-24">
-    <ReaderView ReaderContext="ReaderContext" />
+<div class="@(ShowSavedStates ? "mb-24" : "mb-6")">
+    <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" />
 </div>
 
-<div class="flex justify-between items-center mb-15">
-    <h1 class="text-3xl text-center text-b700 text-gray-300">
-        Saved Texts
-    </h1>
-    <div>
-        <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-5 !px-5 hover:!bg-neutral-900 centered-button-icon">
-            <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
-        </MudButton>
-        <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
-            <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
-                <div class="flex justify-between items-center mb-4">
-                    <p class="text-xl font-semibold">
-                        Create new text
-                    </p>
-                    <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleNewTextPanelOpen" />
+@if (ShowSavedStates)
+{
+    <div class="flex justify-between items-center mb-15">
+        <h1 class="text-3xl text-center text-b700 text-gray-300">
+            Saved Texts
+        </h1>
+        <div>
+            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-5 !px-5 hover:!bg-neutral-900 centered-button-icon">
+                <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
+            </MudButton>
+            <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
+                <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-xl font-semibold">
+                            Create new text
+                        </p>
+                        <MudFab Color="Color.Secondary" Class="!shadow-sm" StartIcon="@Icons.Material.Filled.Cancel" OnClick="ToggleNewTextPanelOpen" />
+                    </div>
+                    <div>
+                        <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                            1) Extract from website
+                        </h5>
+                        <MudTextField T="string" Label="Url" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.Url" />
+                        <MudSelect Color="Color.Tertiary" Class="mud-select-table mt-4" Label="Method"
+                                   T="string"
+                                   @bind-Value="ScrapeInputs.NewTextInputMethodString">
+                            <MudSelectItem T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Largest article subsection</MudSelectItem>
+                            <MudSelectItem T="string" Value="@("XPath")" Color="Color.Tertiary">XPath</MudSelectItem>
+                        </MudSelect>
+                        @if (ScrapeInputs.NewTextInputMethodString == "XPath")
+                        {
+                            <div class="my-4">
+                                <MudTextField T="string" Label="XPath" Class="my-2" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.XPathInputs.XPath" />
+                                <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Value="@ScrapeInputs.XPathInputs.SelectAll" />
+                            </div>
+                        }
+                        <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class="mt-8 hover:!bg-neutral-900">
+                            Load
+                        </MudButton>
+                    </div>
+                    <div class="my-8 md:my-16">
+                        <MudDivider />
+                    </div>
+                    <div class="">
+                        <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                            2) File upload
+                        </h5>
+                        <p class="my-2">
+                            Supported file formats: @ProductConstants.SupportedFileImports
+                        </p>
+                        <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="files => HandleFileUpload(files)" MaximumFileCount="25" Class="my-8">
+                            <ButtonTemplate>
+                                <MudButton HtmlTag="label"
+                                           Variant="Variant.Filled"
+                                           Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.FileUpload"
+                                           for="@context">
+                                    Select Files
+                                </MudButton>
+                            </ButtonTemplate>
+                        </MudFileUpload>
+                    </div>
+                    <div class="my-8 md:my-16">
+                        <MudDivider />
+                    </div>
+                    <div>
+                        <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                            3) Empty fields
+                        </h5>
+                        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Secondary" Class="hover:!bg-neutral-900">
+                            Create
+                        </MudButton>
+                    </div>
                 </div>
-                <div>
-                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                        1) Extract from website
-                    </h5>
-                    <MudTextField T="string" Label="Url" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.Url" />
-                    <MudSelect Color="Color.Tertiary" Class="mud-select-table mt-4" Label="Method"
-                               T="string"
-                               @bind-Value="ScrapeInputs.NewTextInputMethodString">
-                        <MudSelectItem T="string" Value="@("Largest article subsection")" Color="Color.Tertiary">Largest article subsection</MudSelectItem>
-                        <MudSelectItem T="string" Value="@("XPath")" Color="Color.Tertiary">XPath</MudSelectItem>
-                    </MudSelect>
-                    @if (ScrapeInputs.NewTextInputMethodString == "XPath")
-                    {
-                        <div class="my-4">
-                            <MudTextField T="string" Label="XPath" Class="my-2" Variant="Variant.Outlined" @bind-Value="@ScrapeInputs.XPathInputs.XPath" />
-                            <MudSwitch T="bool" Class="my-2" Label="Select all elements that match" @bind-Value="@ScrapeInputs.XPathInputs.SelectAll" />
-                        </div>
-                    }
-                    <MudButton Variant="Variant.Filled" OnClick="@SubmitScrapingForm" Color="Color.Primary" Class="mt-8 hover:!bg-neutral-900">
-                        Load
-                    </MudButton>
-                </div>
-                <div class="my-8 md:my-16">
-                    <MudDivider />
-                </div>
-                <div class="">
-                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                        2) File upload
-                    </h5>
-                    <p class="my-2">
-                        Supported file formats: @ProductConstants.SupportedFileImports
-                    </p>
-                    <MudFileUpload T="IReadOnlyList<IBrowserFile>" Accept=".pdf, .txt, .md, .html, .epub" FilesChanged="files => HandleFileUpload(files)" MaximumFileCount="25" Class="my-8">
-                        <ButtonTemplate>
-                            <MudButton HtmlTag="label"
-                                       Variant="Variant.Filled"
-                                       Color="Color.Primary"
-                                       StartIcon="@Icons.Material.Filled.FileUpload"
-                                       for="@context">
-                                Select Files
-                            </MudButton>
-                        </ButtonTemplate>
-                    </MudFileUpload>
-                </div>
-                <div class="my-8 md:my-16">
-                    <MudDivider />
-                </div>
-                <div>
-                    <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                        3) Empty fields
-                    </h5>
-                    <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Secondary" Class="hover:!bg-neutral-900">
-                        Create
-                    </MudButton>
-                </div>
-            </div>
-        </MudPopover>
+            </MudPopover>
+        </div>
     </div>
-</div>
 
-<div>
+    <div>
 
-    @foreach (var savedState in ReaderContext.StateManager.ReaderStates) {
-        <SavedStateView State="savedState" ReaderContext="ReaderContext" />
-    }
-</div>
+        @foreach (var savedState in ReaderContext.StateManager.ReaderStates) {
+            <SavedStateView State="savedState" ReaderContext="ReaderContext" />
+        }
+    </div>
+    
+}
 
 @code {
     public ReaderContext ReaderContext = default!;
@@ -124,6 +128,12 @@
 
     [FromBody]
     public string Request { get; set; } = default!;
+
+    [Parameter]
+    public bool ShowSavedStates { get; set; } = true;
+
+    [Parameter]
+    public bool ShowEditFields { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
