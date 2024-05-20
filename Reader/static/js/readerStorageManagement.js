@@ -9,7 +9,8 @@ function getUniqueTitle(title) {
 }
 
 function activateFocusMode() {
-    location.href = location.href + READERELEMIDENT;
+    if (!location.href.includes(READERELEMIDENT))
+        location.href = location.href + READERELEMIDENT;
     document.querySelector(READERELEMIDENT).classList.add("min-h-screen");
 }
 

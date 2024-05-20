@@ -33,11 +33,11 @@
 @if (ShowSavedStates)
 {
     <div class="flex justify-between items-center mb-15">
-        <h1 class="text-3xl text-center text-b700 text-gray-300">
+        <h1 class="text-2xl text-center text-b600 text-gray-300">
             Saved Texts
         </h1>
         <div>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-5 !px-5 hover:!bg-neutral-900 centered-button-icon">
+            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
                 <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
             </MudButton>
             <MudPopover Open="@NewTextPanelOpen" AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
