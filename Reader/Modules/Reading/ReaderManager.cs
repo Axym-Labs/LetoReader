@@ -147,7 +147,7 @@ public class ReaderManager
     {
         StringBuilder result = new StringBuilder();
         int totalChars = 0;
-        foreach (string word in TextPieces.Skip((int)State.PositionInfo.Position + 1))
+        foreach (string word in TextPieces.Skip(State.PositionInfo.Position + 1))
         {
             if (totalChars + word.Length <= Config.PeripheralCharsCount)
             {
@@ -164,6 +164,8 @@ public class ReaderManager
 
     public string GetTextPiecesLookBehind()
     {
+        SetupTextPieces();
+
         if (State.PositionInfo.Position == 0)
             return "";
 
