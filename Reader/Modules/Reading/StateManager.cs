@@ -2,6 +2,8 @@
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Identity.Client;
+using Newtonsoft.Json;
+using Reader.Data.Product;
 using Reader.Data.Reading;
 using Reader.Data.Storage;
 using Reader.Modules.Logging;
@@ -18,15 +20,16 @@ public class StateManager
     public string _currentText = "This is a default state and shouldn't show up";
 
     public string CurrentText { get => _currentText; set => _currentText = value.Trim(); }
-
-    public StateManager(ILocalStorageService localStorage)
+    private SiteInteraction siteInteraction;
+    public StateManager(ILocalStorageService localStorage, SiteInteraction site)
     {
         this.localStorage = localStorage;
+        siteInteraction = site;
     }
 
     public async Task SaveStates()
     {
-        await localStorage.SetItemAsync<List<ReaderState>>("STATES", ReaderStates);
+        await localStorage.SetItemAsStringAsync("STATES", JsonConvert.SerializeObject(ReaderStates));
     }
 
 
@@ -39,6 +42,7 @@ public class StateManager
 
         CurrentState = state;
         CurrentText = await LoadReaderText(state);
+        await siteInteraction.HandleSiteStateChanged();
     }
 
     public async Task AddState(ReaderState state, string content)
@@ -49,6 +53,7 @@ public class StateManager
         ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
         await SaveStates();
         await SaveState(state, content);
+        await siteInteraction.HandleSiteStateChanged();
     }
     public async Task AddState(Tuple<ReaderState, string> state)
     {
@@ -57,16 +62,13 @@ public class StateManager
 
     public async Task LoadSavedStates()
     {
-        var states = (await localStorage.GetItemAsync<List<ReaderState>>("STATES"))!;
+        var stateStrings = (await localStorage.GetItemAsStringAsync("STATES"));
+        List<ReaderState>? states = null;
+        if (stateStrings != string.Empty && stateStrings != null)
+            states = JsonConvert.DeserializeObject<List<ReaderState>>(stateStrings)!;
 
         if (states != null)
             ReaderStates = states;
-        // If no states present, create one
-        if (ReaderStates.Count <= 0)
-        {
-            await AddState(ReaderState.GetNew(ReaderStateSource.Internal, "Manual creation"));
-        }
-
     }
 
     public async Task<string> LoadReaderText(ReaderState state)
@@ -86,6 +88,7 @@ public class StateManager
         ReaderStates.Remove(state);
         await localStorage.RemoveItemAsync($"TEXTCONTENT:{state.Title}");
         await SaveStates();
+        await siteInteraction.HandleSiteStateChanged();
     }
 
     public async Task RenameState(ReaderState state, string newName)
@@ -100,6 +103,7 @@ public class StateManager
 
         await SaveState(state, text);
         await SaveStates();
+        await siteInteraction.HandleSiteStateChanged();
     }
 
 }

@@ -32,7 +32,7 @@ public class ReaderContext
     {
         SiteInteraction = siteInteraction;
         this.localStorage = localStorage;
-        StateManager = new StateManager(localStorage);
+        StateManager = new StateManager(localStorage, siteInteraction);
     }
 
     public async Task TriggerOnInitializedEvents()
@@ -173,13 +173,8 @@ public class ReaderContext
 
 
 
-    // STATE MANAGER
-    // this should be in its own class
-
     public async Task OverwriteState()
     {
-        // must be at the start to prevent blocking of this update by the changes below, disabling the input field
-        await SetStateFields();
         PrepareSelectedStateChanging();
         await HandleSelectedReaderStateChanged();
     }

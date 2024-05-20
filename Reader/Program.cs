@@ -11,6 +11,8 @@ using Reader.Modules.Logging;
 using Reader.Modules.Middleware;
 using Reader.Data.Storage;
 using Reader.Data;
+using Newtonsoft.Json;
+using Reader.Data.Reading;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("Config/appsettings.json");
@@ -115,5 +117,6 @@ app.UseStaticFiles(new StaticFileOptions
 app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/Base/_Host");
+
 
 app.Run();
