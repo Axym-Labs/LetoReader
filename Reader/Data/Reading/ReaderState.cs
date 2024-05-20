@@ -27,10 +27,6 @@ public class ReaderState
         Title = title;
         Source = source;
         SourceDescription = sourceDescription;
-        if (SourceDescription == null && source != ReaderStateSource.Unknown)
-        {
-            SourceDescription = "Most likely from a previous version that didn't support the source property.";
-        }
         LastRead = lastRead ?? DateTime.Now;
     }
 

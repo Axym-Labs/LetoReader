@@ -163,12 +163,21 @@ public class ReaderManager
 
     public string GetTextPiecesLookBehind()
     {
+        if (State.Position == 0)
+            return "";
+
         List<string> result = new();
         int charCount = 0;
 
         int i = State.Position - 1;
+        //Console.WriteLine("TextPieces");
+        //Console.WriteLine(String.Join(" ", TextPieces));
+        //Console.WriteLine(TextPieces.Count);
+        //Console.WriteLine(i);
+
         while (i >= 0 && charCount + TextPieces[i].Length <= Config.PeripheralCharsCount)
         {
+            //Console.WriteLine(i);
             result.Add(TextPieces[i]);
             charCount += TextPieces[i].Length + 1;
             i--;

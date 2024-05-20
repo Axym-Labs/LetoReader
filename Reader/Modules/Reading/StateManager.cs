@@ -43,7 +43,16 @@ public class StateManager
         await SaveState(CurrentState, CurrentText);
 
         CurrentState = state;
-        CurrentText = await LoadReaderText(state);
+
+        var text = await LoadReaderText(state);
+        if (text == null)
+        {
+            await DeleteState(state);
+            return;
+        }
+
+        CurrentText = text;
+
         await TextHasChanged();
         await siteInteraction.HandleSiteStateChanged();
     }
@@ -52,8 +61,7 @@ public class StateManager
     {
         Log.Information("ReaderContext: AddState");
 
-        // TODO
-        //state.Title = GetUniqueTitle(state.Title);
+        state.Title = GetUniqueTitle(state.Title);
 
         ReaderStates.Add(state);
         ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
@@ -83,6 +91,8 @@ public class StateManager
         if (states != null)
             ReaderStates = states;
 
+        ReaderStates = ReaderStates.OrderByDescending(x => x.LastRead).ToList();
+
         if (ReaderStates.Count == 0)
         {
             await AddState(new ReaderState(ProductConstants.DemoTitle, ReaderStateSource.Program), ProductConstants.DemoText, false);
@@ -94,9 +104,9 @@ public class StateManager
         await SwitchToState(ReaderStates[0]);
     }
 
-    public async Task<string> LoadReaderText(ReaderState state)
+    public async Task<string?> LoadReaderText(ReaderState state)
     {
-        return (await localStorage.GetItemAsync<string>($"TEXTCONTENT:{state.Title}"))!;
+        return await localStorage.GetItemAsync<string>($"TEXTCONTENT:{state.Title}");
     }
 
     public async Task SaveState(ReaderState state, string content)
@@ -117,7 +127,8 @@ public class StateManager
 
     public async Task RenameState(ReaderState state, string newName)
     {
-        var text = await LoadReaderText(state);
+        var text = await LoadReaderText(state)!;
+
         await localStorage.RemoveItemAsync($"TEXTCONTENT:{state.Title}");
         
         state.Title = newName.Trim();

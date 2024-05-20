@@ -17,6 +17,8 @@
 
             <MudPopover Open="@InfoPanelOpen" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
                 <div>
+                    <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Position: @State.Position</MudChip>
+                    <br />
                     <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Last read: @State.LastRead</MudChip>
                     <br />
                     <MudChip Class="inline-block" Color="Color.Default" Disabled="false">Source: @State.Source.ToString() (@State.SourceDescription)</MudChip>
