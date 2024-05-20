@@ -4,11 +4,18 @@ namespace Reader.Modules.Product;
 
 using Reader.Data.ProductExceptions;
 
-public record WebsiteData<T>()
+public record WebsiteData<T>
 {
-    public string Url { get; set; }
-    public string Title { get; set; }
-    public T Content { get; set; }
+    public WebsiteData(string url, string title, T content)
+    {
+        this.Url = url;
+        this.Title = title;
+        this.Content = content;
+    }
+
+    public required string Url { get; set; }
+    public required string Title { get; set; }
+    public required T Content { get; set; }
 }
 
 public class WebExtractor

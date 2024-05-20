@@ -6,7 +6,7 @@ namespace Reader.Modules.Product;
 
 using Reader.Data.ProductExceptions;
 using Reader.Data.Product;
-
+using Reader.Modules.Logging;
 
 public static class RssFeedParser
 {
@@ -49,7 +49,7 @@ public static class RssFeedParser
                         date = DateTime.ParseExact(pubDate, parseFormat, CultureInfo.InvariantCulture);
                     } catch (FormatException e)
                     {
-                        
+                        Log.Error("Format exception in RSS feed");
                     }
                 }
 

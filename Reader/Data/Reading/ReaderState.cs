@@ -11,7 +11,7 @@ namespace Reader.Data.Reading;
 
 public class ReaderState
 {
-    private string _title;
+    private string _title = ProductConstants.DefaultNewTitle;
     public string Title
     {
         get => _title;
