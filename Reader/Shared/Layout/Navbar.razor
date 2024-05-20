@@ -59,7 +59,7 @@
                                         @foreach (var (title, icon, desc) in titleIconDescription)
                                         {
                                             <MudListItem>
-                                                <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@icon" Label="@title" />
+                                                <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@icon" Label="@title" OnClick="((e) => SwitchToCurrentShortCut((title,icon,desc)))" />
                                             </MudListItem>
                                         }
                                     </MudList>
@@ -93,7 +93,11 @@
 @code {
 
     List<ValueTuple<string, string, string>> titleIconDescription = new() { 
-        ("Space", Icons.Material.Filled.SpaceBar, "Spacebar can be used to both start and stop the reader")
+        ("Space", Icons.Material.Filled.SpaceBar, "Spacebar can be used to both start and stop the reader"),
+        ("Arrows", "", "The arrows are used to navigate the selected reader text and can be used to skip back and forth to certain positions"),
+        ("CTRL + F","","Is used to activate focus mode. Is toggled by pressing the key"),
+        ("CTRL + S","","The S key can be pressed to toggle the settings dialogue"),
+        ("CTRL + E","", "CTRL + E or Shift + E toggle the text panel")
     };
 
     ValueTuple<string, string, string> CurrentShortCut = default!;
@@ -104,6 +108,11 @@
     private void SwitchShortCutReference()
     {
         ShowShortCutReference = !ShowShortCutReference;
+    }
+
+    private void SwitchToCurrentShortCut((string,string,string) shortcut)
+    {
+        CurrentShortCut = shortcut;
     }
 
     protected override void OnInitialized()
