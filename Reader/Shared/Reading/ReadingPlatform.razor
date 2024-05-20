@@ -95,9 +95,20 @@
                     <div class="my-8 md:my-16">
                         <MudDivider />
                     </div>
+                    <div class="">
+                        <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
+                            3) Clipboard
+                        </h5>
+                        <MudButton Variant="Variant.Filled" OnClick="HandleFromClipboard" Color="Color.Primary" Class="hover:!bg-neutral-900">
+                            Paste
+                        </MudButton>
+                    </div>
+                    <div class="my-8 md:my-16">
+                        <MudDivider />
+                    </div>
                     <div>
                         <h5 class="mt-4 md:mt-6 mb-5 md:mb-8 text-lg font-semibold">
-                            3) Empty fields
+                            4) Empty fields
                         </h5>
                         <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandleNewText" Color="Color.Secondary" Class="hover:!bg-neutral-900">
                             Create
@@ -287,7 +298,7 @@
     private async Task SubmitScrapingForm()
     {
         Log.Information("ReaderView: SubmitScrapingForm");
-        
+
         try
         {
             await ReaderContext.StateManager.AddState(await ReaderState.Scrape(ScrapeInputs));
@@ -297,5 +308,27 @@
             Snackbar.Add(e.Message, Severity.Error);
             Log.Information("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
+    }
+
+    private async Task HandleFromClipboard()
+    {
+        Log.Information("ReaderView: HandleFromClipboard");
+
+        try
+        {
+            var clipboardText = await JSRuntime.InvokeAsync<string>("getClipboardContent");
+            var title = clipboardText.Substring(0, Math.Min(20, clipboardText.Length));
+            if (clipboardText.Length > 20)
+                title += "...";
+
+            var state = new ReaderState(title, ReaderStateSource.Clipboard, "Created from clipboard's contents");
+            await ReaderContext.StateManager.AddState(state, clipboardText);
+        }
+        catch (Exception e)
+        {
+            Snackbar.Add(e.Message, Severity.Error);
+            Log.Information("ReaderView: HandleFromClipboard - ClipboardException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+        }
+
     }
 }

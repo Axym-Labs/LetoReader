@@ -118,7 +118,7 @@ public class ReaderContext
 
     public async Task HandleNewText()
     {
-        await HandleNewText(ReaderState.GetNew(ReaderStateSource.Internal, "Manual creation"));
+        await HandleNewText(ReaderState.GetNew(ReaderStateSource.Manual, "Manual creation"));
     }
 
     private async Task HandleNewText(Tuple<ReaderState,string> stateAndText)
