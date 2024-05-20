@@ -206,15 +206,7 @@
             _hotKeysContext.Add(ModCode.Ctrl, Code.S, ToggleConfigPanelOpen);
             _hotKeysContext.Add(ModCode.Ctrl|ModCode.Shift, Code.E, ToggleTextPanelOpen);
         }
-
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await ReaderContext.SetStateFields();
-        }
+        ReaderContext.SetStateFields();
     }
 
     private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
