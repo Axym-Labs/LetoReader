@@ -18,7 +18,7 @@ public class StateManager
 
     public ReaderState CurrentState { get; set; } = new("Default State", ReaderStateSource.Program, "Nah", DateTime.Now);
 
-    public string _currentText = "This is a default state and shouldn't show up";
+    public string _currentText = ProductConstants.DemoText;
 
     public string CurrentText { get => _currentText; set => _currentText = value.Trim(); }
     private SiteInteraction siteInteraction;
