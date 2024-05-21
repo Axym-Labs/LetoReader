@@ -1,0 +1,33 @@
+﻿@namespace Reader.Shared.Sections
+
+@using MudBlazor
+@using Reader.Shared
+@using Reader.Modules
+@using Reader.Data.Storage
+
+<div class="my-10 grid md:grid-cols-3 gap-4 md:gap-8">
+    <div>
+        <h1 class="text-5xl md:text-5xl text-b800 text-neutral-300 md:text-end">
+            @Title
+        </h1>
+    </div>
+    <div class="col-span-2">
+        <p class="text-lg text-neutral-300 max-w-3xl">
+            @ChildContent
+        </p>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = default!;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+
+    }
+}

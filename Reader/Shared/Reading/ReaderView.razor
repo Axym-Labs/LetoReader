@@ -88,12 +88,6 @@
 
     <div class="mb-10 grid sm:grid-cols-7 grid-cols-3 w-full">
         <div class="col-span-2 flex justify-start">
-            <div class="m-3">
-                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
-            </div>
-            <div class="m-3">
-                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
-            </div>
         </div>
         <div class="flex justify-center col-span-3">
             <div class="m-3">
@@ -106,7 +100,13 @@
                 <MudFab Color="@(FocusModeOn ? Color.Secondary : Color.Primary)" Class="@(FocusModeOn ? "!shadow-none" : "")" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
             </div>
         </div>
-        <div class="col-span-2">
+        <div class="col-span-2 flex justify-end">
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
+            </div>
 
         </div>
     </div>
