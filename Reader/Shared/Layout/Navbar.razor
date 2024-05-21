@@ -5,8 +5,13 @@
 @using Reader.Shared.Misc
 @inject BaseUIStorage c
 @inject Constants constants
-
-
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+<style>
+    .blurry {
+        backdrop-filter: blur(10px);
+    }
+</style>
 <nav id="nav" class="sticky top-0 z-10 z-50">
     @if (c.NavbarData.SpecialAnnouncement != "" || c.NavbarData.SpecialAnnouncementBypass) {
         <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1" onload="sizeNav();" style="height: 3rem; background: @(DesignStorage.SpecialAnnouncementBg);">
@@ -41,6 +46,48 @@
                 @foreach (var linkPair in c.NavbarData.Links) {
                     <a href="@linkPair.Url" target="@linkPair.Target" class="mx-4 md:mx-8 my-2 md:my-0 hover:underline text-gray-300 hover:text-focusColor text-b500">@linkPair.Name</a>
                 }
+                <MudFab IconSize="Size.Medium" Size="Size.Small" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Info" DisableElevation="true" OnClick="SwitchShortCutReference" />
+                <MudDialog Options="dialogOptions" @bind-IsVisible="ShowShortCutReference" Class="rounded-lg shadow-xl !bg-bgcol blurry">
+                    <TitleContent>
+                        <MudText Style="text-align: center" Typo="Typo.h3">Shortcut reference</MudText>
+                        <MudDivider />
+                    </TitleContent>
+                    
+                    <DialogContent>
+                        <MudContainer Style="max-height: 500px; overflow-y:scroll" >
+                            <MudStack Row="true">
+                                <MudContainer Style="width=200px">
+                                    <MudList>
+                                        @foreach (var (title, icon, desc) in titleIconDescription)
+                                        {
+                                            <MudListItem>
+                                                <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@icon" Label="@title" OnClick="((e) => SwitchToCurrentShortCut((title,icon,desc)))" />
+                                            </MudListItem>
+                                        }
+                                    </MudList>
+                                </MudContainer>
+                                <MudContainer Class="p-4">
+                                    <MudStack Class="justify-center align-center spacing-2">
+                                        <MudStack Direction="row" AlignItems="AlignItems.Center" Class="mb-2 justify-content-center">
+                                            @if (!string.IsNullOrEmpty(CurrentShortCut.Item2))
+                                            {
+                                                <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@CurrentShortCut.Item2" Class="mr-2"></MudFab>
+                                            }
+                                            <MudText Typo="Typo.h4">@CurrentShortCut.Item1</MudText>
+                                        </MudStack>
+                                        <MudText Typo="Typo.body1">@CurrentShortCut.Item3</MudText>
+                                    </MudStack>
+                                </MudContainer>
+
+
+                            </MudStack>
+
+                        </MudContainer>
+
+
+
+                    </DialogContent>
+                </MudDialog>
                 <ShareView />
 
             </div>
@@ -53,8 +100,35 @@
 
 @code {
 
+    List<ValueTuple<string, string, string>> titleIconDescription = new() { 
+        ("Space", Icons.Material.Filled.SpaceBar, "Spacebar can be used to both start and stop the reader"),
+        ("Arrows", arrowSvg, "The arrows are used to navigate the selected reader text and can be used to skip back and forth to certain positions"),
+        ("CTRL + F","","Is used to activate focus mode. Is toggled by pressing the key"),
+        ("CTRL + S","","The S key can be pressed to toggle the settings dialogue with options regarding reader speed, font, and many more settings"),
+        ("CTRL + E","", "CTRL + E or Shift + E toggle the text panel for editing title and text")
+    };
+
+    ValueTuple<string, string, string> CurrentShortCut = default!;
+
+    bool ShowShortCutReference = false;
+    DialogOptions dialogOptions = new() { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth=true, ClassBackground = "blurry" };
+
+    const string arrowSvg = """<svg fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 553.156 553.156" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M545.326,265.792l-130.92-74.701c-10.44-5.955-18.904-1.041-18.904,10.979V351.08c0,12.02,8.464,16.935,18.904,10.979 l130.92-74.694C555.767,281.404,555.767,271.746,545.326,265.792z"></path> <path d="M138.75,191.091L7.831,265.792c-10.441,5.955-10.441,15.618,0,21.573l130.919,74.7 c10.441,5.955,18.905,1.041,18.905-10.979V202.07C157.648,190.05,149.191,185.136,138.75,191.091z"></path> </g> </g> </g></svg>""";
+    
+    
+    private void SwitchShortCutReference()
+    {
+        ShowShortCutReference = !ShowShortCutReference;
+    }
+
+    private void SwitchToCurrentShortCut((string,string,string) shortcut)
+    {
+        CurrentShortCut = shortcut;
+    }
+
     protected override void OnInitialized()
     {
+        CurrentShortCut = titleIconDescription[0];
     }
 }
 
