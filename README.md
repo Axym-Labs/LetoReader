@@ -5,6 +5,8 @@
 
 </div>
 
+![Reader Showcase](Showcase-min.gif)
+
 - **[Live Demo](https://axym.davidewiest.com/read)**
 
 <a href="https://hub.docker.com/r/davidewiest/reader">
