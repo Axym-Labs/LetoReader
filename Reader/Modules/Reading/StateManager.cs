@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Blazored.LocalStorage.Exceptions;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Microsoft.Identity.Client;
@@ -112,8 +113,19 @@ public class StateManager
 
     public async Task SaveState(ReaderState state, string content)
     {
+        try
+        {
         await SaveStates();
         await localStorage.SetItemAsStringAsync($"TEXTCONTENT:{state.Title}", TextHelper.Sanitize(content));
+        } catch (BrowserStorageDisabledException e)
+        {
+            Log.Error("ReaderContext: SaveState: Browser storage disabled", e.Message, e.StackTrace ?? string.Empty);
+            siteInteraction.Snackbar.Add("The browser storage is disabled. Please enable it to use this feature.", MudBlazor.Severity.Error);
+        } catch (Exception e)
+        {
+            Log.Error("ReaderContext: SaveState - Could not save state.", e.Message, e.StackTrace ?? string.Empty);
+            siteInteraction.Snackbar.Add("An error occurred while saving the reading state. Your browser storage may be full. Delete an old text and try again.", MudBlazor.Severity.Error);
+        }
     }
 
     public async Task DeleteState(ReaderState state)

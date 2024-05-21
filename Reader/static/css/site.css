@@ -6,7 +6,7 @@ body {
     font-family: 'Fira Code', monospace;
 }
 
-.intertight {
+. {
     font-family: 'Inter Tight', 'Inter', 'Roboto', 'Helvetica', sans-serif;
 }
 
@@ -73,4 +73,8 @@ a:hover {
 .centered-button-icon .mud-button-label .mud-button-icon-start {
     margin-left: 0px !important;
     margin-right: 0px !important;
+}
+
+.blurry {
+    backdrop-filter: blur(10px);
 }

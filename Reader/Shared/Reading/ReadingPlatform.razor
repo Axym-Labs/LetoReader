@@ -29,6 +29,12 @@
 @inject ILocalStorageService LocalStorage
 @inject HotKeys HotKeys
 
+@if (SetPageTitle)
+{
+    <PageTitle>@ReaderContext.StateManager.CurrentState.Title - @Constants.ProjectName</PageTitle>
+}
+
+
 <div class="@(ShowSavedStates ? "mb-24" : "mb-6")">
     <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" />
 </div>
@@ -36,14 +42,14 @@
 @if (ShowSavedStates)
 {
     <div class="flex justify-between items-center mb-15">
-        <h1 class="text-2xl text-center text-b600 text-gray-300">
+        <h1 class="text-lg text-b600 text-neutral-300">
             Saved Texts
         </h1>
         <div>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
-                <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
+            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="!py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
+                <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> Add
             </MudButton>
-            <MudDialog @bind-IsVisible="NewTextPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol" Options="new DialogOptions() {CloseButton=true}">
+            <MudDialog @bind-IsVisible="NewTextPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol" Options="dialogOptions">
                 <DialogContent>
                     <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
                         <div class="flex justify-between items-center mb-4">
@@ -153,7 +159,12 @@
     [Parameter]
     public bool AllowHostKeys { get; set; } = true;
 
+    [Parameter]
+    public bool SetPageTitle { get; set; } = false;
+
     private HotKeysContext? _hotKeysContext;
+
+    private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
 
     protected override async Task OnInitializedAsync()
     {
@@ -184,6 +195,8 @@
             {
                 await TryImportStateRequestBody();
             }
+
+            Log.Information("ReaderPlatform: Settings", ReaderContext.Config);
 
 
             _hotKeysContext = this.HotKeys.CreateContext();
@@ -285,7 +298,7 @@
 
     private void ToggleNewTextPanelOpen()
     {
-        Log.Information("ReaderView: ToggleNewTextPanelOpen");
+        Log.Information("ReaderPlatform: ToggleNewTextPanelOpen");
 
         if (!NewTextPanelOpen && ReaderContext.Manager.ReadingStatus)
             ReaderContext.Manager.StopReadingTask();
@@ -295,7 +308,7 @@
 
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
-        Log.Information("ReaderView: HandleFileUpload");
+        Log.Information("ReaderPlatform: HandleFileUpload");
 
         try
         {
@@ -305,13 +318,13 @@
         catch (UnsupportedOperationException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderView: HandleFileUpload - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            Log.Information("ReaderPlatform: HandleFileUpload - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
     }
 
     private async Task SubmitScrapingForm()
     {
-        Log.Information("ReaderView: SubmitScrapingForm");
+        Log.Information("ReaderPlatform: SubmitScrapingForm");
 
         try
         {
@@ -320,13 +333,13 @@
         catch (ScrapingException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderView: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            Log.Information("ReaderPlatform: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
     }
 
     private async Task HandleFromClipboard()
     {
-        Log.Information("ReaderView: HandleFromClipboard");
+        Log.Information("ReaderPlatform: HandleFromClipboard");
 
         try
         {
@@ -341,7 +354,7 @@
         catch (Exception e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderView: HandleFromClipboard - ClipboardException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            Log.Information("ReaderPlatform: HandleFromClipboard - ClipboardException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
 
     }

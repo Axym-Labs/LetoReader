@@ -5,26 +5,30 @@
 @using Reader.Modules.Reading
 @using Reader.Modules
 
+
 <div class="my-5 py-5 md:py-3 px-5 rounded-lg shadow-xl" style="background-color: rgb(22, 22, 26); overflow-wrap: anywhere;">
     <div class="md:flex justify-between items-center">
         <div class="w-full inline-block grid md:grid-cols-2 overflow-hidden pl-1 pr-5 md:ml-3 items-center">
-            <h3 class="text-b700">
+            <h3 class="text-b600">
                 @State.Title
             </h3>
             <MudProgressLinear Class="mx-2 my-4 md:mx-4" Color="Color.Tertiary" Rounded="true" Size="Size.Medium" Value="@((double)State.PositionInfo.Position / (State.PositionInfo.MaxPosition-1) * 100)" />
         </div>
         <div class="inline-block flex justify-end items-center">
-            <MudFab OnClick="ToggleInfoPanelOpen" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2 !bg-transparent !shadow-none" />
-
-            <MudPopover Open="@InfoPanelOpen" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Class="rounded-lg shadow-xl bg-bgcol p-4 md:p-6">
-                <div>
-                    <p>Position: @State.PositionInfo.Position</p>
-                    <br />
-                    <p>Last read: @State.LastRead</p>
-                    <br />
-                    <p>Source: @State.Source.ToString() @(State.SourceDescription != null && State.SourceDescription != string.Empty ? $"({State.SourceDescription})" : "")</p>
-                </div>
-            </MudPopover>
+            <MudFab OnClick="ToggleInfoPanelOpen" Size="Size.Small" StartIcon="@Icons.Material.Filled.Info" Class="m-2 !bg-transparent !shadow-none " />
+            <MudDialog @bind-IsVisible="InfoPanelOpen" Options="dialogOptions" Class="rounded-lg shadow-xl !bg-bgcol">
+                <DialogContent>
+                    <div class="mb-5 p-4">
+                        <h5 class="text-lg text-b600">@State.Title</h5>
+                        <br />
+                        <p>Position: @State.PositionInfo.Position</p>
+                        <br />
+                        <p>Last read: @State.LastRead</p>
+                        <br />
+                        <p>Source: @State.Source.ToString() @(State.SourceDescription != null && State.SourceDescription != string.Empty ? $"({State.SourceDescription})" : "")</p>
+                    </div>
+                </DialogContent>
+            </MudDialog>
 
             <MudButton Disabled="@(ReaderContext.StateManager.CurrentState == State)" Variant="Variant.Filled" OnClick="@(async () => { await ReaderContext.StateManager.SwitchToState(State); })" Color="Color.Secondary" Class="m-2 whitespace-nowrap !bg-transparent !shadow-none">
                 Load
@@ -44,6 +48,7 @@
     public ReaderContext ReaderContext { get; set; } = default!;
 
     private bool InfoPanelOpen { get; set; }
+    private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
 
     protected override void OnInitialized()
     {

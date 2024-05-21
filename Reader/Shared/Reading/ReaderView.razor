@@ -21,16 +21,17 @@
 @inject IDialogService DialogService
 @inject HotKeys HotKeys 
 
+
 <div>
     @if (ShowEditFields)
     {
-    <div class="w-full flex justify-between">
-        <h1 class="text-lg text-neutral-400 mb-4" style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important;">
-            Now Reading: @ReaderContext.StateManager.CurrentState.Title
+    <div class="w-full flex justify-between items-center">
+            <h1 class="text-lg text-b600 text-neutral-300" style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important;">
+            @ReaderContext.StateManager.CurrentState.Title
         </h1>
         <div>
-            <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="ToggleTextPanelOpen">
-                Edit
+            <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="ToggleTextPanelOpen" Class="!py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
+                <MudIcon Icon="@Icons.Material.Outlined.EditNote"></MudIcon> Edit
             </MudButton>
                 <MudDialog @bind-IsVisible="EditTextPanelOpen" Options="dialogOptions" Class="rounded-lg shadow-xl !bg-bgcol">
                 <DialogContent>
@@ -54,7 +55,7 @@
                     <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
                     </div> *@
 
-                        <p class="text-gray-400 text-sm mt-4">
+                        <p class="text-neutral-400 text-sm mt-4">
                             Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
                             Titles must be unique.
                         </p>
@@ -68,7 +69,7 @@
 <div id="reader-frontpagesection" class="flex justify-center align-center flex-col transition-transform duratin-500 ease-in-out">
 
     <div class="pt-32 pb-32 my-6 md:my-12 flex justify-center" style="font-size: @(ReaderContext.ConfigManager.FrontTextSize)px; overflow-y: hidden;">
-        <div>
+        <div class="">
             <span style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important; font-weight: @(ReaderContext.ConfigManager.FrontFontWeight) !important;">
                 <span class="text-neutral-@(1000-ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)" style="position: absolute; transform:translateX(-100%); white-space: nowrap;">
                     @(ReaderContext.Manager.GetTextPiecesLookBehind())
@@ -87,12 +88,6 @@
 
     <div class="mb-10 grid sm:grid-cols-7 grid-cols-3 w-full">
         <div class="col-span-2 flex justify-start">
-            <div class="m-3">
-                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
-            </div>
-            <div class="m-3">
-                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
-            </div>
         </div>
         <div class="flex justify-center col-span-3">
             <div class="m-3">
@@ -105,14 +100,20 @@
                 <MudFab Color="@(FocusModeOn ? Color.Secondary : Color.Primary)" Class="@(FocusModeOn ? "!shadow-none" : "")" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
             </div>
         </div>
-        <div class="col-span-2">
+        <div class="col-span-2 flex justify-end">
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
+            </div>
+            <div class="m-3">
+                <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@Icons.Material.Filled.Settings" OnClick="ToggleConfigPanelOpen" />
+            </div>
 
         </div>
     </div>
 </div>
 
 <div class="mb-10">
-    <MudSlider @bind-Value="@ReaderContext.StateManager.CurrentState.PositionInfo.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-gray-500 text-sm" Color="Color.Tertiary">
+    <MudSlider @bind-Value="@ReaderContext.StateManager.CurrentState.PositionInfo.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-neutral-500 text-sm" Color="Color.Tertiary">
         <div class="flex justify-between">
             <div>
                 @((int)(ReaderContext.StateManager.CurrentState.PositionInfo.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
@@ -203,8 +204,7 @@
         ReaderContext.SetStateFields();
     }
 
-
-    private DialogOptions dialogOptions = new() { CloseButton = true };
+    private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
 
 
     private void ToggleConfigPanelOpen()
