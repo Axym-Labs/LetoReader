@@ -85,11 +85,9 @@ public class ReaderState
             : websiteInfo.GetNodeByXPath(inputs.XPathInputs.XPath).InnerText,
             _ => throw new ScrapingException("Invalid new text input method")
         };
+        
 
-        var (state,_) = GetNew(ReaderStateSource.WebsiteExtract, $"Extracted from {inputs.Url}");
-        state.Title = title;
-
-        return new Tuple<ReaderState,string>(state,text);
+        return new Tuple<ReaderState,string>(new ReaderState(title, text, ReaderStateSource.WebsiteExtract, $"Scraped from {inputs.Url}", DateTime.Now, PositionalMethod.Word),text);
     }
 
 
