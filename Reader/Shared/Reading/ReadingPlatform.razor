@@ -29,6 +29,12 @@
 @inject ILocalStorageService LocalStorage
 @inject HotKeys HotKeys
 
+@if (SetPageTitle)
+{
+    <PageTitle>@ReaderContext.StateManager.CurrentState.Title - @Constants.ProjectName</PageTitle>
+}
+
+
 <div class="@(ShowSavedStates ? "mb-24" : "mb-6")">
     <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" />
 </div>
@@ -41,12 +47,12 @@
 @if (ShowSavedStates)
 {
     <div class="flex justify-between items-center mb-15">
-        <h1 class="text-2xl text-center text-b600 text-gray-300">
+        <h1 class="text-lg text-b600 text-neutral-300">
             Saved Texts
         </h1>
         <div>
-            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="m-2 !py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
-                <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> New Text
+            <MudButton Variant="Variant.Filled" OnClick="@ToggleNewTextPanelOpen" Color="Color.Primary" Class="!py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
+                <MudIcon Icon="@Icons.Material.Filled.Add"></MudIcon> Add
             </MudButton>
             <MudDialog @bind-IsVisible="NewTextPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol" Options="dialogOptions">
                 <DialogContent>
@@ -157,6 +163,9 @@
 
     [Parameter]
     public bool AllowHostKeys { get; set; } = true;
+
+    [Parameter]
+    public bool SetPageTitle { get; set; } = false;
 
     private HotKeysContext? _hotKeysContext;
 

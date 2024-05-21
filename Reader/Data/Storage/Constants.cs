@@ -2,10 +2,10 @@ namespace Reader.Data.Storage;
 
 public class Constants
 {
-    public const string ProjectName = "Axym";
+    public const string ProjectName = "Leto";
     public const string ProjectDir = "Reader";
 
-    public const string ShareTitle = "Axym Reader - Free Open-Source Speed Reading";
+    public const string ShareTitle = "Leto - Free Modern Speed Reading";
     public const string ShareUrl = "https://axym.davidewiest.com";
     public const string ShareDescription = "";
 
