@@ -46,6 +46,8 @@
 
 ### Changelogs
 - [Version 2](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2)
+- [Version 2.1](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2.1)
+- [Version 3](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-3)
 
 
-Made with <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" />
+Made with ♥️ and .NET Blazor
