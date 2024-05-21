@@ -11,9 +11,9 @@
 
 
 <nav id="nav" class="sticky top-0 z-10 z-50">
-    @if (c.NavbarData.SpecialAnnouncement != "" || c.NavbarData.SpecialAnnouncementBypass) {
-        <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1" onload="sizeNav();" style="height: 3rem; background: @(DesignStorage.SpecialAnnouncementBg);">
-            @c.NavbarData.SpecialAnnouncement
+    @if (!String.IsNullOrEmpty(CurrentSpecialAnnouncement.Text)) {
+        <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1 bg-specialAnnouncementBg" onload="sizeNav();" style="height: 3rem;">
+            @CurrentSpecialAnnouncement
         </div>
     }
     <div id="navbar-contents" class="backdrop-filter backdrop-blur-md flex z-10 z-50 pt-1" style="height: 62px;">
@@ -58,6 +58,16 @@
 
 
 
+@code {
+    class SpecialAnnouncement {
+        public string Text { get; set; } = string.Empty;
+        
+    }
 
+    private SpecialAnnouncement CurrentSpecialAnnouncement { get; set; } = new SpecialAnnouncement();
 
-
+    protected override void OnInitialized()
+    {
+        
+    }
+}

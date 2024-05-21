@@ -1,0 +1,99 @@
+@namespace Reader.Shared.Sections
+
+@using MudBlazor
+@using Reader.Shared.Product
+@using Reader.Modules
+@using Reader.Data.Product
+@using Reader.Data.Storage
+@using Reader.Shared.Misc
+
+<div class="w-screen flex justify-center">
+    <div class="max-w-7xl mx-8 mb-5">
+        <div class="flex items-center justiy-center flex-col max-w-xl">
+            <h1 class="text-5xl text-b700 text-white mb-4 text-center">
+                Read faster with Leto. Try it <MudIcon Icon="@Icons.Material.Filled.ArrowDownward" Size="Size.Large" Class="mr-1"></MudIcon>
+            </h1>
+        </div>
+    </div>
+</div>
+<div class="w-screen flex justify-center mb-10">
+    <div class="max-w-4xl mx-4 w-full">
+        <ReadingPlatform AllowRequestAccess="false" ShowEditFields="false" ShowSavedStates="false" />
+    </div>
+</div>
+<div class="w-screen flex justify-center mb-10">
+    <div class="max-w-4xl mx-4 w-full">
+    <FrontSubSection Title="What">
+        @Constants.ProjectName is a highly customizable speed-reader built as a <span class="font-semibold text-neutral-300">direct alternative to paid ones</span>.
+        It's <span class="font-semibold text-neutral-300">open-source</span> and <span class="font-semibold text-neutral-300">privacy-focused</span>: Leto can be self-hosted (and is by more than 30 people!) and stores all data on your device only.
+        Speed-reading concepts such as <span class="font-semibold text-neutral-300">chunking, pacing and highlighting</span> are built in.
+    </FrontSubSection>
+    <FrontSubSection Title="Why">
+        This is the creator and maintainer of Leto, Davide. 
+        I was impressed by the results of speed reading and searched for a free app for long-term use. 
+        I checked out Spritz, Spreeder, ReadQuick and others, but they all had a unreasonably high subscription free.
+        I also looked for open source speed readers, namely jetzt, SpeedReader, sprint-reader, but almost all of them were abandoned years ago, and all of them were missing features I wanted. (E.g. file upload)
+        So I decided to spare a weekend and build my own implementation and share it.
+        After a lot of positive feedback, primarily from the self-hosted community, I decided to extend it into a full-fledged product with the help of others.
+    </FrontSubSection>
+    <FrontSubSection Title="Features">
+        <FeatureChip Title="File Upload" Icon="@Icons.Material.Filled.UploadFile" />
+        <FeatureChip Title="Import From URL" />
+        <FeatureChip Title="Easy clipboard access" />
+        <FeatureChip Title="Browser Plugin (soon)" />
+        <FeatureChip Title="Local-Only Storage" />
+        <FeatureChip Title="8 Customizable Settings" />
+        <FeatureChip Title="Keyboard Shortcuts" />
+        <FeatureChip Title="Text Source Tracking" />
+        <FeatureChip Title="Live Updating State" />
+    </FrontSubSection>
+    <FrontSubSection Title="Where to start">
+        Start by trying out this demo above. 
+        Next up, click "Read" in the navbar to get to the dedicated page. Import any text you like and start reading.
+        <span class="font-semibold text-neutral-300">Import your texts</span> from a URL, by uploading a file or from your clipboard.
+        <br/>
+        If you want to self-host it, use the <a href="@Constants.DockerUrl" class="text-b500 underline">docker image</a>.
+    </FrontSubSection>
+    <FrontSubSection Title="Common setups">
+        <div class="m-2 border border-neutral-700 p-4 rounded-lg shadow-lg">
+            <p class="text-b600">Default</p>
+            <img src="/static/assets/setups/setup1.png" />
+        </div>
+        <div class="m-2 border border-neutral-700 p-4 rounded-lg shadow-lg">
+            <p class="text-b600">Spritzer (Single word and center highlighted)</p>
+            <img src="/static/assets/setups/setup2.png" />
+        </div>
+        <div class="m-2 border border-neutral-700 p-4 rounded-lg shadow-lg">
+            <p class="text-b600">Peripheral-vision-focused</p>
+            <img src="/static/assets/setups/setup3.png" />
+        </div>
+        <div class="m-2 border border-neutral-700 p-4 rounded-lg shadow-lg">
+            <p class="text-b600">Peripheral-vision-focused with condensed font</p>
+            <img src="/static/assets/setups/setup4.png" />
+        </div>
+    </FrontSubSection>
+    <FrontSubSection Title="Where to go">
+        Over time, increase reading speed and change settings to fit your needs. 
+        Use the <span class="font-semibold text-neutral-300">focus mode</span> to minimize user-interface distractions.
+        If you have any <a class="underline underline-offset-2 text-white" href="https://github.com/DavideWiest/Reader/issues/new" target="_blank">problems</a> or <a class="underline underline-offset-2 text-white" target="_blank" href="https://reader.canny.io/feature-requests">feature requests</a>, let us know. Happy reading!
+    </FrontSubSection>
+    </div>
+</div>
+<div class="w-screen flex justify-center">
+    <div class="max-w-4xl mx-4 mb-20">
+        <AnnouncementView />
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+    [Parameter]
+    public string imageLoc { get; set; } = default!;
+    [Parameter]
+    public string actionText { get; set; } = default!;
+    [Parameter]
+    public string actionLink { get; set; } = default!;
+
+}

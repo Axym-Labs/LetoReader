@@ -8,7 +8,7 @@
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 
-<MudButton OnClick="SwitchShortCutReference" Class="rounded-lg py-2 !bg-black !px-2 my-3 mx-1.5" Variant="Variant.Filled">
+<MudButton OnClick="SwitchShortCutReference" Class="rounded-lg py-2 !bg-colorSecondary !px-2 my-3 mx-1.5" Variant="Variant.Filled">
     <MudIcon Icon="@Icons.Material.Outlined.Info" />
 </MudButton>
 
@@ -54,7 +54,7 @@
             </MudStack>
 
         </MudContainer>
-        <MudButton Color="Color.Primary" Variant="Variant.Filled" Href="@ProductConstants.DocumentationUrl">
+        <MudButton Color="Color.Primary" Class="my-5 my-3" Variant="Variant.Filled" Href="@Constants.DocumentationUrl">
             Visit the wiki
         </MudButton>
 

@@ -9,7 +9,11 @@ tailwind.config = {
                 btnPrimaryDarker: '#23046b',
                 btnSecondary: '#7a6007',
 
-                tertiary: "#5E35B1"
+                colorSecondary: "#0b0a0c",
+
+                tertiary: "#5E35B1",
+
+                specialAnnouncementBg: "#5e2fbd",
             }
         }
     }
