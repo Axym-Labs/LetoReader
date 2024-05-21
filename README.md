@@ -7,11 +7,11 @@
 
 ![Leto Showcase](Showcase-min.gif)
 
-- **[Live Demo](https://axym.davidewiest.com/read)**
-
-<a href="https://hub.docker.com/r/davidewiest/reader">
-  <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />
-</a>
+<p align="center" style="align-items: center">
+    <a href="https://axym.davidewiest.com/read" target="_blank"><b>Live Demo</b></a> •
+    <a href="https://github.com/Axym-Labs/Leto-Reader/wiki" target="_blank"><b>Documentation</b></a> •
+    <a href="https://hub.docker.com/r/davidewiest/reader"><b>Docker image</b></a>
+</p>
 
 ### A highly customizable reader built as a direct alternative to paid speed-readers.
 - Chunking, pacing and highlighting built in
