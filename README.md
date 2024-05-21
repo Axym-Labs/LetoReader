@@ -1,11 +1,11 @@
-# Axym-Reader
+# Leto-Reader
 <div style="display: flex;">
   
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Faxym.davidewiest.com) ![Docker Pulls](https://img.shields.io/docker/pulls/davidewiest/reader) [![.NET build](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml/badge.svg?branch=main)](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/axym-labs/Axym-Reader) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 </div>
 
-![Reader Showcase](Showcase-min.gif)
+![Leto Showcase](Showcase-min.gif)
 
 - **[Live Demo](https://axym.davidewiest.com/read)**
 
@@ -23,18 +23,22 @@
 - Local storage
 - Self-hostable
 
-##### Import options
+#### Import options
 - From a URL
 - uploading a file (.pdf, .md, .txt, .html, .epub)
 - Clipboard
 - Request body of GET request
 
-### Hosting
-##### With docker
+## Notice
+Due to personal circumstances, active development is paused and the reader will not receive any new features for the time being. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to ![report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
+
+
+## Hosting
+#### With docker
 - `docker pull davidewiest/reader:latest`
 - `docker run -p 5001:8080 davidewiest/reader:latest` (ports in the form of -p <reachablePort>:8080, where reachablePort is the accessible one)
 
-##### Github and `dotnet run`
+#### Github and `dotnet run`
 - `git pull https://github.com/davidewiest/Reader.git`
 - `cd Reader/Reader/`
 - `nohup dotnet run --environment Production --urls=http://localhost:5001/ > /Logs/std.log 2> Logs/err.log &`
@@ -46,7 +50,7 @@
 - Super simple to use - 14 first-level interaction fields (buttons + text fields) in total
 
 
-### Changelogs
+## Changelogs
 - [Version 2](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2)
 - [Version 2.1](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2.1)
 - [Version 3](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-3)
