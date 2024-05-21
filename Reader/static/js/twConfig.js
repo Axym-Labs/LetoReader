@@ -3,7 +3,7 @@ tailwind.config = {
         extend: {
             colors: {
                 clifford: '#da373d',
-                bgcol: '#191b1c',
+                bgcol: '#18191c',
                 focusColor: '#ffffff',
                 btnPrimary: '#3e09b8',
                 btnPrimaryDarker: '#23046b',

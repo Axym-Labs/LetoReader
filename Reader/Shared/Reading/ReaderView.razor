@@ -22,11 +22,6 @@
 @inject HotKeys HotKeys 
 
 
-<style>
-    .blurry {
-        backdrop-filter: blur(10px);
-    }
-</style>
 <div>
     @if (ShowEditFields)
     {
@@ -60,7 +55,7 @@
                     <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
                     </div> *@
 
-                        <p class="text-gray-400 text-sm mt-4">
+                        <p class="text-neutral-400 text-sm mt-4">
                             Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
                             Titles must be unique.
                         </p>
