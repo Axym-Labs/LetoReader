@@ -50,4 +50,4 @@
 - [Version 3](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-3)
 
 
-Made with ♥️ and .NET Blazor
+Made with .NET Blazor
