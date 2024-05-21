@@ -1,14 +1,14 @@
 # Leto-Reader
 <div style="display: flex;">
   
-![Website](https://img.shields.io/website?url=https%3A%2F%2Faxym.davidewiest.com) ![Docker Pulls](https://img.shields.io/docker/pulls/davidewiest/reader) [![.NET build](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml/badge.svg?branch=main)](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/axym-labs/Axym-Reader) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fleto.axym.org) ![Docker Pulls](https://img.shields.io/docker/pulls/davidewiest/reader) [![.NET build](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml/badge.svg?branch=main)](https://github.com/Axym-Labs/Axym-Reader/actions/workflows/dotnet-desktop.yml) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/axym-labs/Axym-Reader) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 </div>
 
 ![Leto Showcase](Showcase-min.gif)
 
 <p align="center" style="align-items: center">
-    <a href="https://axym.davidewiest.com/read" target="_blank"><b>Live Demo</b></a> •
+    <a href="https://leto.axym.org/read" target="_blank"><b>Live Demo</b></a> •
     <a href="https://github.com/Axym-Labs/Leto-Reader/wiki" target="_blank"><b>Documentation</b></a> •
     <a href="https://hub.docker.com/r/davidewiest/reader"><b>Docker image</b></a>
 </p>
