@@ -1,0 +1,99 @@
+﻿@namespace Reader.Shared.Sections
+
+@using MudBlazor
+@using Reader.Data.Storage
+@using Reader.Shared.Misc
+@inject BaseUIStorage c
+@inject Constants constants
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<MudButton OnClick="SwitchShortCutReference" Class="rounded-lg py-2 !bg-black !px-2 my-3 mx-1.5" Variant="Variant.Filled">
+    <MudIcon Icon="@Icons.Material.Outlined.Info" />
+</MudButton>
+
+<MudDialog Options="dialogOptions" @bind-IsVisible="ShowShortCutReference" Class="rounded-lg shadow-xl !bg-bgcol blurry" Style="min-width: 0px;">
+    <TitleContent>
+        <h3 class="text-lg text-b600 text-neutral-300">
+            Quick-Documentation
+        </h3>
+    </TitleContent>
+    
+    <DialogContent>
+        <MudContainer >
+            <MudStack Row="true">
+                <MudContainer >
+                    <MudList>
+                        @foreach (var (title, icon, desc) in titleIconDescription)
+                        {
+                            <MudListItem>
+                                <MudButton OnClick="((e) => SwitchToCurrentShortCut((title,icon,desc)))">
+                                    @if (!String.IsNullOrEmpty(icon))
+                                    {
+                                        <MudIcon Icon="@icon" />
+                                    }
+                                    @title
+                                </MudButton>
+                            </MudListItem>
+                        }
+                    </MudList>
+                </MudContainer>
+                <MudContainer Class="p-4">
+                    <MudStack Class="justify-center align-center spacing-2">
+                        <MudStack Direction="row" AlignItems="AlignItems.Center" Class="mb-2 justify-content-center">
+                            @if (!string.IsNullOrEmpty(CurrentShortCut.Item2))
+                            {
+                                <MudFab Size="Size.Large" Color="Color.Tertiary" StartIcon="@CurrentShortCut.Item2" Class="mr-2"></MudFab>
+                            }
+                            <MudText Typo="Typo.h4">@CurrentShortCut.Item1</MudText>
+                        </MudStack>
+                        <MudText Typo="Typo.body1">@CurrentShortCut.Item3</MudText>
+                    </MudStack>
+                </MudContainer>
+
+            </MudStack>
+
+        </MudContainer>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" Href="@ProductConstants.DocumentationUrl">
+            Visit the wiki
+        </MudButton>
+
+
+    </DialogContent>
+</MudDialog>
+
+
+@code {
+
+    List<ValueTuple<string, string, string>> titleIconDescription = new() {
+        ("Space", Icons.Material.Filled.SpaceBar, "Spacebar can be used to both start and stop the reader"),
+        ("Arrows", arrowSvg, "The arrows are used to navigate the selected reader text and can be used to skip back and forth to certain positions"),
+        ("CTRL + F","","Is used to activate focus mode. Is toggled by pressing the key"),
+        ("CTRL + S","","The S key can be pressed to toggle the settings dialogue with options regarding reader speed, font, and many more settings"),
+        ("CTRL + E","", "CTRL + Shift + E toggle the text panel for editing title and text"),
+        ("CTRL + V","", "CTRL + V: New text from clipboard")
+    };
+
+    ValueTuple<string, string, string> CurrentShortCut = default!;
+
+    bool ShowShortCutReference = false;
+    DialogOptions dialogOptions = new() { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true, ClassBackground = "blurry" };
+
+    const string arrowSvg = """<svg fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 553.156 553.156" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M545.326,265.792l-130.92-74.701c-10.44-5.955-18.904-1.041-18.904,10.979V351.08c0,12.02,8.464,16.935,18.904,10.979 l130.92-74.694C555.767,281.404,555.767,271.746,545.326,265.792z"></path> <path d="M138.75,191.091L7.831,265.792c-10.441,5.955-10.441,15.618,0,21.573l130.919,74.7 c10.441,5.955,18.905,1.041,18.905-10.979V202.07C157.648,190.05,149.191,185.136,138.75,191.091z"></path> </g> </g> </g></svg>""";
+
+
+    private void SwitchShortCutReference()
+    {
+        ShowShortCutReference = !ShowShortCutReference;
+    }
+
+    private void SwitchToCurrentShortCut((string, string, string) shortcut)
+    {
+        CurrentShortCut = shortcut;
+    }
+
+    protected override void OnInitialized()
+    {
+        CurrentShortCut = titleIconDescription[0];
+    }
+}
