@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reader", "Reader\Reader.csproj", "{14585C85-3769-44B3-BF19-86DB61A473F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leto", "Leto\Leto\Leto.csproj", "{9DC59F04-0D20-46F2-8841-858FF396387C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leto.Client", "Leto\Leto.Client\Leto.Client.csproj", "{6C90E71F-4038-4F7C-8BD0-AFCCCBDF955F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{14585C85-3769-44B3-BF19-86DB61A473F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14585C85-3769-44B3-BF19-86DB61A473F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14585C85-3769-44B3-BF19-86DB61A473F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC59F04-0D20-46F2-8841-858FF396387C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC59F04-0D20-46F2-8841-858FF396387C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC59F04-0D20-46F2-8841-858FF396387C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC59F04-0D20-46F2-8841-858FF396387C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C90E71F-4038-4F7C-8BD0-AFCCCBDF955F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C90E71F-4038-4F7C-8BD0-AFCCCBDF955F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C90E71F-4038-4F7C-8BD0-AFCCCBDF955F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C90E71F-4038-4F7C-8BD0-AFCCCBDF955F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

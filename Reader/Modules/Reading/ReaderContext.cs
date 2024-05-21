@@ -21,8 +21,8 @@ public class ReaderContext
 
     public ReaderConfig Config { get; set; } = default!;
 
-    public string StateTitleField { get; set; } 
-    public string StateTextField { get; set; }
+    public string StateTitleField { get; set; } = default!;
+    public string StateTextField { get; set; } = default!;
 
     private SiteInteraction SiteInteraction { get; set; }
 

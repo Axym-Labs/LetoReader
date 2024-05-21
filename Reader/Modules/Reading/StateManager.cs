@@ -140,7 +140,7 @@ public class StateManager
 
     public async Task RenameState(ReaderState state, string newName)
     {
-        var text = await LoadReaderText(state)!;
+        string text = (await LoadReaderText(state))!;
 
         await localStorage.RemoveItemAsync($"TEXTCONTENT:{state.Title}");
         
