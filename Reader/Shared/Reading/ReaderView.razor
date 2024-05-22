@@ -68,7 +68,7 @@
 </div>
 <div id="reader-frontpagesection" class="flex justify-center align-center flex-col transition-transform duratin-500 ease-in-out">
 
-    <div class="pt-32 pb-32 my-6 md:my-12 flex justify-center" style="font-size: @(ReaderContext.ConfigManager.FrontTextSize)px; overflow-y: hidden;">
+    <div class="@(CompactVersion ? "py-16" : "py-32") my-6 md:my-12 flex justify-center" style="font-size: @(ReaderContext.ConfigManager.FrontTextSize)px; overflow-y: hidden;">
         <div class="">
             <span style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important; font-weight: @(ReaderContext.ConfigManager.FrontFontWeight) !important;">
                 <span class="text-neutral-@(1000-ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)" style="position: absolute; transform:translateX(-100%); white-space: nowrap;">
@@ -100,7 +100,7 @@
                 <MudFab Color="@(FocusModeOn ? Color.Secondary : Color.Primary)" Class="@(FocusModeOn ? "!shadow-none" : "")" StartIcon="@Icons.Material.Filled.NavigateNext" OnClick="ReaderContext.Manager.HandleNavNext" />
             </div>
         </div>
-        <div class="col-span-2 flex justify-end">
+        <div class="col-span-3 md:col-span-2 flex justify-end">
             <div class="m-3">
                 <MudFab Color="Color.Secondary" Class="!shadow-none" StartIcon="@(FocusModeOn ? Icons.Material.Filled.Cancel : Icons.Material.Filled.RemoveRedEye)" OnClick="ToggleFocusMode" />
             </div>
@@ -133,41 +133,38 @@
         </div>
     </MudSlider>
 </div>
-<div class="mb-16">
-    <div class="d-flex mb-4">
-        <div>
-            <MudDialog Options="dialogOptions" @bind-IsVisible="ConfigPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol">
-                <DialogContent>
-                    <div class="m-8 md:m-12" style="width: min(30rem, 90vw);">
-                        <div class="flex justify-between items-center mb-4">
-                            <p class="text-xl font-semibold">
-                                Configuration
-                            </p>
-                        </div>
-                        <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
-                        <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
-                        <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
-                        <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(ReaderContext.ConfigManager.FrontTextSize)</MudSlider>
-                        <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
-                                   T="string"
-                                   @bind-Value="ReaderContext.ConfigManager.FrontFont">
+<MudDialog Options="dialogOptions" @bind-IsVisible="ConfigPanelOpen" Class="rounded-lg shadow-xl !bg-bgcol">
+    <DialogContent>
+        <div class="m-4 md:m-12" style="width: min(30rem, 90vw);">
+            <div class="flex justify-between items-center mb-4">
+                <p class="text-xl font-semibold">
+                    Configuration
+                </p>
+            </div>
+            <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontReadingSpeed" Min="1" Max="2000" Step="10">Reading Speed: @(ReaderContext.ConfigManager.FrontReadingSpeed)</MudSlider>
+            <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralCharsCount" Min="0" Max="40" Step="1">Peripheral words character limit: @(ReaderContext.ConfigManager.FrontPeripheralCharsCount)</MudSlider>
+            <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
+            <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(ReaderContext.ConfigManager.FrontTextSize)</MudSlider>
+            <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
+                        T="string"
+                        @bind-Value="ReaderContext.ConfigManager.FrontFont">
 
-                            @foreach (var type in Enum.GetValues(typeof(Font)))
-                            {
-                                <MudSelectItem Value="@type.ToString()" />
-                            }
-                        </MudSelect>
-                        <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
-                        <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
-                        <MudColorPicker class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
-                        <p class="my-2 md:my-4">
-                            'Character limit per word' may change the reading position. Do not update it while reading.
-                        </p>
-                    </div>
-                </DialogContent>
-            </MudDialog>
+                @foreach (var type in Enum.GetValues(typeof(Font)))
+                {
+                    <MudSelectItem Value="@type.ToString()" />
+                }
+            </MudSelect>
+            <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
+            <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
+            <MudColorPicker class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
+            <p class="my-2 md:my-4">
+                'Character limit per word' may change the reading position. Do not update it while reading.
+            </p>
         </div>
-    </div>
+    </DialogContent>
+</MudDialog>
+
+<div class="@(CompactVersion ? "md-4" : "md-16")">
 </div>
 
 
@@ -182,6 +179,9 @@
 
     [Parameter]
     public bool AllowHostKeys { get; set; } = true;
+
+    [Parameter]
+    public bool CompactVersion { get; set; } = false;
 
     bool EditTextPanelOpen = false;
     bool ConfigPanelOpen = false;

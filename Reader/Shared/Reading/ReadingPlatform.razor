@@ -36,7 +36,7 @@
 
 
 <div class="@(ShowSavedStates ? "mb-24" : "mb-6")">
-    <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" />
+    <ReaderView ReaderContext="ReaderContext" ShowEditFields="ShowEditFields" CompactVersion="CompactVersion" />
 </div>
 
 @if (ShowSavedStates)
@@ -161,6 +161,9 @@
 
     [Parameter]
     public bool SetPageTitle { get; set; } = false;
+
+    [Parameter]
+    public bool CompactVersion { get; set; } = false;
 
     private HotKeysContext? _hotKeysContext;
 

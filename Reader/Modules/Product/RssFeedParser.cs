@@ -47,7 +47,7 @@ public static class RssFeedParser
                     {
                         string parseFormat = "ddd, dd MMM yyyy HH:mm:ss zzz";
                         date = DateTime.ParseExact(pubDate, parseFormat, CultureInfo.InvariantCulture);
-                    } catch (FormatException e)
+                    } catch
                     {
                         
                     }

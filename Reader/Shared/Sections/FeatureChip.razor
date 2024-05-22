@@ -5,10 +5,10 @@
 @using Reader.Modules
 @using Reader.Data.Storage
 
-<div class="p-3 px-5 m-1 bg-colorSecondary rounded-full inline-block">
+<div class="px-4 py-0.5 m-1 mx-0.5 bg-colorPrimary rounded-full inline-block">
 
     @* <MudIcon Icon="@Icon" Class="inline-block"></MudIcon> *@
-    <p class="inline-block text-md">
+    <p class="inline-block text-sm">
         @Title
     </p>
 </div>
@@ -20,9 +20,4 @@
 
     [Parameter]
     public string Icon { get; set; } = default!;
-
-    protected override void OnInitialized()
-    {
-
-    }
 }
