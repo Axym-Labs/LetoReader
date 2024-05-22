@@ -7,6 +7,7 @@
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Linq
 @using Markdig
+@using System.Globalization
 @inject BaseUIStorage c
 @inject Constants constants
 @inject ISnackbar Snackbar
@@ -67,7 +68,7 @@
     private string CurrentSpecialAnnouncement { get; set; } = string.Empty;
     private DateTime ShowSpecialAnnouncementUntil { get; set; } = DateTime.MaxValue;
 
-    private bool ShowSpecialAnnouncement => !String.IsNullOrEmpty(CurrentSpecialAnnouncement) && ShowSpecialAnnouncementUntil > DateTime.Now;
+    private bool ShowSpecialAnnouncement => !String.IsNullOrEmpty(CurrentSpecialAnnouncement) && ShowSpecialAnnouncementUntil >= DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,7 +77,12 @@
             string announcementJsonString = await client.GetStringAsync(Constants.CentralSpecialAnnouncementEndpoint);
             var obj = JsonConvert.DeserializeObject<JObject>(announcementJsonString);
             CurrentSpecialAnnouncement = obj!["Text"]!.Value<string>()!;
-            ShowSpecialAnnouncementUntil = obj!["Until"]!.Value<DateTime>();
+            try {
+                ShowSpecialAnnouncementUntil = DateTime.ParseExact(obj!["Until"]!.Value<string>(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+            }
         }
         catch (Exception ex)
         {
