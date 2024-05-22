@@ -25,7 +25,7 @@ public class ErrorModel : PageModel
 
         if (exceptionHandlerPathFeature?.Error != null)
         {
-            Log.Error("An error occured: {msg}", exceptionHandlerPathFeature?.Error.Message, exceptionHandlerPathFeature?.Error);
+            Log.Error("An error occured: {msg}", exceptionHandlerPathFeature.Error.Message, exceptionHandlerPathFeature.Error);
         } else
         {
             Log.Error("An error occured (Unable to retrieve the request)");

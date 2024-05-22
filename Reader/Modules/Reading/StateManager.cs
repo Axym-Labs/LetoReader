@@ -140,7 +140,7 @@ public class StateManager
 
     public async Task RenameState(ReaderState state, string newName)
     {
-        var text = await LoadReaderText(state)!;
+        string? text = await LoadReaderText(state)!;
 
         await localStorage.RemoveItemAsync($"TEXTCONTENT:{state.Title}");
         
@@ -148,8 +148,8 @@ public class StateManager
 
         if (newName == string.Empty)
             state.Title = ProductConstants.DefaultNewTitle;
-
-        await SaveState(state, text);
+        if (text != null)
+            await SaveState(state, text);
         await siteInteraction.HandleSiteStateChanged();
     }
 
