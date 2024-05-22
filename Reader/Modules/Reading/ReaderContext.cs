@@ -15,14 +15,14 @@ using System.Collections.Generic;
 
 public class ReaderContext
 {
-    public ReaderManager Manager { get; private set; }
+    public ReaderManager Manager { get; private set; } = default!;
     public ReaderConfigManager ConfigManager { get; private set; } = default!;
     public StateManager StateManager { get; private set; } = default!;
 
     public ReaderConfig Config { get; set; } = default!;
 
-    public string StateTitleField { get; set; } 
-    public string StateTextField { get; set; }
+    public string StateTitleField { get; set; } = default!;
+    public string StateTextField { get; set; } = default!;
 
     private SiteInteraction SiteInteraction { get; set; }
 
