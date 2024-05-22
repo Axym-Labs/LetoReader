@@ -16,9 +16,15 @@
         </div>
     </div>
 </div>
+<div class="w-screen flex justify-center">
+    <div class="max-w-4xl mx-4 w-full">
+        <ReadingPlatform AllowRequestAccess="false" ShowEditFields="false" ShowSavedStates="false" CompactVersion="true" />
+    </div>
+</div>
 <div class="w-screen flex justify-center mb-10">
     <div class="max-w-4xl mx-4 w-full">
-        <ReadingPlatform AllowRequestAccess="false" ShowEditFields="false" ShowSavedStates="false" />
+        <div class="senja-embed" data-id="0820a039-3f8e-42ce-a5a7-dff2e4eb769c" data-mode="shadow" data-lazyload="false"></div>
+        <script async type="text/javascript" src="https://widget.senja.io/widget/0820a039-3f8e-42ce-a5a7-dff2e4eb769c/platform.js"></script>
     </div>
 </div>
 <div class="w-screen flex justify-center mb-10">
@@ -46,11 +52,12 @@
         <FeatureChip Title="Keyboard Shortcuts" />
         <FeatureChip Title="Text Source Tracking" />
         <FeatureChip Title="Live Updating State" />
+        <FeatureChip Title="Focus mode" />
     </FrontSubSection>
     <FrontSubSection Title="Where to start">
         Start by trying out this demo above. 
         Next up, click "Read" in the navbar to get to the dedicated page. Import any text you like and start reading.
-        <span class="font-semibold text-neutral-300">Import your texts</span> from a URL, by uploading a file or from your clipboard.
+            <span class="font-semibold text-neutral-300">Import from a URL, by uploading a file or from your clipboard.</span>
         <br/>
         If you want to self-host it, use the <a href="@Constants.DockerUrl" class="text-b500 underline">docker image</a>.
     </FrontSubSection>

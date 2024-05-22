@@ -9,7 +9,8 @@ tailwind.config = {
                 btnPrimaryDarker: '#23046b',
                 btnSecondary: '#7a6007',
 
-                colorSecondary: "#0b0a0c",
+                colorPrimary: "#0b0a0c",
+                colorSecondary: "#5E35B1",
 
                 tertiary: "#5E35B1",
 

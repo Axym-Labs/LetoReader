@@ -4,16 +4,21 @@
 @using Reader.Data.Storage
 @using Reader.Shared.Misc
 @using Reader.Shared.Sections
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using Markdig
 @inject BaseUIStorage c
 @inject Constants constants
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
+@using Reader.Modules.Logging
 
 
 <nav id="nav" class="sticky top-0 z-10 z-50">
-    @if (!String.IsNullOrEmpty(CurrentSpecialAnnouncement.Text)) {
-        <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1 bg-specialAnnouncementBg" onload="sizeNav();" style="height: 3rem;">
-            @CurrentSpecialAnnouncement
+    @if (ShowSpecialAnnouncement)
+    {
+        <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1 bg-colorSecondary" onload="sizeNav();" style="height: 3rem;">
+            @((MarkupString)Markdown.ToHtml(CurrentSpecialAnnouncement))
         </div>
     }
     <div id="navbar-contents" class="backdrop-filter backdrop-blur-md flex z-10 z-50 pt-1" style="height: 62px;">
@@ -48,7 +53,6 @@
                 
                 <InfoReferenceDialogButton />
                 
-
             </div>
 
         </div>
@@ -59,15 +63,26 @@
 
 
 @code {
-    class SpecialAnnouncement {
-        public string Text { get; set; } = string.Empty;
-        
-    }
 
-    private SpecialAnnouncement CurrentSpecialAnnouncement { get; set; } = new SpecialAnnouncement();
+    private string CurrentSpecialAnnouncement { get; set; } = string.Empty;
+    private DateTime ShowSpecialAnnouncementUntil { get; set; } = DateTime.MaxValue;
 
-    protected override void OnInitialized()
+    private bool ShowSpecialAnnouncement => !String.IsNullOrEmpty(CurrentSpecialAnnouncement) && ShowSpecialAnnouncementUntil > DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
     {
-        
+        try {
+            HttpClient client = new HttpClient();
+            string announcementJsonString = await client.GetStringAsync(Constants.CentralSpecialAnnouncementEndpoint);
+            var obj = JsonConvert.DeserializeObject<JObject>(announcementJsonString);
+            CurrentSpecialAnnouncement = obj!["Text"]!.Value<string>()!;
+            ShowSpecialAnnouncementUntil = obj!["Until"]!.Value<DateTime>();
+        }
+        catch (Exception ex)
+        {
+            Log.Error("AnnouncementsRetriever: GetAnnouncements - Error retrieving announcements", ex.Message, ex.StackTrace ?? string.Empty);
+        }
+
+        CurrentSpecialAnnouncement = "This is a special announcement!";
     }
 }
