@@ -29,9 +29,7 @@
 - Clipboard
 - Request body of GET request
 
-## Notice
-Due to personal circumstances, active development is paused and the reader will not receive any new features for the time being. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to ![report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
-
+Due to personal circumstances, Leto is currently in a maintenance mode, meaning our main focus is on handling priority tasks related to the repository. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to ![report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
 
 ## Hosting
 #### With docker
