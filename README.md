@@ -29,8 +29,6 @@
 - Clipboard
 - Request body of GET request
 
-Due to personal circumstances, Leto is currently in a maintenance mode, meaning our main focus is on handling priority tasks related to the repository. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to ![report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
-
 ## Hosting
 #### With docker
 - `docker pull davidewiest/reader:latest`
@@ -47,6 +45,7 @@ Due to personal circumstances, Leto is currently in a maintenance mode, meaning 
 - Privacy first: All data is stored on your device only.
 - Super simple to use - 14 first-level interaction fields (buttons + text fields) in total
 
+> Due to personal circumstances, Leto is currently in a maintenance mode, meaning our main focus is on handling priority tasks related to the repository. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to [report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
 
 ## Changelogs
 - [Version 2](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2)
