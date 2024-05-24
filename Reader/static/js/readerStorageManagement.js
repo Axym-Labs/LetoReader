@@ -1,4 +1,4 @@
-const READERELEMIDENT = "#reader-frontpagesection";
+const CORE_READER_ELEM_SELECTOR = "#reader-frontpagesection";
 
 function getUniqueTitle(title) {
     let i = 0;
@@ -9,13 +9,28 @@ function getUniqueTitle(title) {
 }
 
 function activateFocusMode() {
-    if (!location.href.includes(READERELEMIDENT))
-        location.href = location.href + READERELEMIDENT;
-    document.querySelector(READERELEMIDENT).classList.add("min-h-screen");
+    if (!location.href.includes(CORE_READER_ELEM_SELECTOR))
+        location.href = location.href + CORE_READER_ELEM_SELECTOR;
+
+    //const element = document.querySelector(CORE_READER_ELEM_SELECTOR);
+    //if (element instanceof HTMLElement) {
+    //    element.scrollIntoView(true);
+    //    console.log("Scrolled to reader element");
+    //}
+
+    document.querySelector(CORE_READER_ELEM_SELECTOR).classList.add("min-h-screen");
 }
 
 function deactivateFocusMode() {
-    document.querySelector(READERELEMIDENT).classList.remove("min-h-screen");
+
+    removeFocusModeIdFromLocation();
+
+    document.querySelector(CORE_READER_ELEM_SELECTOR).classList.remove("min-h-screen");
+}
+
+function removeFocusModeIdFromLocation() {
+    history.pushState("", document.title, window.location.pathname
+        + window.location.search);
 }
 
 async function getClipboardContent() {
@@ -44,3 +59,8 @@ function copyTitle(text) {
     textfield.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(textfield.value);
 }
+
+
+window.addEventListener('load', function () {
+    removeFocusModeIdFromLocation();
+});
