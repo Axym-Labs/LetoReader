@@ -14,6 +14,8 @@ using Reader.Data.Storage;
 using Reader.Data;
 using Newtonsoft.Json;
 using Reader.Data.Reading;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("Config/appsettings.json");
@@ -47,6 +49,22 @@ builder.Services.AddMudServices(config =>
 });
 
 builder.Services.AddHotKeys2();
+
+// Text compression
+builder.Services.AddResponseCompression(o =>
+{
+    o.EnableForHttps = true;
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
+
+
+
+
 
 // API
 
