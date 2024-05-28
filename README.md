@@ -15,13 +15,10 @@
 
 Leto is a versatile speed reader designed to enhance your reading efficiency. It supports high-speed reading for skimming or consuming easy texts at e.g. 400-1000 words per minute. However, it can also be used at lower speeds to improve comprehension while still benefiting from Rapid Serial Visual Presentation (RSVP).
 
-### Key benefits of RSVP readers
-- Higher reading speeds
-- Less eye fatigue
-
 ### Key differences to traditional reading
 - Fixed reading speed (configurable by the user)
 - Suppression of subvocalization and regressive saccades at higher speeds
+- Less eye fatigue
 
 ### Features
 - Chunking, pacing and highlighting built in
