@@ -25,7 +25,7 @@
 - Great UX and responsive design
 - radically minimal user interface
 - Easy importing
-- Customizable (9 settings)
+- Customizable (8 settings)
 - Focus mode (for dyslexia/add/adhd)
 - No external API dependencies
 - Local-only storage
