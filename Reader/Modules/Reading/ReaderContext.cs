@@ -57,15 +57,10 @@ public class ReaderContext
         if (Manager == null)
             throw new("Manager must be initialized");
         
-
         SiteInteraction.TriggerAfterRenderEvents();
         await SiteInteraction.HandleSiteStateChanged();
 
         await LoadConfig();
-
-        // start reader if demo
-        if (StateManager.CurrentState.Title == ReaderState.GetDemo(ReaderStateSource.Program).Item1.Title)
-            Manager.StartReadingTask();
     }
 
     private async Task LoadConfig()

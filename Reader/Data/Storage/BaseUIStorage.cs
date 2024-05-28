@@ -1,5 +1,7 @@
 ﻿namespace Reader.Data.Storage;
 
+using Reader.Data.Storage;
+
 public class Link
 {
     public string Name { get; }
@@ -23,7 +25,7 @@ public class BaseUIStorage
         {
             new Link("Read", "/read"),
             new Link("Roadmap", "https://reader.canny.io/", "_blank"),
-            new Link("On GitHub", "https://github.com/Axym-Labs/Leto-Reader", "_blank"),
+            new Link("On GitHub", Constants.GithubRepoUrl, "_blank"),
         };
 
         public string SpecialAnnouncement { get; } = "";
@@ -38,12 +40,12 @@ public class BaseUIStorage
             ["Category One"] = new List<Link>
             {
                 new Link("Home", "/"),
-                new Link("Roadmap", "https://reader.canny.io/", "_blank"),
-                new Link("Feature requests", "https://reader.canny.io/feature-requests", "_blank"),
-                new Link("Repository", "https://github.com/Axym-Labs/Leto-Reader", "_blank"),
-                new Link("Report Issue", "https://github.com/Axym-Labs/Leto-Reader/issues/new", "_blank"),
+                new Link("Roadmap", Constants.CannyUrl, "_blank"),
+                new Link("Feature requests", Constants.CannyUrl + "/feature-requests", "_blank"),
+                new Link("Repository", Constants.GithubRepoUrl, "_blank"),
+                new Link("Report Issue", Constants.GithubRepoUrl + "/issues/new", "_blank"),
                 new Link("Contact", "mailto:axym@davidewiest.com"),
-                new Link("Axym", "https://github.com/Axym-Labs", "_blank"),
+                new Link("Axym", Constants.GithubOrganizationurl, "_blank"),
             }
         };
     }

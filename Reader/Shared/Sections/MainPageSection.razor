@@ -8,21 +8,33 @@
 @using Reader.Shared.Misc
 
 <div class="w-screen flex justify-center">
-    <div class="max-w-7xl mx-8 mb-5">
-        <div class="flex items-center justiy-center flex-col max-w-xl">
-            <h1 class="text-5xl text-b700 text-white mb-4 text-center">
-                Read faster with Leto. Try it <MudIcon Icon="@Icons.Material.Filled.ArrowDownward" Size="Size.Large" Class="mr-1"></MudIcon>
+    <div class="max-w-4xl mx-4 w-full">
+        <div class="my-24 md:my-32 flex flex-col justify-center items-center">
+            <h1 class="text-4xl md:text-5xl text-b700 text-white mb-4 text-center">
+                Read faster with @(Constants.ProjectName).
             </h1>
+            <p class="text-lg text-center max-w-2xl">
+                A versatile speed reader that supports high-speed reading for skimming or consuming easy texts at e.g. 400-1000 words per minute. It can also be used at lower speeds for better comprehension while still benefiting from Rapid Serial Visual Presentation (RSVP).
+            </p>
         </div>
     </div>
 </div>
-<div class="w-screen flex justify-center">
+<div class="w-screen flex justify-center mb-10">
     <div class="max-w-4xl mx-4 w-full">
+        <h1 class="text-4xl md:text-5xl text-b700 text-white mb-4 text-center">
+            Try it 
+            <span class=" display-block md:hidden animate-spin">
+                <MudChip Color="Color.Primary" Class="!text-sm text-b600">SCROLL DOWN <MudIcon Icon="@Icons.Material.Filled.ArrowDownward" Size="Size.Medium" Class="mr-1"></MudIcon></MudChip>
+            </span>
+        </h1>
         <ReadingPlatform AllowRequestAccess="false" ShowEditFields="false" ShowSavedStates="false" CompactVersion="true" />
     </div>
 </div>
 <div class="w-screen flex justify-center mb-10">
     <div class="max-w-4xl mx-4 w-full">
+        <h1 class="text-4xl md:text-5xl text-b700 text-white mb-4 text-center my-8">
+            What others are saying
+        </h1>
         <div class="senja-embed" data-id="0820a039-3f8e-42ce-a5a7-dff2e4eb769c" data-mode="shadow" data-lazyload="false"></div>
         <script async type="text/javascript" src="https://widget.senja.io/widget/0820a039-3f8e-42ce-a5a7-dff2e4eb769c/platform.js"></script>
     </div>
@@ -31,7 +43,7 @@
     <div class="max-w-4xl mx-4 w-full">
     <FrontSubSection Title="What">
         @Constants.ProjectName is a highly customizable speed-reader built as a <span class="font-semibold text-neutral-300">direct alternative to paid ones</span>.
-        It's <span class="font-semibold text-neutral-300">open-source</span> and <span class="font-semibold text-neutral-300">privacy-focused</span>: Leto can be self-hosted (and is by more than 30 people!) and stores all data on your device only.
+        It's <span class="font-semibold text-neutral-300">open-source</span> and <span class="font-semibold text-neutral-300">local-storage-focused</span>: Leto can be self-hosted (and is by more than 20 people!) and stores all data on your device only.
         Speed-reading concepts such as <span class="font-semibold text-neutral-300">chunking, pacing and highlighting</span> are built in.
     </FrontSubSection>
     <FrontSubSection Title="Why">
@@ -80,7 +92,7 @@
         </div>
     </FrontSubSection>
     <FrontSubSection Title="Where to go">
-        Over time, increase reading speed and change settings to fit your needs. 
+        Over time, change settings to fit your needs. Try increasing reading speed incrementally and see how it affects your comprehension.
         Use the <span class="font-semibold text-neutral-300">focus mode</span> to minimize user-interface distractions.
         If you have any <a class="underline underline-offset-2 text-white" href="https://github.com/DavideWiest/Reader/issues/new" target="_blank">problems</a> or <a class="underline underline-offset-2 text-white" target="_blank" href="https://reader.canny.io/feature-requests">feature requests</a>, let us know. Happy reading!
     </FrontSubSection>

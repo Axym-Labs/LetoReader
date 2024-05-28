@@ -8,7 +8,7 @@ namespace Reader.Data.Reading;
 
 public class ReaderConfig
 {
-    public int ReadingSpeed = 400;
+    public int ReadingSpeed = 300;
     public Font Font = Font.Poppins;
     public int FontWeight = 500;
     public int TextSize = 24;
