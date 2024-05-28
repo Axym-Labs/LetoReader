@@ -60,7 +60,16 @@ public class ReaderContext
         SiteInteraction.TriggerAfterRenderEvents();
         await SiteInteraction.HandleSiteStateChanged();
 
-        await LoadConfig();
+        try
+        {
+            await LoadConfig();
+        } catch (Exception e)
+        {
+            SiteInteraction.Snackbar.Add($"ReaderContext: TriggerAfterFirstRenderEvents: Could not load config ({e.Message}", Severity.Error);
+            Log.Error($"ReaderContext: TriggerAfterFirstRenderEvents: Could not load config ({e.Message}");
+
+            ConfigManager.SaveConfig();
+        }
     }
 
     private async Task LoadConfig()

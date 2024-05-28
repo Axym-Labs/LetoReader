@@ -122,9 +122,10 @@ public class ReaderConfigManager
         }
     }
 
-    private void SaveConfig()
+    public void SaveConfig()
     {
-        _ = Task.Run(() => localStorage.SetItemAsync<ReaderConfig>("readerConfig", Config));
+        Console.WriteLine("Saving config");
+        _ = Task.Run(() => localStorage.SetItemAsStringAsync("readerConfig", JsonConvert.SerializeObject(Config)));
     }
 
 }

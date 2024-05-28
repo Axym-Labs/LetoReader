@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ public class ReaderConfig
 
     public static async Task<ReaderConfig> LoadConfig(ILocalStorageService localStorage)
     {
-        return (await localStorage.GetItemAsync<ReaderConfig>("readerConfig"))!;
+        var confAsStr = await localStorage.GetItemAsStringAsync("readerConfig");
+        return JsonConvert.DeserializeObject<ReaderConfig>(confAsStr!)!;
     }
 }
 
