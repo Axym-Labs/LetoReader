@@ -13,7 +13,7 @@
     <a href="https://hub.docker.com/r/davidewiest/reader"><b>Docker image</b></a>
 </p>
 
-Leto is a versatile speed reader designed to enhance your reading efficiency. It supports high-speed reading for skimming or consuming easy texts at e.g. 400-1000 words per minute. However, it can also be used at lower speeds to improve comprehension while still benefiting from Rapid Serial Visual Presentation (RSVP).
+Leto is a versatile speed reader designed to enhance your reading efficiency. It supports high-speed reading for skimming or consuming easy texts at e.g. 400-1000 words per minute. However, it can also be used at lower speeds for better comprehension while still benefiting from Rapid Serial Visual Presentation (RSVP).
 
 ### Key differences to traditional reading
 - Fixed reading speed (configurable by the user)
