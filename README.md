@@ -48,7 +48,7 @@
 - `cd Reader/Reader/`
 - `nohup dotnet run --environment Production --urls=http://localhost:5001/ > /Logs/std.log 2> Logs/err.log &`
 
-> Due to personal circumstances, Leto is currently in a maintenance mode, meaning our main focus is on handling priority tasks related to the repository. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to [report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
+> Due to personal circumstances, LetoReader is currently in a maintenance mode, meaning our main focus is on handling priority tasks related to the repository. New feature requests can still be made [here](https://reader.canny.io/), but may take a while to get implemented. Issues and bugs will still be addressed so make sure to [report](https://github.com/Axym-Labs/Leto-Reader/issues) them.
 
 ## Changelogs
 - [Version 2](https://github.com/Axym-Labs/Axym-Reader/wiki/Changelog-Version-2)
