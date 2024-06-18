@@ -16,9 +16,13 @@ public class LoggingEventHandler : ILogEventSink
         string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(logEvent);
         var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-        using (var httpClient = new HttpClient())
-        {
-            _ = httpClient.PostAsync(Data.Storage.Constants.CentralLoggerEndpoint, content).Result;
+        try {
+            using (var httpClient = new HttpClient())
+            {
+                _ = httpClient.PostAsync(Data.Storage.Constants.CentralLoggerEndpoint, content).Result;
+            }
+        catch (Exception e) {
+            Console.WriteLine("cant post to central logger endpoint: " + e.ToString());
         }
     }
 }
