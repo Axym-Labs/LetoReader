@@ -21,6 +21,7 @@ public class LoggingEventHandler : ILogEventSink
             {
                 _ = httpClient.PostAsync(Data.Storage.Constants.CentralLoggerEndpoint, content).Result;
             }
+        }
         catch (Exception e) {
             Console.WriteLine("cant post to central logger endpoint: " + e.ToString());
         }
