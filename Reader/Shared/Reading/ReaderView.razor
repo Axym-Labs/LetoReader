@@ -25,45 +25,45 @@
 <div>
     @if (ShowEditFields)
     {
-    <div class="w-full flex justify-between items-center">
+        <div class="w-full flex justify-between items-center">
             <h1 class="text-lg text-b600 text-neutral-300" style="font-family: '@(ReaderContext.ConfigManager.FrontFont)' !important;">
-            @ReaderContext.StateManager.CurrentState.Title
-        </h1>
-        <div>
-            <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="ToggleTextPanelOpen" Class="!py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
-                <MudIcon Icon="@Icons.Material.Outlined.EditNote"></MudIcon> Edit
-            </MudButton>
+                @ReaderContext.StateManager.CurrentState.Title
+            </h1>
+            <div>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="ToggleTextPanelOpen" Class="!py-3 !px-4 !pr-5 hover:!bg-neutral-900 centered-button-icon">
+                    <MudIcon Icon="@Icons.Material.Outlined.EditNote"></MudIcon> Edit
+                </MudButton>
                 <MudDialog @bind-IsVisible="EditTextPanelOpen" Options="dialogOptions" Class="rounded-lg shadow-xl !bg-bgcol">
-                <DialogContent>
-                    <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
-                        <div class="flex justify-between items-center mb-4">
-                            <p class="text-xl font-semibold">
-                                Edit this text
-                            </p>
-                        </div>
-                        <div class="flex my-5">
-                            <MudTextField @bind-Text="ReaderContext.StateTitleField" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
+                    <DialogContent>
+                        <div class="m-4 md:m-6" style="width: min(30rem, 90vw);">
+                            <div class="flex justify-between items-center mb-4">
+                                <p class="text-xl font-semibold">
+                                    Edit this text
+                                </p>
+                            </div>
+                            <div class="flex my-5">
+                                <MudTextField @bind-Text="ReaderContext.StateTitleField" T="string" Id="reader-fontpagesection-titlefield" MaxLength=150 Label="Title" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTitleChanged" Lines="1" Style="width: 100%;" />
 
-                            @* <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
-                        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton> *@
+                                @* <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+                            <MudButton Variant="Variant.Filled" OnClick="@HandleCopyTitle" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton> *@
 
-                        </div>
+                            </div>
                             <MudTextField @bind-Text="ReaderContext.StateTextField" Disabled="@(ReaderContext.StateManager.CurrentText.Length >= ProductConstants.MaxInputLength)" T="string" Id="reader-fontpagesection-textfield" Label="Text" Variant="Variant.Outlined" ValueChanged="ReaderContext.HandleTextChanged" Lines="10" Style="width: 100%;" />
 
-                        @* <div class="my-3">
-                    <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
-                    <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
-                    </div> *@
+                            @* <div class="my-3">
+                        <MudButton Variant="Variant.Filled" OnClick="@ReaderContext.HandlePasteText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentPaste"></MudButton>
+                        <MudButton Variant="Variant.Filled" OnClick="@HandleCopyText" Color="Color.Secondary" Class="m-2 !py-5 !px-3 hover:!bg-neutral-900 centered-button-icon" StartIcon="@Icons.Material.Filled.ContentCopy"></MudButton>
+                        </div> *@
 
-                        <p class="text-neutral-400 text-sm mt-4">
-                            Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
-                            Titles must be unique.
-                        </p>
-                    </div>
-                </DialogContent>
-            </MudDialog>
+                            <p class="text-neutral-400 text-sm mt-4">
+                                Configuration, text and reading state are saved automatically and locally in your browser once you de-focus the text field.
+                                Titles must be unique.
+                            </p>
+                        </div>
+                    </DialogContent>
+                </MudDialog>
+            </div>
         </div>
-    </div>
     }
 </div>
 <div id="reader-frontpagesection" class="flex justify-center align-center flex-col transition-transform duratin-500 ease-in-out">
@@ -116,18 +116,18 @@
     <MudSlider @bind-Value="@ReaderContext.StateManager.CurrentState.PositionInfo.Position" Min="0" Max="@(ReaderContext.Manager.TextPieces.Count-1)" Step="1" Class="text-neutral-500 text-sm" Color="Color.Tertiary">
         <div class="flex justify-between">
             <div>
-                @((int)(ReaderContext.StateManager.CurrentState.PositionInfo.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())% 
+                @((int)(ReaderContext.StateManager.CurrentState.PositionInfo.Position + 1) * 100 / ReaderContext.Manager.TextPieces.Count())%
                 <span class="inline-block mx-2">
                     @(ReaderContext.StateManager.CurrentState.PositionInfo.Position + 1)
-                    / 
-                    @(ReaderContext.Manager.TextPieces.Count) 
+                    /
+                    @(ReaderContext.Manager.TextPieces.Count)
                 </span>
             </div>
             <div>
                 <span class="inline-block mx-2">
                     @(TextHelper.GetDisplayableReadingTime(ReaderContext.StateManager.CurrentState.PositionInfo.Position, ReaderContext.Config.ReadingSpeed))
                     /
-                    @(TextHelper.GetDisplayableReadingTime(ReaderContext.Manager.TextPieces.Count-1, ReaderContext.Config.ReadingSpeed))
+                    @(TextHelper.GetDisplayableReadingTime(ReaderContext.Manager.TextPieces.Count - 1, ReaderContext.Config.ReadingSpeed))
                 </span>
             </div>
         </div>
@@ -146,8 +146,8 @@
             <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontWordNavCount" Min="2" Max="40" Step="1">Word navigation count: @(ReaderContext.ConfigManager.FrontWordNavCount)</MudSlider>
             <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontTextSize" Min="6" Max="50" Step="1">Text size: @(ReaderContext.ConfigManager.FrontTextSize)</MudSlider>
             <MudSelect Color="Color.Tertiary" Class="mud-select-table" Label="Font"
-                        T="string"
-                        @bind-Value="ReaderContext.ConfigManager.FrontFont">
+                       T="string"
+                       @bind-Value="ReaderContext.ConfigManager.FrontFont">
 
                 @foreach (var type in Enum.GetValues(typeof(Font)))
                 {

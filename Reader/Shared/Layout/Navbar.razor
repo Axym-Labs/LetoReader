@@ -8,6 +8,7 @@
 @using Newtonsoft.Json.Linq
 @using Markdig
 @using System.Globalization
+@using Reader.Modules
 @inject BaseUIStorage c
 @inject Constants constants
 @inject ISnackbar Snackbar
@@ -16,10 +17,10 @@
 
 
 <nav id="nav" class="sticky top-0 z-10 z-50">
-    @if (ShowSpecialAnnouncement)
+    @if (!String.IsNullOrEmpty(SpecialAnnouncement))
     {
         <div id="special-announcement" class="z-10 z-50 flex justify-center text-center px-1.5 text-sm md:text-base text-white items-center py-3 md:py-1 bg-colorSecondary" onload="sizeNav();" style="height: 3rem;">
-            @((MarkupString)Markdown.ToHtml(CurrentSpecialAnnouncement))
+            @((MarkupString)Markdown.ToHtml(SpecialAnnouncement))
         </div>
     }
     <div id="navbar-contents" class="backdrop-filter backdrop-blur-md flex z-10 z-50 pt-1" style="height: 62px;">
@@ -65,28 +66,10 @@
 
 @code {
 
-    private string CurrentSpecialAnnouncement { get; set; } = string.Empty;
-    private DateTime ShowSpecialAnnouncementUntil { get; set; } = DateTime.MaxValue;
-
-    private bool ShowSpecialAnnouncement => !String.IsNullOrEmpty(CurrentSpecialAnnouncement) && ShowSpecialAnnouncementUntil >= DateTime.Now;
+    private string? SpecialAnnouncement { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        try {
-            HttpClient client = new HttpClient();
-            string announcementJsonString = await client.GetStringAsync(Constants.CentralSpecialAnnouncementEndpoint);
-            var obj = JsonConvert.DeserializeObject<JObject>(announcementJsonString);
-            CurrentSpecialAnnouncement = obj!["Text"]!.Value<string>()!;
-            try {
-                ShowSpecialAnnouncementUntil = DateTime.ParseExact(obj!["Until"]!.Value<string>()!, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            }
-            catch
-            {
-            }
-        }
-        catch (Exception ex)
-        {
-            await Log.Error("AnnouncementsRetriever: GetAnnouncements - Error retrieving special announcement", ex.Message, ex.StackTrace ?? string.Empty);
-        }
+        SpecialAnnouncement = await AnnouncementsRetriever.GetSpecialAnnouncement();
     }
 }

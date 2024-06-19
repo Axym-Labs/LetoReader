@@ -94,7 +94,8 @@ public static class Log
         {
             using (var httpClient = new HttpClient())
             {
-                await Task.Run(async () => await httpClient.PostAsync(Constants.CentralLoggerEndpoint, content));
+                httpClient.Timeout = TimeSpan.FromSeconds(4);
+                Task.Run(async () => await httpClient.PostAsync(Constants.CentralLoggerEndpoint, content));
             }
         }
         catch (Exception e)

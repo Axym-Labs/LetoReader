@@ -304,7 +304,7 @@
         await Log.Information("ReaderPlatform: ToggleNewTextPanelOpen");
 
         if (!NewTextPanelOpen && ReaderContext.Manager.ReadingStatus)
-            ReaderContext.Manager.StopReadingTask();
+            await ReaderContext.Manager.StopReadingTask();
 
         NewTextPanelOpen = !NewTextPanelOpen;
     }
