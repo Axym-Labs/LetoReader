@@ -194,7 +194,7 @@
         if (firstRender)
         {
             _hotKeysContext = this.HotKeys.CreateContext();
-            _hotKeysContext.Add(ModCode.None, Code.Space, (Action)(async () => { ReaderContext.Manager.HandleStartStop(); await InvokeAsync(() => StateHasChanged()); }));
+            _hotKeysContext.Add(ModCode.None, Code.Space, (Action)(async () => { await ReaderContext.Manager.HandleStartStop(); await InvokeAsync(() => StateHasChanged()); }));
             _hotKeysContext.Add(ModCode.None, Code.ArrowLeft, (Action)(async () => { ReaderContext.Manager.HandleNavBefore(); await InvokeAsync(() => StateHasChanged()); }));
             _hotKeysContext.Add(ModCode.None, Code.ArrowRight, ReaderContext.Manager.HandleNavNext);
             _hotKeysContext.Add(ModCode.Ctrl, Code.F, (Action)(async () => await ToggleFocusMode()));

@@ -50,15 +50,15 @@ public class ReaderManager
         ClampPosition();
     }
 
-    public void HandleStartStop()
+    public async Task HandleStartStop()
     {
         if (!ReadingStatus)
         {
-            StartReadingTask();
+            await StartReadingTask();
         }
         else
         {
-            StopReadingTask();
+            await StopReadingTask();
         }
     }
 

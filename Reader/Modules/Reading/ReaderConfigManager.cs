@@ -124,7 +124,6 @@ public class ReaderConfigManager
 
     public void SaveConfig()
     {
-        Console.WriteLine("Saving config");
         _ = Task.Run(() => localStorage.SetItemAsStringAsync("readerConfig", JsonConvert.SerializeObject(Config)));
     }
 

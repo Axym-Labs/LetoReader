@@ -182,15 +182,15 @@ public class ReaderContext
 
     public async Task OverwriteState()
     {
-        PrepareSelectedStateChanging();
+        await PrepareSelectedStateChanging();
         await HandleSelectedReaderStateChanged();
     }
 
 
-    public void PrepareSelectedStateChanging()
+    public async Task PrepareSelectedStateChanging()
     {
         if (Manager != null)
-            Manager.StopReadingTask();
+            await Manager.StopReadingTask();
     }
 
     public async Task HandleSelectedReaderStateChanged()
