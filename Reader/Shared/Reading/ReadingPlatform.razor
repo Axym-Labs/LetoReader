@@ -171,7 +171,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Log.Information("ReaderPlatform: OnInitializedAsync");
+        await Log.Information("ReaderPlatform: OnInitializedAsync");
 
         ReaderContext = new(
             new SiteInteraction(
@@ -199,7 +199,7 @@
                 await TryImportStateRequestBody();
             }
 
-            Log.Information("ReaderPlatform: Settings", ReaderContext.Config);
+            await Log.Information("ReaderPlatform: Settings", ReaderContext.Config);
 
 
             _hotKeysContext = this.HotKeys.CreateContext();
@@ -273,7 +273,7 @@
     {
         if (httpContextAccessor.HttpContext == null)
         {
-            Log.Warning("Unable to access HttpContext");
+            await Log.Warning("Unable to access HttpContext");
             throw new InvalidOperationException("Unable to access HttpContext");
         }
 
@@ -299,9 +299,9 @@
         }
     }
 
-    private void ToggleNewTextPanelOpen()
+    private async Task ToggleNewTextPanelOpen()
     {
-        Log.Information("ReaderPlatform: ToggleNewTextPanelOpen");
+        await Log.Information("ReaderPlatform: ToggleNewTextPanelOpen");
 
         if (!NewTextPanelOpen && ReaderContext.Manager.ReadingStatus)
             ReaderContext.Manager.StopReadingTask();
@@ -311,7 +311,7 @@
 
     private async Task HandleFileUpload(IReadOnlyList<IBrowserFile> files)
     {
-        Log.Information("ReaderPlatform: HandleFileUpload");
+        await Log.Information("ReaderPlatform: HandleFileUpload");
 
         try
         {
@@ -321,13 +321,13 @@
         catch (UnsupportedOperationException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderPlatform: HandleFileUpload - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            await Log.Information("ReaderPlatform: HandleFileUpload - UnsupportedOperationException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
     }
 
     private async Task SubmitScrapingForm()
     {
-        Log.Information("ReaderPlatform: SubmitScrapingForm");
+        await Log.Information("ReaderPlatform: SubmitScrapingForm");
 
         try
         {
@@ -336,13 +336,13 @@
         catch (ScrapingException e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderPlatform: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            await Log.Information("ReaderPlatform: SubmitScrapingForm - ScrapingException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
     }
 
     private async Task HandleFromClipboard()
     {
-        Log.Information("ReaderPlatform: HandleFromClipboard");
+        await Log.Information("ReaderPlatform: HandleFromClipboard");
 
         try
         {
@@ -357,7 +357,7 @@
         catch (Exception e)
         {
             Snackbar.Add(e.Message, Severity.Error);
-            Log.Information("ReaderPlatform: HandleFromClipboard - ClipboardException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
+            await Log.Information("ReaderPlatform: HandleFromClipboard - ClipboardException {error}, {stack}", e.Message, e.StackTrace ?? "No trace");
         }
 
     }

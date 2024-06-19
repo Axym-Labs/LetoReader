@@ -17,7 +17,7 @@ public static class AnnouncementsRetriever
             return JsonConvert.DeserializeObject<List<Announcement>>(announcementJsonString)!;
         } catch (Exception ex)
         {
-            Log.Error("AnnouncementsRetriever: GetAnnouncements - Error retrieving announcements", ex.Message, ex.StackTrace ?? string.Empty);
+            await Log.Error("AnnouncementsRetriever: GetAnnouncements - Error retrieving announcements", ex.Message, ex.StackTrace ?? string.Empty);
             return new List<Announcement>();
         }
     }

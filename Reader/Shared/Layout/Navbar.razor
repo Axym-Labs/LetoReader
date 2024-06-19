@@ -78,15 +78,15 @@
             var obj = JsonConvert.DeserializeObject<JObject>(announcementJsonString);
             CurrentSpecialAnnouncement = obj!["Text"]!.Value<string>()!;
             try {
-                ShowSpecialAnnouncementUntil = DateTime.ParseExact(obj!["Until"]!.Value<string>(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                ShowSpecialAnnouncementUntil = DateTime.ParseExact(obj!["Until"]!.Value<string>()!, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
-            catch (Exception e)
+            catch
             {
             }
         }
         catch (Exception ex)
         {
-            Log.Error("AnnouncementsRetriever: GetAnnouncements - Error retrieving special announcement", ex.Message, ex.StackTrace ?? string.Empty);
+            await Log.Error("AnnouncementsRetriever: GetAnnouncements - Error retrieving special announcement", ex.Message, ex.StackTrace ?? string.Empty);
         }
     }
 }

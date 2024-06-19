@@ -90,7 +90,7 @@ builder.Services.AddBlazoredLocalStorage();
 // DB TESTING 
 
 #if DEBUG
-Log.Warning("Test");
+await Log.Warning("Test");
 #endif
 
 // MODULES

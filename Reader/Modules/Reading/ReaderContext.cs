@@ -39,10 +39,8 @@ public class ReaderContext
     {
         await SetConfig(ReaderConfig.GetDefault());
 
-        
-
         // init reader
-        InitializeReader();
+        await InitializeReader();
         // init config manager
         InitializeConfigManager();
     }
@@ -66,7 +64,7 @@ public class ReaderContext
         } catch (Exception e)
         {
             SiteInteraction.Snackbar.Add($"ReaderContext: TriggerAfterFirstRenderEvents: Could not load config ({e.Message}", Severity.Error);
-            Log.Error($"ReaderContext: TriggerAfterFirstRenderEvents: Could not load config ({e.Message}");
+            await Log.Error($"ReaderContext: TriggerAfterFirstRenderEvents: Could not load config ({e.Message}");
 
             ConfigManager.SaveConfig();
         }
@@ -98,9 +96,9 @@ public class ReaderContext
         await SiteInteraction.HandleSiteStateChanged();
     }
 
-    private void InitializeReader()
+    private async Task InitializeReader()
     {
-        Log.Information("ReaderContext: InitializeReader");
+        await Log.Information("ReaderContext: InitializeReader");
 
         if (StateManager.CurrentState == null)
             throw new("State must be initialized");
@@ -127,7 +125,7 @@ public class ReaderContext
 
     private async Task HandleNewText(Tuple<ReaderState,string> stateAndText)
     {
-        Log.Information("ReaderContext: HandleNewText");
+        await Log.Information("ReaderContext: HandleNewText");
 
         await StateManager.AddState(stateAndText.Item1, stateAndText.Item2);
         await StateManager.SaveStates();
@@ -174,7 +172,7 @@ public class ReaderContext
         } catch (Exception e)
         {
             Console.WriteLine($"Error: {e.Message}");
-            Log.Error("ReaderContext: HandleTitleChanged: Could not rename state");   
+            await Log.Error("ReaderContext: HandleTitleChanged: Could not rename state");   
         }
         SetStateFields();
         await SiteInteraction.HandleSiteStateChanged();

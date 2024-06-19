@@ -16,7 +16,7 @@ public class LoggingMiddleware : IMiddleware
             await next(context);
         } catch (System.Exception e)
         {
-            Log.Error("Error in request", e);
+            await Log.Error("Error in request", e);
             throw;
         }
 

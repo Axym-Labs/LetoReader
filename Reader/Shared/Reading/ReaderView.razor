@@ -207,33 +207,33 @@
     private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
 
 
-    private void ToggleConfigPanelOpen()
+    private async Task ToggleConfigPanelOpen()
     {
-        Log.Information("ReaderView: ToggleConfigOpen");
+        await Log.Information("ReaderView: ToggleConfigOpen");
 
         if (!ConfigPanelOpen && ReaderContext.Manager.ReadingStatus)
-            ReaderContext.Manager.StopReadingTask();
+            await ReaderContext.Manager.StopReadingTask();
 
         ConfigPanelOpen = !ConfigPanelOpen;
 
     }
 
-    private void ToggleTextPanelOpen()
+    private async Task ToggleTextPanelOpen()
     {
-        Log.Information("ReaderView: ToggleTextPanelOpen");
+        await Log.Information("ReaderView: ToggleTextPanelOpen");
 
         if (!EditTextPanelOpen && ReaderContext.Manager.ReadingStatus)
-            ReaderContext.Manager.StopReadingTask();
+            await ReaderContext.Manager.StopReadingTask();
 
         EditTextPanelOpen = !EditTextPanelOpen;
     }
 
     private async Task ToggleFocusMode()
     {
-        Log.Information("ReaderView: ToggleFocusMode");
+        await Log.Information("ReaderView: ToggleFocusMode");
 
         if (ConfigPanelOpen)
-            ToggleConfigPanelOpen();
+            await ToggleConfigPanelOpen();
 
         await JSRuntime.InvokeVoidAsync(FocusModeOn ? "deactivateFocusMode" : "activateFocusMode");
         FocusModeOn = !FocusModeOn;

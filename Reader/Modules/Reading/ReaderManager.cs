@@ -62,9 +62,9 @@ public class ReaderManager
         }
     }
 
-    public void StartReadingTask()
+    public async Task StartReadingTask()
     {
-        Log.Information("ReaderContext: StartReadingTask");
+        await Log.Information("ReaderContext: StartReadingTask");
         if (ReadingStatus)
             return;
 
@@ -79,9 +79,9 @@ public class ReaderManager
 
     }
 
-    public void StopReadingTask()
+    public async Task StopReadingTask()
     {
-        Log.Information("ReaderContext: StartReadingTask");
+        await Log.Information("ReaderContext: StartReadingTask");
         if (!ReadingStatus)
             return;
 
@@ -173,14 +173,9 @@ public class ReaderManager
         int charCount = 0;
 
         int i = (int)State.PositionInfo.Position - 1;
-        //Console.WriteLine("TextPieces");
-        //Console.WriteLine(String.Join(" ", TextPieces));
-        //Console.WriteLine(TextPieces.Count);
-        //Console.WriteLine(i);
 
         while (i >= 0 && charCount + TextPieces[i].Length <= Config.PeripheralCharsCount)
         {
-            //Console.WriteLine(i);
             result.Add(TextPieces[i]);
             charCount += TextPieces[i].Length + 1;
             i--;

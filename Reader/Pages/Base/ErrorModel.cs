@@ -16,7 +16,7 @@ public class ErrorModel : PageModel
 
     public string? ExceptionMessage { get; set; }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
         RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
 
@@ -25,10 +25,10 @@ public class ErrorModel : PageModel
 
         if (exceptionHandlerPathFeature?.Error != null)
         {
-            Log.Error("An error occured: {msg}", exceptionHandlerPathFeature.Error.Message, exceptionHandlerPathFeature.Error);
+            await Log.Error("An error occured: {msg}", exceptionHandlerPathFeature.Error.Message, exceptionHandlerPathFeature.Error);
         } else
         {
-            Log.Error("An error occured (Unable to retrieve the request)");
+            await Log.Error("An error occured (Unable to retrieve the request)");
         }
     }
 }
