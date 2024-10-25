@@ -145,13 +145,24 @@ public class ReaderManager
 
     public string GetTextPiecesLookAhead()
     {
-        StringBuilder result = new StringBuilder();
+        var result = Config.RightToLeft ? GetTextPiecesLookBehindInner() : GetTextPiecesLookAheadInner();
+        return TextPiecesToStringInOrder(result);
+    }
+    public string GetTextPiecesLookBehind()
+    {
+        var result = Config.RightToLeft ? GetTextPiecesLookAheadInner() : GetTextPiecesLookBehindInner();
+        return TextPiecesToStringInOrder(result);
+    }
+
+    public List<string> GetTextPiecesLookAheadInner()
+    {
+        List<string> result = new();
         int totalChars = 0;
         foreach (string word in TextPieces.Skip(State.PositionInfo.Position + 1))
         {
             if (totalChars + word.Length <= Config.PeripheralCharsCount)
             {
-                result.Append(word).Append(" ");
+                result.Add(word);
                 totalChars += word.Length + 1;
             }
             else
@@ -159,17 +170,18 @@ public class ReaderManager
                 break;
             }
         }
-        return result.ToString();
+        return result;
     }
 
-    public string GetTextPiecesLookBehind()
+    public List<string> GetTextPiecesLookBehindInner()
     {
         SetupTextPieces();
 
-        if (State.PositionInfo.Position == 0)
-            return "";
-
         List<string> result = new();
+
+        if (State.PositionInfo.Position == 0)
+            return result;
+
         int charCount = 0;
 
         int i = (int)State.PositionInfo.Position - 1;
@@ -182,7 +194,13 @@ public class ReaderManager
         }
 
         result.Reverse();
+        return result;
+    }
 
-        return String.Join(" ", result).Trim();
+    public string TextPiecesToStringInOrder(IEnumerable<string> text)
+    {
+        if (Config.RightToLeft)
+            text.Reverse();
+        return String.Join(" ", text);
     }
 }

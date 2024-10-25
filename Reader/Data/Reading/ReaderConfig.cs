@@ -18,6 +18,7 @@ public class ReaderConfig
     public int WordNavCount = 10;
     public int WordCharLimit = 30;
     public string MiddleCharHighlightingColor = "#FFFFFF";
+    public bool RightToLeft = false;
 
     public static ReaderConfig GetDefault()
     {

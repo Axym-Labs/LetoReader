@@ -122,6 +122,16 @@ public class ReaderConfigManager
         }
     }
 
+    public bool FrontRightToLeft
+    {
+        get => Config.RightToLeft;
+        set
+        {
+            Config.RightToLeft = value;
+            SaveConfig();
+        }
+    }
+
     public void SaveConfig()
     {
         _ = Task.Run(() => localStorage.SetItemAsStringAsync("readerConfig", JsonConvert.SerializeObject(Config)));

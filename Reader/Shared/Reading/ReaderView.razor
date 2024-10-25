@@ -156,7 +156,8 @@
             </MudSelect>
             <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontFontWeight" Min="200" Max="800" Step="100">Text weight: @(ReaderContext.ConfigManager.FrontFontWeight)</MudSlider>
             <MudSlider Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontPeripheralWordsBrightness" Min="100" Max="900" Step="100">Peripheral words brightness: @(ReaderContext.ConfigManager.FrontPeripheralWordsBrightness)</MudSlider>
-            <MudColorPicker class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
+            <MudColorPicker Class="my-2 md:my-4" T="string" @bind-Text="@ReaderContext.ConfigManager.FrontMiddleCharHighlightingColor" Label="Middle character highlighting color" ColorPickerView="ColorPickerView.Spectrum" DisableAlpha="true" DisablePreview="true" />
+            <MudSwitch Color="Color.Tertiary" Class="my-2 md:my-4" @bind-Value="@ReaderContext.ConfigManager.FrontRightToLeft" Label="Right to left" />
             <p class="my-2 md:my-4">
                 'Character limit per word' may change the reading position. Do not update it while reading.
             </p>

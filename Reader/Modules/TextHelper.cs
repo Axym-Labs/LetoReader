@@ -46,4 +46,9 @@ public static class TextHelper
 
         return $"{(int)hours}h {minutes}m";
     }
+
+    public static string JoinWords (IEnumerable<string> words)
+    {
+        return String.Join(" ", words);
+    }
 }

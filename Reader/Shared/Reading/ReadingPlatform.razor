@@ -111,6 +111,7 @@
                             <MudButton Variant="Variant.Filled" OnClick="HandleFromClipboard" Color="Color.Primary" Class="hover:!bg-neutral-900">
                                 Paste
                             </MudButton>
+                            <MudSwitch T="bool" Class="my-2 md:my-4" Label="Reverse lines" @bind-Value="@PasteIsRightToLeft" Color="Color.Tertiary" />
                         </div>
                         <div class="my-8 md:my-16">
                             <MudDivider />
@@ -168,6 +169,8 @@
     private HotKeysContext? _hotKeysContext;
 
     private DialogOptions dialogOptions = new() { CloseButton = true, ClassBackground = "blurry" };
+
+    private bool PasteIsRightToLeft = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -347,6 +350,17 @@
         try
         {
             var clipboardText = await JSRuntime.InvokeAsync<string>("getClipboardContent");
+
+            if (PasteIsRightToLeft)
+            {
+                var lines = clipboardText
+                    .Split('\n')
+                    .Select(text => TextHelper.SeparateText(TextHelper.Sanitize(text)))
+                    .Select(words => words.Reverse())
+                    .Select(words => TextHelper.JoinWords(words));
+                clipboardText = string.Join(" ", lines); // newlines arent separated in TextHelper.SeparateText - hence here instead
+            }
+
             var title = clipboardText.Substring(0, Math.Min(20, clipboardText.Length));
             if (clipboardText.Length > 20)
                 title += "...";
