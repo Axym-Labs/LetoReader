@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  reader-app:
+    image: davidewiest/reader
+    container_name: reader
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: unless-stopped
