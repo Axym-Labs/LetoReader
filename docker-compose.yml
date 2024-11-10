@@ -5,7 +5,7 @@ services:
     image: davidewiest/reader
     container_name: reader
     ports:
-      - "5001:5001"
+      - "5001:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     restart: unless-stopped
